@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MATHEMATICO - Special Mathematics Coaching</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the Inter font */
@@ -34,15 +33,12 @@
         }
     </style>
 </head>
-<!-- The 'dark' class will be added/removed by JavaScript -->
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 ease-in-out">
 
-    <!-- Header Section -->
     <header class="bg-white shadow-lg py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg
                    dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
         <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center mb-4 md:mb-0">
-                <!-- Logo/Site Title -->
                 <a href="#" class="text-3xl font-extrabold text-indigo-700 flex items-center">
                     <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
@@ -50,31 +46,33 @@
                     MATHEMATICO
                 </a>
             </div>
-            <!-- Navigation Links and Theme Toggle -->
             <ul class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-8 text-lg font-medium">
                 <li><a href="#home" class="text-gray-600 hover:text-indigo-700
                                            dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Home</a></li>
                 <li><a href="#about" class="text-gray-600 hover:text-indigo-700
                                             dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">About Us</a></li>
                 <li><a href="#courses" class="text-gray-600 hover:text-indigo-700
-                                             dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Courses</a></li>
+                                                dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Courses</a></li>
                 <li><a href="#features" class="text-gray-600 hover:text-indigo-700
                                               dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Features</a></li>
+                <li><a href="#resources" class="text-gray-600 hover:text-indigo-700
+                                                dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Resources</a></li>
+                <li><a href="#gallery" class="text-gray-600 hover:text-indigo-700
+                                                dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Gallery</a></li>
                 <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-700
                                                   dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Testimonials</a></li>
                 <li><a href="#contact" class="text-gray-600 hover:text-indigo-700
-                                             dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Contact</a></li>
+                                            dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Contact</a></li>
+                <li><a href="#links" class="text-gray-600 hover:text-indigo-700
+                                            dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Links</a></li>
                 <li>
-                    <!-- Dark Mode Toggle Button -->
                     <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                                      dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <!-- Sun Icon for Light Mode -->
                         <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
                         </svg>
-                        <!-- Moon Icon for Dark Mode -->
                         <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9 0 008.354-5.646z"></path>
                         </svg>
                     </button>
                 </li>
@@ -82,10 +80,8 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="relative bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-lg shadow-xl">
         <div class="absolute inset-0 opacity-10">
-            <!-- Background pattern for visual interest -->
             <svg class="w-full h-full" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
                 <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
                     <circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.1)"></circle>
@@ -106,7 +102,6 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
     <section id="about" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
                    dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-10">
@@ -120,19 +115,16 @@
                 </p>
             </div>
             <div class="md:w-1/2 flex justify-center">
-                <!-- Instructor Image -->
                 <img src="ChatGPT Image Jul 8, 2025, 12_30_33 PM.png" alt="Dipanjan Chatterjee" class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-500 ease-in-out w-full md:w-3/4 lg:w-2/3 h-auto object-cover">
             </div>
         </div>
     </section>
 
-    <!-- Courses Section -->
     <section id="courses" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
                    dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Comprehensive Courses</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Course Card 1: 9-12 (ALL BOARDS) -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -145,7 +137,6 @@
                     <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
                 </div>
 
-                <!-- Course Card 2: IIT Foundation+ Olympiad -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -158,7 +149,6 @@
                     <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
                 </div>
 
-                <!-- Course Card 3: JEE (M/A), WBJEE, ISI B-Stat/B-Math ent -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -171,7 +161,6 @@
                     <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
                 </div>
 
-                <!-- Course Card 4: BSc(H/P) ALL -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -184,7 +173,6 @@
                     <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
                 </div>
 
-                <!-- Course Card 5: B-Tech, Gate etc -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -197,7 +185,6 @@
                     <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
                 </div>
 
-                <!-- Course Card 6: General Math Support -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -213,13 +200,11 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
                    dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Why Choose MATHEMATICO?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- Feature 1 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -230,7 +215,6 @@
                         Learn from Dipanjan Chatterjee, M.Sc in Pure Maths, a highly qualified and passionate teacher.
                     </p>
                 </div>
-                <!-- Feature 2 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -241,7 +225,6 @@
                         Small batch sizes ensure individual focus and tailored guidance for every student.
                     </p>
                 </div>
-                <!-- Feature 3 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -252,7 +235,6 @@
                         Well-structured curriculum covering all essential topics for various boards and exams.
                     </p>
                 </div>
-                <!-- Feature 4 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -263,7 +245,6 @@
                         Frequent tests and quizzes to track progress and identify areas for improvement.
                     </p>
                 </div>
-                <!-- Feature 5 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -274,7 +255,6 @@
                         Options for various batch timings to suit different student schedules.
                     </p>
                 </div>
-                <!-- Feature 6 -->
                 <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
                             dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <div class="text-indigo-600 mb-4">
@@ -289,13 +269,75 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <section id="resources" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Student Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Book List</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Access our curated list of recommended mathematics books for all courses.
+                    </p>
+                    <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">View Book List</a>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21h7a2 2 0 002-2V9a2 2 0 00-2-2h-7a2 2 0 00-2 2v10a2 2 0 002 2zM9 3L7 5m4 0l2-2M9 3v1m4-1v1m-7 5h2m-2 4h2m-2 4h2m4-12h2m-2 4h2m-2 4h2"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Practice Problems</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Download and practice a wide range of problems to enhance your skills.
+                    </p>
+                    <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Get Problems</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Photo Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/E0E7FF/312E81?text=Classroom+1" alt="Classroom Image 1" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Learning Session</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/E0E7FF/312E81?text=Students+2" alt="Students Image 2" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Collaborative Study</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/E0E7FF/312E81?text=Teacher+3" alt="Teacher Image 3" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Expert Guidance</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                    <img src="https://placehold.co/400x300/E0E7FF/312E81?text=Success+4" alt="Success Image 4" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white text-lg font-semibold">Achieving Goals</p>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
     <section id="testimonials" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
                    dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 text-center">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">What Our Students Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+1" alt="Student 1" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
@@ -305,7 +347,6 @@
                     <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Anjali Sharma</p>
                     <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 10 Student</p>
                 </div>
-                <!-- Testimonial 2 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+2" alt="Student 2" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
@@ -315,7 +356,6 @@
                     <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Rahul Verma</p>
                     <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">JEE Aspirant</p>
                 </div>
-                <!-- Testimonial 3 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
                             dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                     <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+3" alt="Student 3" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
@@ -329,7 +369,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
                    dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 text-center">
@@ -344,7 +383,11 @@
                     </p>
                     <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
                         <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
-                        <strong>Phone/WhatsApp:</strong> +91 9051089673
+                        <strong>Phone:</strong> +91 9051089673
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.86-6.86A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.18 2h3a2 2 0 0 1 2 1.72l.4 4.5a2 2 0 0 1-1.16 2.01l-1.68.84a10 10 0 0 0 6.16 6.16l.84-1.68a2 2 0 0 1 2.01-1.16l4.5.4a2 2 0 0 1 1.72 2z"></path></svg>
+                        <strong>WhatsApp:</strong> +91 9748559613
                     </p>
                     <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
                         <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
@@ -356,6 +399,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                         <strong>Locations:</strong> Madhyamgram & Barasat
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <strong>Telegram:</strong> <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400">Join our Telegram Group</a>
                     </p>
                     <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
                         <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -373,15 +422,15 @@
                     <form>
                         <div class="mb-4">
                             <input type="text" id="name" name="name" placeholder="Your Name" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
-                                                                                                 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
+                                                                                          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
                         </div>
                         <div class="mb-4">
                             <input type="email" id="email" name="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
-                                                                                                  dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
+                                                                                                dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
                         </div>
                         <div class="mb-6">
                             <textarea id="message" name="message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
-                                                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required></textarea>
+                                                                                                     dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required></textarea>
                         </div>
                         <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md">
                             Send Message
@@ -392,7 +441,50 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <section id="google-maps" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
+                   dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Find Us on the Map</h2>
+            <div class="aspect-w-16 aspect-h-9 w-full h-96 bg-gray-200 rounded-xl overflow-hidden shadow-lg dark:bg-gray-700">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1dYOUR_LATITUDE!2dYOUR_LONGITUDE!3dYOUR_ZOOM_LEVEL!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zYOUR_LOCATION_NAME!5e0!3m2!1sen!2sin!4vDATE_OF_EMBED"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <p class="text-gray-600 dark:text-gray-300 mt-4"> (Please replace the `src` attribute with your actual Google Maps embed code for Madhyamgram and Barasat locations.) </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="links" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
+                   dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Useful Links</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Official Page Link</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Visit our main official page for more information.
+                    </p>
+                    <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Go to Page</a>
+                </div>
+                <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Community Group Link</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Join our community group for discussions and updates.
+                    </p>
+                    <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Join Group</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-gray-800 text-white py-8 px-6 md:px-12 rounded-t-lg shadow-inner
                    dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 ease-in-out">
         <div class="container mx-auto text-center">
@@ -409,7 +501,6 @@
         const htmlElement = document.documentElement;
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
-
         // Function to set the theme and update icon visibility
         function setTheme(theme) {
             if (theme === 'dark') {
@@ -421,7 +512,7 @@
                 htmlElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
                 sunIcon.classList.remove('hidden'); // Sun icon visible in light mode
-                moonIcon.classList.add('hidden');    // Moon icon hidden in light mode
+                moonIcon.classList.add('hidden'); // Moon icon hidden in light mode
             }
             // Update body background and text color directly based on the theme
             // These classes are critical for the base body styling in both modes
@@ -447,7 +538,6 @@
                 setTheme('light');
             }
         });
-
         // Toggle theme on button click
         themeToggle.addEventListener('click', () => {
             if (htmlElement.classList.contains('dark')) {
