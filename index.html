@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATHEMATICO - Special Mathematics Coaching</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Basic scroll behavior for smooth scrolling to sections */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Keyframe animation for fade-in-up effect */
+        @keyframes fadeInUpp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUpp 0.8s ease-out forwards;
+        }
+        .animate-fade-in-up.delay-200 {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<!-- The 'dark' class will be added/removed by JavaScript -->
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 ease-in-out">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg
+                   dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+        <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+                <!-- Logo/Site Title -->
+                <a href="#" class="text-3xl font-extrabold text-indigo-700 flex items-center">
+                    <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    MATHEMATICO
+                </a>
+            </div>
+            <!-- Navigation Links and Theme Toggle -->
+            <ul class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-8 text-lg font-medium">
+                <li><a href="#home" class="text-gray-600 hover:text-indigo-700
+                                           dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Home</a></li>
+                <li><a href="#about" class="text-gray-600 hover:text-indigo-700
+                                            dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">About Us</a></li>
+                <li><a href="#courses" class="text-gray-600 hover:text-indigo-700
+                                             dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Courses</a></li>
+                <li><a href="#features" class="text-gray-600 hover:text-indigo-700
+                                              dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Features</a></li>
+                <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-700
+                                                  dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Testimonials</a></li>
+                <li><a href="#contact" class="text-gray-600 hover:text-indigo-700
+                                             dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2">Contact</a></li>
+                <li>
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
+                                                     dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <!-- Sun Icon for Light Mode -->
+                        <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
+                        </svg>
+                        <!-- Moon Icon for Dark Mode -->
+                        <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-lg shadow-xl">
+        <div class="absolute inset-0 opacity-10">
+            <!-- Background pattern for visual interest -->
+            <svg class="w-full h-full" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.1)"></circle>
+                </pattern>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
+            </svg>
+        </div>
+        <div class="container mx-auto text-center relative z-10 px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-up">
+                Special Mathematics Coaching by <br> Dipanjan Chatterjee <br> @ MATHEMATICO
+            </h1>
+            <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up delay-200">
+                Comprehensive coaching for all boards, competitive exams, and higher studies.
+            </p>
+            <a href="#courses" class="bg-white text-indigo-700 hover:bg-indigo-100 px-8 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                Explore Courses
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-10">
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">About Dipanjan Chatterjee, M.Sc in Pure Maths</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                    At MATHEMATICO, we believe that every student has the potential to excel in mathematics. Our mission is to provide clear, concise, and engaging instruction that builds a strong foundation and fosters a deep understanding of mathematical concepts.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                    Led by Dipanjan Chatterjee, M.Sc in Pure Maths, our coaching center utilizes innovative teaching methods, personalized attention, and a supportive learning environment to help students overcome challenges and achieve their academic goals. We focus on conceptual clarity, problem-solving skills, and rigorous exam preparation.
+                </p>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <!-- Instructor Image -->
+                <img src="babi_da_photo-removebg-preview.png" alt="Dipanjan Chatterjee" class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-500 ease-in-out w-full md:w-3/4 lg:w-2/3 h-auto object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Comprehensive Courses</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card 1: 9-12 (ALL BOARDS) -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Classes 9-12 (All Boards)</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Comprehensive coaching for students from class 9 to 12, covering all major educational boards. Strong foundation and advanced concepts.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
+                </div>
+
+                <!-- Course Card 2: IIT Foundation+ Olympiad -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">IIT Foundation & Olympiad</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Specialized programs for IIT Foundation and various Mathematics Olympiads, building competitive skills from an early age.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
+                </div>
+
+                <!-- Course Card 3: JEE (M/A), WBJEE, ISI B-Stat/B-Math ent -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 5h18M4 12h16M4 18h16"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Competitive Entrance Exams</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Targeted preparation for JEE (Mains/Advanced), WBJEE, ISI B-Stat/B-Math Entrance, and other engineering/statistics entrances.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
+                </div>
+
+                <!-- Course Card 4: BSc(H/P) ALL -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">B.Sc (Hons/Pass) All Universities</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Support for B.Sc (Honours/Pass) mathematics students across all university syllabi, focusing on core concepts and advanced topics.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
+                </div>
+
+                <!-- Course Card 5: B-Tech, Gate etc -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">B.Tech, GATE & Other Exams</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Coaching for B.Tech mathematics, GATE, and other engineering-related mathematics examinations.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Enroll Now</a>
+                </div>
+
+                <!-- Course Card 6: General Math Support -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">General Math Support</h3>
+                    <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Flexible support for various other mathematical needs, including doubt clearing and specific topic mastery.
+                    </p>
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Why Choose MATHEMATICO?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a4 4 0 014-4h12.356"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12v-1a4 4 0 014-4h2a4 4 0 014 4v1m-6 0h.01M6 16h.01"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Experienced Educator</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Learn from Dipanjan Chatterjee, M.Sc in Pure Maths, a highly qualified and passionate teacher.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Personalized Attention</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Small batch sizes ensure individual focus and tailored guidance for every student.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Comprehensive Curriculum</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Well-structured curriculum covering all essential topics for various boards and exams.
+                    </p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v2m-3-2v2m-3-2v2m9-2v2m-3-2v2m-3-2v2M9 10V7m-3 3V7m-3 3V7m9 3V7m-3 3V7m-3 3V7M3 4h18V3H3v1zm0 16h18v-1H3v1zm0-4h18v-1H3v1zm0-4h18v-1H3v1zm0-4h18V7H3v1z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Regular Assessments</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Frequent tests and quizzes to track progress and identify areas for improvement.
+                    </p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Flexible Timings</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        Options for various batch timings to suit different student schedules.
+                    </p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="text-indigo-600 mb-4">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Proven Results</h3>
+                    <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        A strong track record of students achieving excellent scores in their exams.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                   dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">What Our Students Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+1" alt="Student 1" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
+                    <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        "MATHEMATICO transformed my understanding of complex topics. The teachers are incredibly supportive and make learning fun!"
+                    </p>
+                    <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Anjali Sharma</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 10 Student</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+2" alt="Student 2" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
+                    <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        "Thanks to their rigorous practice and clear explanations, I scored exceptionally well in my JEE Mains math section."
+                    </p>
+                    <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Rahul Verma</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">JEE Aspirant</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
+                            dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <img src="https://placehold.co/100x100/9CA3AF/FFFFFF?text=Student+3" alt="Student 3" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700">
+                    <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        "The personalized attention helped me grasp concepts I struggled with. Highly recommend for anyone looking to improve their math skills."
+                    </p>
+                    <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Priya Singh</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 12 Student</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
+                   dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Get in Touch with MATHEMATICO</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-10">
+                <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg text-left
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 6a1 1 0 012 0v5a1 1 0 01-2 0V6zm1 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                        <strong>Instructor:</strong> Dipanjan Chatterjee, M.Sc in Pure Maths
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                        <strong>Phone/WhatsApp:</strong> +91 9051089673
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                        <strong>Email:</strong> dipanjanchatterjee23@gmail.com
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <strong>Locations:</strong> Madhyamgram & Barasat
+                    </p>
+                    <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                        <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            <path d="M12 14l6.16-3.422a12.004 12.004 0 01-.476 1.772L12 16.5l-5.684-3.15a12.004 12.004 0 01-.476-1.772L12 14z"/>
+                            <path d="M12 14l9-5-9-5-9 5 9 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 14l6.16-3.422a12.004 12.004 0 01-.476 1.772L12 16.5l-5.684-3.15a12.004 12.004 0 01-.476-1.772L12 14z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <strong>Classes Available:</strong> Offline & Online
+                    </p>
+                </div>
+                <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg
+                            dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Send Us a Message</h3>
+                    <form>
+                        <div class="mb-4">
+                            <input type="text" id="name" name="name" placeholder="Your Name" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                                                                                 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" id="email" name="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                                                                                  dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required>
+                        </div>
+                        <div class="mb-6">
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 px-6 md:px-12 rounded-t-lg shadow-inner
+                   dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto text-center">
+            <p class="text-lg mb-4">&copy; 2025 MATHEMATICO. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        // Function to set the theme and update icon visibility
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.classList.add('hidden');    // Sun icon hidden in dark mode
+                moonIcon.classList.remove('hidden'); // Moon icon visible in dark mode
+            } else { // theme is 'light'
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                sunIcon.classList.remove('hidden'); // Sun icon visible in light mode
+                moonIcon.classList.add('hidden');    // Moon icon hidden in light mode
+            }
+            // Update body background and text color directly based on the theme
+            // These classes are critical for the base body styling in both modes
+            if (theme === 'dark') {
+                document.body.classList.add('dark:bg-gray-900', 'dark:text-gray-100');
+                document.body.classList.remove('bg-gray-50', 'text-gray-800');
+            } else {
+                document.body.classList.remove('dark:bg-gray-900', 'dark:text-gray-100');
+                document.body.classList.add('bg-gray-50', 'text-gray-800');
+            }
+        }
+
+        // Check for saved theme preference or system preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDark) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        });
+    </script>
+</body>
+</html>
