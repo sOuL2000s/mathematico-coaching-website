@@ -9,9 +9,10 @@
         /* Custom styles for the Inter font */
         body {
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Ensure no horizontal scrolling on the body */
         }
-        /* Basic scroll behavior for smooth scrolling to sections */
         html {
+            overflow-x: hidden; /* Ensure no horizontal scrolling on the html element either */
             scroll-behavior: smooth;
         }
         /* Keyframe animation for fade-in-up effect */
@@ -47,15 +48,22 @@
             .navbar-links {
                 display: none; /* Hidden by default on small screens */
                 flex-direction: column;
-                width: 100%;
-                background-color: white; /* Match header background */
+                background-color: white; /* Default light mode background */
                 position: absolute;
                 top: 100%; /* Position below the header */
-                left: 0;
-                padding: 1rem 0;
+                left: 0; /* Align to the left edge of the viewport */
+                width: 100vw; /* Span the full viewport width */
+                padding: 1rem 0; /* Vertical padding */
                 box-shadow: 0 8px 16px rgba(0,0,0,0.1);
                 border-radius: 0 0 0.5rem 0.5rem;
                 z-index: 40; /* Below sticky header */
+                overflow-y: auto; /* Enable vertical scrolling if content overflows */
+                max-height: calc(100vh - 80px); /* Limit height to viewport minus header */
+                box-sizing: border-box; /* Include padding in the element's total width/height */
+                /* Dark mode styles for the mobile menu */
+                .dark & { /* Apply these styles when html has 'dark' class */
+                    background-color: #1f2937; /* dark-gray-800 */
+                }
             }
             .navbar-links.active {
                 display: flex;
@@ -63,11 +71,16 @@
             .navbar-links li {
                 width: 100%;
                 text-align: center;
-                padding: 0.5rem 0;
+                /* No horizontal padding here, let the anchor handle it */
             }
             .navbar-links a {
                 display: block;
-                padding: 0.5rem 1rem;
+                padding: 0.75rem 1rem; /* Consistent padding for links */
+                color: #4b5563; /* Default light mode text color */
+                /* Dark mode styles for menu links */
+                .dark & { /* Apply these styles when html has 'dark' class */
+                    color: #d1d5db; /* dark-gray-300 */
+                }
             }
         }
 
@@ -114,9 +127,9 @@
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 ease-in-out">
 
-    <header class="bg-white shadow-lg py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg
+    <header class="bg-white shadow-lg py-4 sticky top-0 z-50 rounded-b-lg
                    dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative px-6 md:px-12">
             <div class="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
                 <a href="#" class="text-3xl font-extrabold text-indigo-700 flex items-center" aria-label="MATHEMATICO Home">
                    <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -149,7 +162,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
                         </svg>
                         <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 118.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                         </svg>
                     </button>
                 </li>
@@ -601,7 +614,7 @@
                                 dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 6a1 1 0 012 0v5a1 1 0 01-2 0V6zm1 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
+                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M10 2a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 012 0v5a1 1 0 01-2 0V6zm1 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>
                             <strong>Instructor:</strong> Dipanjan Chatterjee, M.Sc in Pure Maths
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
