@@ -698,12 +698,12 @@
                             </div>
                             <div class="mb-4">
                                 <label for="contact-email" class="sr-only">Your Email</label>
-                                <input type="email" id="contact-email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <input type="email" id="contact-email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                   dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             </div>
                             <div class="mb-6">
                                 <label for="contact-message" class="sr-only">Your Message</label>
-                                <textarea id="contact-message" name="entry.YOUR_MESSAGE_FIELD_ID" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <textarea id="contact-message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105" aria-label="Send your message">
@@ -765,7 +765,7 @@
                         <!-- Google Form for Newsletter -->
                         <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4">
                             <label for="newsletter-email" class="sr-only">Email address</label>
-                            <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            <input type="email" id="newsletter-email" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Subscribe to newsletter">Subscribe</button>
                         </form>
@@ -941,7 +941,7 @@
 
                 <!-- Admin Authentication Section -->
                 <div id="auth-section" class="bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800 max-w-md mx-auto">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100" id="auth-heading">Admin Login</h3>
+                    <h3 id="auth-heading" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Admin Login</h3>
 
                     <div id="login-form-container">
                         <div class="mb-4">
@@ -1026,65 +1026,105 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase configuration and initialization
-        // IMPORTANT: Replace with your actual Firebase project configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
-            authDomain: "mathematico-website.firebaseapp.com",
-            projectId: "mathematico-website",
-            storageBucket: "mathematico-website.firebasestorage.app",
-            messagingSenderId: "186709981685",
-            appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
-            measurementId: "G-5Z24Z4Q97Q"
-        };
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId; // Use Canvas provided app ID or default
-
-        let app;
-        let db;
-        let auth;
+        // Global Firebase variables, initialized to null
+        let app = null;
+        let db = null;
+        let auth = null;
         let userId = 'anonymous'; // Default to anonymous
         let isAdmin = false; // Global flag for admin status
+        let appId = null; // Declare appId globally
 
-        // Initialize Firebase
-        if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
+        // Admin Auth Elements - Moved to global scope
+        const adminEmailInput = document.getElementById('admin-email');
+        const adminPasswordInput = document.getElementById('admin-password');
+        const loginBtn = document.getElementById('login-btn');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const registerToggleBtn = document.getElementById('register-toggle-btn');
+        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+        const authMessage = document.getElementById('auth-message');
 
-            // Authenticate user with custom token if provided by Canvas, otherwise anonymously
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                signInWithCustomToken(auth, __initial_auth_token).then((userCredential) => {
-                    userId = userCredential.user.uid;
-                    console.log("Firebase signed in with custom token:", userId);
-                    checkAdminStatus(userCredential.user);
-                }).catch((error) => {
-                    console.error("Error signing in with custom token:", error);
-                    signInAnonymously(auth).then((userCredential) => {
+        const registerEmailInput = document.getElementById('register-email');
+        const registerPasswordInput = document.getElementById('register-password');
+        const registerBtn = document.getElementById('register-btn');
+        const loginToggleBtn = document.getElementById('login-toggle-btn');
+        const registerMessage = document.getElementById('register-message');
+
+        const logoutBtn = document.getElementById('logout-btn');
+
+        const loginFormContainer = document.getElementById('login-form-container');
+        const registerFormContainer = document.getElementById('register-form-container');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const userIdDisplay = document.getElementById('user-id-display');
+        const authHeading = document.getElementById('auth-heading');
+
+
+        // Function to initialize Firebase and attach listeners
+        async function initializeFirebaseAndListeners() {
+            // Firebase configuration and initialization
+            // IMPORTANT: Replace with your actual Firebase project configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
+                authDomain: "mathematico-website.firebaseapp.com",
+                projectId: "mathematico-website",
+                storageBucket: "mathematico-website.firebaseapp.com",
+                messagingSenderId: "186709981685",
+                appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
+                measurementId: "G-5Z24Z4Q97Q"
+            };
+
+            // Assign to the global appId variable
+            appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
+
+            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authenticate user with custom token if provided by Canvas, otherwise anonymously
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
+                        userId = userCredential.user.uid;
+                        console.log("Firebase signed in with custom token:", userId);
+                    } else {
+                        const userCredential = await signInAnonymously(auth);
                         userId = userCredential.user.uid;
                         console.log("Firebase signed in anonymously:", userId);
-                        checkAdminStatus(userCredential.user);
-                    }).catch((anonError) => {
-                        console.error("Error signing in anonymously:", anonError);
-                        showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    }
+                    // After initial sign-in, set up auth state listener and attach Firebase-dependent event listeners
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            console.log("Auth state changed: User is logged in.", userId);
+                            checkAdminStatus(user);
+                        } else {
+                            userId = 'anonymous';
+                            isAdmin = false;
+                            console.log("Auth state changed: User is logged out.");
+                            updateAdminUI(); // Update UI for logged out state
+                        }
                     });
-                });
+                    // Initial check after sign-in
+                    checkAdminStatus(auth.currentUser);
+
+                    // Attach Firebase-dependent event listeners here
+                    attachFirebaseEventListeners();
+
+                } catch (error) {
+                    console.error("Error during initial Firebase authentication:", error);
+                    showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    // Hide all admin panels if Firebase auth fails
+                    document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
+                    document.getElementById('auth-section').classList.add('hidden');
+                }
             } else {
-                signInAnonymously(auth).then((userCredential) => {
-                    userId = userCredential.user.uid;
-                    console.log("Firebase signed in anonymously:", userId);
-                    checkAdminStatus(userCredential.user);
-                }).catch((error) => {
-                    console.error("Error signing in anonymously:", error);
-                    showMessageBox("Authentication Error", "Failed to authenticate anonymously. Some features may not be available.");
-                });
+                console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
+                showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
+                // Hide all admin panels if Firebase is not initialized
+                document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
+                document.getElementById('auth-section').classList.add('hidden');
             }
-        } else {
-            console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
-            showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
-            // Hide all admin panels if Firebase is not initialized
-            document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
-            document.getElementById('auth-section').classList.add('hidden');
         }
 
         // Function to check admin status (using a Firestore 'roles' collection for flexibility)
@@ -1095,7 +1135,8 @@
                 return;
             }
             try {
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${user.uid}`);
+                // Corrected Firestore path for user roles
+                const userDocRef = doc(collection(db, `artifacts/${appId}/public/users`), user.uid);
                 const userDocSnap = await getDoc(userDocRef);
                 if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
                     isAdmin = true;
@@ -1116,13 +1157,7 @@
         function updateAdminUI() {
             const adminPanels = document.querySelectorAll('.admin-panel');
             const adminIndicator = document.getElementById('admin-mode-indicator');
-            const authSection = document.getElementById('auth-section');
-            const loginFormContainer = document.getElementById('login-form-container');
-            const registerFormContainer = document.getElementById('register-form-container');
-            const adminDashboard = document.getElementById('admin-dashboard');
-            const userEmailDisplay = document.getElementById('user-email-display');
-            const userIdDisplay = document.getElementById('user-id-display');
-            const authHeading = document.getElementById('auth-heading');
+            const authSection = document.getElementById('auth-section'); // This is already global
 
             if (isAdmin) {
                 adminPanels.forEach(panel => panel.classList.remove('hidden'));
@@ -1171,23 +1206,6 @@
 
         const mainContentContainer = document.getElementById('main-content-container');
         const pageSections = document.querySelectorAll('.page-section');
-
-        // Admin Auth Elements
-        const adminEmailInput = document.getElementById('admin-email');
-        const adminPasswordInput = document.getElementById('admin-password');
-        const loginBtn = document.getElementById('login-btn');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const registerToggleBtn = document.getElementById('register-toggle-btn');
-        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
-        const authMessage = document.getElementById('auth-message');
-
-        const registerEmailInput = document.getElementById('register-email');
-        const registerPasswordInput = document.getElementById('register-password');
-        const registerBtn = document.getElementById('register-btn');
-        const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const registerMessage = document.getElementById('register-message');
-
-        const logoutBtn = document.getElementById('logout-btn');
 
         // Book List Elements
         const bookListAdminPanel = document.getElementById('book-list-admin-panel');
@@ -1298,15 +1316,46 @@
         }
 
         // Function to show a custom message box
-        function showMessageBox(title, message) {
+        function showMessageBox(title, message, isConfirm = false, onConfirm = null) {
             messageBoxTitle.textContent = title;
             messageBoxContent.textContent = message;
+            messageBoxOkBtn.textContent = isConfirm ? "Yes" : "OK";
+
+            if (isConfirm) {
+                messageBoxOkBtn.onclick = () => {
+                    hideMessageBox();
+                    if (onConfirm) onConfirm();
+                };
+                // Add a "No" button for confirmation
+                let noBtn = document.getElementById('message-box-no-btn');
+                if (!noBtn) {
+                    noBtn = document.createElement('button');
+                    noBtn.id = 'message-box-no-btn';
+                    noBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
+                    noBtn.textContent = 'No';
+                    messageBoxOkBtn.parentNode.appendChild(noBtn);
+                }
+                noBtn.onclick = hideMessageBox;
+                noBtn.classList.remove('hidden');
+            } else {
+                messageBoxOkBtn.onclick = hideMessageBox;
+                const noBtn = document.getElementById('message-box-no-btn');
+                if (noBtn) {
+                    noBtn.classList.add('hidden');
+                }
+            }
             messageBoxModal.classList.add('active');
         }
 
         // Function to hide the custom message box
         function hideMessageBox() {
             messageBoxModal.classList.remove('active');
+            // Reset the OK button handler and hide No button if it exists
+            messageBoxOkBtn.onclick = null;
+            const noBtn = document.getElementById('message-box-no-btn');
+            if (noBtn) {
+                noBtn.classList.add('hidden');
+            }
         }
 
         // --- Event Listeners and Initial Setup ---
@@ -1368,7 +1417,25 @@
                 });
             });
 
-            // Update form actions for Google Forms
+            // Add specific event listeners for the hero section buttons
+            const startLearningBtn = document.querySelector('#home a[href="#courses"]');
+            const seeResultsBtn = document.querySelector('#home a[href="#testimonials"]');
+
+            if (startLearningBtn) {
+                startLearningBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage('courses');
+                });
+            }
+
+            if (seeResultsBtn) {
+                seeResultsBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage('testimonials');
+                });
+            }
+
+            // Update form actions for Google Forms (these don't depend on Firebase directly)
             const contactForm = document.querySelector('#contact form');
             if (contactForm) {
                 contactForm.action = YOUR_CONTACT_GOOGLE_FORM_ACTION_URL;
@@ -1382,6 +1449,9 @@
                 newsletterForm.action = YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL;
                 newsletterForm.querySelector('#newsletter-email').name = `entry.${YOUR_NEWSLETTER_EMAIL_FIELD_ID}`;
             }
+
+            // Call Firebase initialization and listener attachment function
+            initializeFirebaseAndListeners();
         });
 
         // Toggle theme on button click
@@ -1457,152 +1527,299 @@
 
         // --- Firebase Authentication Functions ---
 
-        // Listen for auth state changes globally
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userId = user.uid;
-                console.log("Auth state changed: User is logged in.", userId);
-                checkAdminStatus(user);
-            } else {
-                userId = 'anonymous';
-                isAdmin = false;
-                console.log("Auth state changed: User is logged out.");
-                updateAdminUI(); // Update UI for logged out state
-            }
-        });
-
-        // Login with Email and Password
-        loginBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            const password = adminPasswordInput.value;
-            authMessage.classList.add('hidden');
-            if (!email || !password) {
-                authMessage.textContent = "Please enter email and password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log("Logged in:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-            } catch (error) {
-                console.error("Login error:", error.message);
-                authMessage.textContent = `Login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
-        });
-
-        // Login with Google
-        googleLoginBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            authMessage.classList.add('hidden');
-            try {
-                const userCredential = await signInWithPopup(auth, provider);
-                console.log("Logged in with Google:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-                // If this is a new user, set their role to 'user' by default
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`);
-                const userDocSnap = await getDoc(userDocRef);
-                if (!userDocSnap.exists()) {
-                    await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
-                    console.log("New Google user registered with 'user' role.");
+        // Function to attach all event listeners that depend on Firebase being initialized
+        function attachFirebaseEventListeners() {
+            // Admin Auth Elements Listeners
+            loginBtn.addEventListener('click', async () => {
+                const email = adminEmailInput.value;
+                const password = adminPasswordInput.value;
+                authMessage.classList.add('hidden');
+                if (!email || !password) {
+                    authMessage.textContent = "Please enter email and password.";
+                    authMessage.classList.remove('hidden');
+                    return;
                 }
-            } catch (error) {
-                console.error("Google login error:", error.message);
-                authMessage.textContent = `Google login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
-        });
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    console.log("Logged in:", userCredential.user.email);
+                    // onAuthStateChanged listener will handle UI update and admin status check
+                } catch (error) {
+                    console.error("Login error:", error.message);
+                    authMessage.textContent = `Login failed: ${error.message}`;
+                    authMessage.classList.remove('hidden');
+                }
+            });
 
-        // Register with Email and Password
-        registerBtn.addEventListener('click', async () => {
-            const email = registerEmailInput.value;
-            const password = registerPasswordInput.value;
-            registerMessage.classList.add('hidden');
-            if (!email || !password) {
-                registerMessage.textContent = "Please enter email and password.";
-                registerMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("Registered:", userCredential.user.email);
-                // Set the role for the new user (default to 'user')
-                await setDoc(doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`), {
-                    role: 'user', // New users are 'user' by default
-                    email: userCredential.user.email,
-                    created_at: new Date()
-                });
-                showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
-                // Switch back to login form
+            googleLoginBtn.addEventListener('click', async () => {
+                const provider = new GoogleAuthProvider();
+                authMessage.classList.add('hidden');
+                try {
+                    const userCredential = await signInWithPopup(auth, provider);
+                    console.log("Logged in with Google:", userCredential.user.email);
+                    // Corrected Firestore path for user roles
+                    const userDocRef = doc(collection(db, `artifacts/${appId}/public/users`), userCredential.user.uid);
+                    const userDocSnap = await getDoc(userDocRef);
+                    if (!userDocSnap.exists()) {
+                        await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
+                        console.log("New Google user registered with 'user' role.");
+                    }
+                    // onAuthStateChanged listener will handle UI update and admin status check
+                } catch (error) {
+                    console.error("Google login error:", error.message);
+                    authMessage.textContent = `Google login failed: ${error.message}`;
+                    authMessage.classList.remove('hidden');
+                }
+            });
+
+            registerBtn.addEventListener('click', async () => {
+                console.log("Register button clicked.");
+                const email = registerEmailInput.value;
+                const password = registerPasswordInput.value;
+                registerMessage.classList.add('hidden'); // Hide previous messages
+                registerMessage.textContent = ''; // Clear previous text
+
+                if (!email || !password) {
+                    registerMessage.textContent = "Please enter both email and password.";
+                    registerMessage.classList.remove('hidden');
+                    console.log("Validation failed: email or password missing.");
+                    return;
+                }
+
+                try {
+                    console.log("Attempting to register user with email:", email);
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    console.log("Registered user UID:", userCredential.user.uid);
+
+                    // --- ADDED LOG HERE ---
+                    console.log(`Attempting to set user role for UID: ${userCredential.user.uid} at path: artifacts/${appId}/public/users`);
+
+                    // Set user role in Firestore
+                    // Corrected Firestore path for user roles
+                    await setDoc(doc(collection(db, `artifacts/${appId}/public/users`), userCredential.user.uid), {
+                        role: 'user', // Default role for new registrations
+                        email: userCredential.user.email,
+                        created_at: new Date()
+                    });
+                    console.log("User role successfully set in Firestore."); // Added success log
+
+                    showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
+                    // After successful registration, switch back to login form
+                    loginFormContainer.classList.remove('hidden');
+                    registerFormContainer.classList.add('hidden');
+                    adminEmailInput.value = email; // Pre-fill email for easy login
+                    adminPasswordInput.value = '';
+                    registerEmailInput.value = '';
+                    registerPasswordInput.value = '';
+                } catch (error) {
+                    console.error("Registration error:", error); // Log full error object for debugging
+                    let errorMessage = "Registration failed. Please try again.";
+                    if (error.code) {
+                        switch (error.code) {
+                            case 'auth/email-already-in-use':
+                                errorMessage = "The email address is already in use by another account.";
+                                break;
+                            case 'auth/invalid-email':
+                                errorMessage = "The email address is not valid.";
+                                break;
+                            case 'auth/operation-not-allowed':
+                                errorMessage = "Email/password accounts are not enabled. Please contact support.";
+                                break;
+                            case 'auth/weak-password':
+                                errorMessage = "The password is too weak. Please choose a stronger password (at least 6 characters).";
+                                break;
+                            default:
+                                errorMessage = `Registration failed: ${error.message}`;
+                        }
+                    }
+                    registerMessage.textContent = errorMessage;
+                    registerMessage.classList.remove('hidden');
+                }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    console.log("Logged out successfully.");
+                    showMessageBox("Logged Out", "You have been successfully logged out.");
+                } catch (error) {
+                    console.error("Logout error:", error.message);
+                    showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
+                }
+            });
+
+            forgotPasswordBtn.addEventListener('click', async () => {
+                const email = adminEmailInput.value;
+                if (!email) {
+                    authMessage.textContent = "Please enter your email to reset password.";
+                    authMessage.classList.remove('hidden');
+                    return;
+                }
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    showMessageBox("Password Reset", `Password reset email sent to ${email}. Please check your inbox.`);
+                } catch (error) {
+                    console.error("Forgot password error:", error.message);
+                    showMessageBox("Password Reset Error", `Failed to send reset email: ${error.message}`);
+                }
+            });
+
+            // Toggle between Login and Register forms
+            registerToggleBtn.addEventListener('click', () => {
+                loginFormContainer.classList.add('hidden');
+                registerFormContainer.classList.remove('hidden');
+                authMessage.classList.add('hidden'); // Clear login message
+                registerMessage.classList.add('hidden'); // Clear register message
+                document.getElementById('auth-heading').textContent = "Admin Registration";
+            });
+
+            loginToggleBtn.addEventListener('click', () => {
                 loginFormContainer.classList.remove('hidden');
                 registerFormContainer.classList.add('hidden');
-                adminEmailInput.value = email; // Pre-fill email for login
-                adminPasswordInput.value = '';
-                registerEmailInput.value = '';
-                registerPasswordInput.value = '';
-            } catch (error) {
-                console.error("Registration error:", error.message);
-                registerMessage.textContent = `Registration failed: ${error.message}`;
-                registerMessage.classList.remove('hidden');
-            }
-        });
+                authMessage.classList.add('hidden'); // Clear login message
+                registerMessage.classList.add('hidden'); // Clear register message
+                document.getElementById('auth-heading').textContent = "Admin Login";
+            });
 
-        // Logout
-        logoutBtn.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                console.log("Logged out successfully.");
-                showMessageBox("Logged Out", "You have been successfully logged out.");
-                // onAuthStateChanged will handle UI update
-            } catch (error) {
-                console.error("Logout error:", error.message);
-                showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
-            }
-        });
+            // Admin CRUD form submissions (these were already correctly placed, but ensuring context)
+            addEditBookForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage books.");
+                    return;
+                }
+                const bookId = bookIdInput.value;
+                const bookData = {
+                    title: bookTitleInput.value,
+                    author: bookAuthorInput.value,
+                    category: bookCategoryInput.value,
+                    description: bookDescriptionInput.value,
+                    url: bookUrlInput.value || null,
+                    date_posted: new Date() // Use server timestamp for consistency
+                };
 
-        // Forgot Password
-        forgotPasswordBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            if (!email) {
-                authMessage.textContent = "Please enter your email to reset password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                await sendPasswordResetEmail(auth, email);
-                showMessageBox("Password Reset", `Password reset email sent to ${email}. Please check your inbox.`);
-            } catch (error) {
-                console.error("Forgot password error:", error.message);
-                showMessageBox("Password Reset Error", `Failed to send reset email: ${error.message}`);
-            }
-        });
+                try {
+                    if (bookId) {
+                        await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
+                        showMessageBox("Success", "Book updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("books"), bookData);
+                        showMessageBox("Success", "Book added successfully!");
+                    }
+                    addEditBookForm.reset();
+                    bookIdInput.value = ''; // Clear book ID
+                    cancelEditBookBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving book: ", e);
+                    showMessageBox("Error", "Error saving book. Please try again.");
+                }
+            });
 
-        // Toggle between Login and Register forms
-        registerToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.add('hidden');
-            registerFormContainer.classList.remove('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Registration";
-        });
+            addProblemForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage problems.");
+                    return;
+                }
+                const problemId = problemIdInput.value;
+                const problemData = {
+                    title: problemTitleInput.value,
+                    category: problemCategorySelect.value,
+                    description: problemDescriptionInput.value,
+                    solution_url: problemSolutionUrlInput.value || null,
+                    date_posted: new Date()
+                };
 
-        loginToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.remove('hidden');
-            registerFormContainer.classList.add('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Login";
-        });
+                try {
+                    if (problemId) {
+                        await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
+                        showMessageBox("Success", "Problem updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("problems"), problemData);
+                        showMessageBox("Success", "Problem added successfully!");
+                    }
+                    addProblemForm.reset();
+                    problemIdInput.value = '';
+                    cancelEditProblemBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving problem: ", e);
+                    showMessageBox("Error", "Error saving problem. Please try again.");
+                }
+            });
+
+            addGalleryForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
+                    return;
+                }
+                const postId = galleryPostIdInput.value;
+                const postData = {
+                    imageUrl: galleryImageUrlInput.value,
+                    caption: galleryCaptionInput.value,
+                    date_posted: new Date()
+                };
+
+                try {
+                    if (postId) {
+                        await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
+                        showMessageBox("Success", "Gallery post updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("gallery_posts"), postData);
+                        showMessageBox("Success", "Gallery post added successfully!");
+                    }
+                    addGalleryForm.reset();
+                    galleryPostIdInput.value = '';
+                    cancelEditGalleryBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving gallery post: ", e);
+                    showMessageBox("Error", "Error saving gallery post. Please try again.");
+                }
+            });
+
+            addBlogForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage blog posts.");
+                    return;
+                }
+                const postId = blogPostIdInput.value;
+                const postData = {
+                    title: blogTitleInput.value,
+                    imageUrl: blogImageUrlInput.value || null,
+                    content: blogContentInput.value,
+                    date_posted: new Date()
+                };
+
+                try {
+                    if (postId) {
+                        await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
+                        showMessageBox("Success", "Blog post updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("blog_posts"), postData);
+                        showMessageBox("Success", "Blog post added successfully!");
+                    }
+                    addBlogForm.reset();
+                    blogPostIdInput.value = '';
+                    cancelEditBlogBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving blog post: ", e);
+                    showMessageBox("Error", "Error saving blog post. Please try again.");
+                }
+            });
+
+            // This function is called after Firebase is initialized and authenticated
+            initializeFirestoreListeners();
+        }
 
 
         // --- Firestore Operations ---
 
         // Function to create a Firestore collection path based on app ID
         // Note: For a multi-user app where data is private to a user,
-        // the path would be `artifacts/${appId}/users/${userId}/${collectionName}`
+        // the path would be `artifacts/${appId}/users/${userId}/{collectionName}`
         // For public data editable by admin, it's `artifacts/${appId}/public/data/${collectionName}`
         function getCollectionRef(collectionName) {
+            // Now appId is globally accessible
             return collection(db, `artifacts/${appId}/public/data/${collectionName}`);
         }
 
@@ -1643,42 +1860,6 @@
             }
             bookListLoading.classList.add('hidden');
         }
-
-        addEditBookForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage books.");
-                return;
-            }
-            const bookId = bookIdInput.value;
-            const bookData = {
-                title: bookTitleInput.value,
-                author: bookAuthorInput.value,
-                category: bookCategoryInput.value,
-                description: bookDescriptionInput.value,
-                url: bookUrlInput.value || null,
-                date_posted: new Date() // Use server timestamp for consistency
-            };
-
-            try {
-                if (bookId) {
-                    // Update existing book
-                    await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
-                    showMessageBox("Success", "Book updated successfully!");
-                } else {
-                    // Add new book
-                    await addDoc(getCollectionRef("books"), bookData);
-                    showMessageBox("Success", "Book added successfully!");
-                }
-                addEditBookForm.reset();
-                bookIdInput.value = ''; // Clear book ID
-                cancelEditBookBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving book: ", e);
-                showMessageBox("Error", "Error saving book. Please try again.");
-            }
-        });
 
         async function editBook(id) {
             if (!isAdmin) {
@@ -1791,41 +1972,6 @@
             problemsLoading.classList.add('hidden');
         }
 
-        addProblemForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage problems.");
-                return;
-            }
-            const problemId = problemIdInput.value;
-            const problemData = {
-                title: problemTitleInput.value,
-                category: problemCategorySelect.value,
-                description: problemDescriptionInput.value,
-                solution_url: problemSolutionUrlInput.value || null,
-                date_posted: new Date()
-            };
-
-            try {
-                if (problemId) {
-                    // Update existing problem
-                    await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
-                    showMessageBox("Success", "Problem updated successfully!");
-                } else {
-                    // Add new problem
-                    await addDoc(getCollectionRef("problems"), problemData);
-                    showMessageBox("Success", "Problem added successfully!");
-                }
-                addProblemForm.reset();
-                problemIdInput.value = '';
-                cancelEditProblemBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving problem: ", e);
-                showMessageBox("Error", "Error saving problem. Please try again.");
-            }
-        });
-
         async function editProblem(id) {
             if (!isAdmin) {
                 showMessageBox("Permission Denied", "You must be logged in as an admin to edit problems.");
@@ -1913,39 +2059,6 @@
             galleryLoading.classList.add('hidden');
         }
 
-        addGalleryForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
-                return;
-            }
-            const postId = galleryPostIdInput.value;
-            const postData = {
-                imageUrl: galleryImageUrlInput.value,
-                caption: galleryCaptionInput.value,
-                date_posted: new Date()
-            };
-
-            try {
-                if (postId) {
-                    // Update existing post
-                    await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
-                    showMessageBox("Success", "Gallery post updated successfully!");
-                } else {
-                    // Add new post
-                    await addDoc(getCollectionRef("gallery_posts"), postData);
-                    showMessageBox("Success", "Gallery post added successfully!");
-                }
-                addGalleryForm.reset();
-                galleryPostIdInput.value = '';
-                cancelEditGalleryBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving gallery post: ", e);
-                showMessageBox("Error", "Error saving gallery post. Please try again.");
-            }
-        });
-
         async function editGalleryPost(id) {
             if (!isAdmin) {
                 showMessageBox("Permission Denied", "You must be logged in as an admin to edit gallery posts.");
@@ -2031,40 +2144,6 @@
             }
             blogLoading.classList.add('hidden');
         }
-
-        addBlogForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage blog posts.");
-                return;
-            }
-            const postId = blogPostIdInput.value;
-            const postData = {
-                title: blogTitleInput.value,
-                imageUrl: blogImageUrlInput.value || null,
-                content: blogContentInput.value,
-                date_posted: new Date()
-            };
-
-            try {
-                if (postId) {
-                    // Update existing post
-                    await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
-                    showMessageBox("Success", "Blog post updated successfully!");
-                } else {
-                    // Add new post
-                    await addDoc(getCollectionRef("blog_posts"), postData);
-                    showMessageBox("Success", "Blog post added successfully!");
-                }
-                addBlogForm.reset();
-                blogPostIdInput.value = '';
-                cancelEditBlogBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving blog post: ", e);
-                showMessageBox("Error", "Error saving blog post. Please try again.");
-            }
-        });
 
         async function editBlogPost(id) {
             if (!isAdmin) {
