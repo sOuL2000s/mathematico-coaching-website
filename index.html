@@ -1315,34 +1315,53 @@
             }
         }
 
+        // Global variable to hold the current confirm callback
+        let currentConfirmCallback = null;
+
         // Function to show a custom message box
         function showMessageBox(title, message, isConfirm = false, onConfirm = null) {
             messageBoxTitle.textContent = title;
             messageBoxContent.textContent = message;
             messageBoxOkBtn.textContent = isConfirm ? "Yes" : "OK";
 
+            // Clear any previous click handler on the OK button
+            if (currentConfirmCallback) {
+                messageBoxOkBtn.removeEventListener('click', currentConfirmCallback);
+                currentConfirmCallback = null;
+            }
+            // Ensure the generic hideMessageBox listener is also removed if it was added
+            messageBoxOkBtn.removeEventListener('click', hideMessageBox);
+
+            // Remove any existing 'No' button listener and hide it
+            const noBtn = document.getElementById('message-box-no-btn');
+            if (noBtn) {
+                noBtn.removeEventListener('click', hideMessageBox); // Remove its listener
+                noBtn.classList.add('hidden'); // Hide it
+            }
+
             if (isConfirm) {
-                messageBoxOkBtn.onclick = () => {
-                    hideMessageBox();
-                    if (onConfirm) onConfirm();
+                currentConfirmCallback = async () => { // Make sure this is async
+                    hideMessageBox(); // Hide first
+                    if (onConfirm) {
+                        await onConfirm(); // Await the async callback
+                    }
                 };
-                // Add a "No" button for confirmation
-                let noBtn = document.getElementById('message-box-no-btn');
-                if (!noBtn) {
-                    noBtn = document.createElement('button');
-                    noBtn.id = 'message-box-no-btn';
-                    noBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
-                    noBtn.textContent = 'No';
-                    messageBoxOkBtn.parentNode.appendChild(noBtn);
+                messageBoxOkBtn.addEventListener('click', currentConfirmCallback);
+
+                // Add a "No" button for confirmation if it doesn't exist
+                let newNoBtn = document.getElementById('message-box-no-btn');
+                if (!newNoBtn) {
+                    newNoBtn = document.createElement('button');
+                    newNoBtn.id = 'message-box-no-btn';
+                    newNoBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
+                    newNoBtn.textContent = 'No';
+                    messageBoxOkBtn.parentNode.appendChild(newNoBtn);
                 }
-                noBtn.onclick = hideMessageBox;
-                noBtn.classList.remove('hidden');
+                newNoBtn.addEventListener('click', hideMessageBox); // No button always just hides
+                newNoBtn.classList.remove('hidden');
             } else {
-                messageBoxOkBtn.onclick = hideMessageBox;
-                const noBtn = document.getElementById('message-box-no-btn');
-                if (noBtn) {
-                    noBtn.classList.add('hidden');
-                }
+                // For non-confirm messages, just hide the box
+                messageBoxOkBtn.addEventListener('click', hideMessageBox);
             }
             messageBoxModal.classList.add('active');
         }
@@ -1350,13 +1369,22 @@
         // Function to hide the custom message box
         function hideMessageBox() {
             messageBoxModal.classList.remove('active');
-            // Reset the OK button handler and hide No button if it exists
-            messageBoxOkBtn.onclick = null;
+            // Clean up the specific OK button handler when hiding
+            if (currentConfirmCallback) {
+                messageBoxOkBtn.removeEventListener('click', currentConfirmCallback);
+                currentConfirmCallback = null;
+            }
+            // Also remove the generic hideMessageBox listener if it was added
+            messageBoxOkBtn.removeEventListener('click', hideMessageBox);
+
+            // Hide and clean up the 'No' button if it exists
             const noBtn = document.getElementById('message-box-no-btn');
             if (noBtn) {
+                noBtn.removeEventListener('click', hideMessageBox); // Remove No button handler
                 noBtn.classList.add('hidden');
             }
         }
+
 
         // --- Event Listeners and Initial Setup ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -1516,8 +1544,7 @@
             }
         });
 
-        // Message Box Event Listeners
-        messageBoxOkBtn.addEventListener('click', hideMessageBox);
+        // Message Box Event Listeners (only for close button and modal background)
         messageBoxCloseButton.addEventListener('click', hideMessageBox);
         messageBoxModal.addEventListener('click', (e) => {
             if (e.target === messageBoxModal) {
@@ -1906,12 +1933,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this book?", true, async () => {
                 try {
+                    console.log(`Attempting to delete book with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("books"), id));
                     showMessageBox("Success", "Book deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting book: ", e);
-                    showMessageBox("Error", "Error deleting book. Please try again.");
+                    showMessageBox("Error", "Error deleting book. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -2016,12 +2044,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this problem?", true, async () => {
                 try {
+                    console.log(`Attempting to delete problem with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("problems"), id));
                     showMessageBox("Success", "Problem deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting problem: ", e);
-                    showMessageBox("Error", "Error deleting problem. Please try again.");
+                    showMessageBox("Error", "Error deleting problem. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -2101,12 +2130,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this gallery post?", true, async () => {
                 try {
+                    console.log(`Attempting to delete gallery post with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("gallery_posts"), id));
                     showMessageBox("Success", "Gallery post deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting gallery post: ", e);
-                    showMessageBox("Error", "Error deleting gallery post. Please try again.");
+                    showMessageBox("Error", "Error deleting gallery post. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -2188,12 +2218,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this blog post?", true, async () => {
                 try {
+                    console.log(`Attempting to delete blog post with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("blog_posts"), id));
                     showMessageBox("Success", "Blog post deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting blog post: ", e);
-                    showMessageBox("Error", "Error deleting blog post. Please try again.");
+                    showMessageBox("Error", "Error deleting blog post. Please try again. Details: " + e.message); // Added error detail
                 }
             } );
         }
