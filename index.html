@@ -381,7 +381,7 @@
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">IIT Foundation & Olympiad</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            Specialized programs for IIT Foundation and various Mathematics Olympiads, building competitive skills from an early age.
+                            Specialized programs for IIT Foundation and various Mathematics Olympiads, including IOQM, RMO (Regional Maths Olympiad), building competitive skills from an early age.
                         </p>
                         <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="IIT Foundation & Olympiad" aria-label="Enroll in IIT Foundation & Olympiad course">Enroll Now</button>
                     </div>
@@ -748,7 +748,7 @@
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Visit our main official page for more information.
                         </p>
-                        <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Go to official page">Go to Page</a>
+                        <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Go to official page">Go to Page</a>
                     </div>
                     <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
                                  dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
@@ -756,7 +756,7 @@
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Join our community group for discussions and updates.
                         </p>
-                        <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Join community group">Join Group</a>
+                        <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Join community group">Join Group</a>
                     </div>
                     <!-- New Section: Email Newsletter Sign-up -->
                     <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
@@ -1024,7 +1024,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Firebase configuration and initialization
         // IMPORTANT: Replace with your actual Firebase project configuration
@@ -1038,17 +1038,13 @@
             measurementId: "G-5Z24Z4Q97Q"
         };
 
-        const appId = firebaseConfig.projectId; // Use Canvas provided app ID or default
+        const appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId; // Use Canvas provided app ID or default
 
         let app;
         let db;
         let auth;
         let userId = 'anonymous'; // Default to anonymous
         let isAdmin = false; // Global flag for admin status
-
-        // Admin User IDs (for demonstration, in a real app, manage roles in Firestore)
-        // For example, you could have a 'users' collection where each user document has a 'role' field.
-        // const ADMIN_USER_IDS = ["admin_uid_1", "admin_uid_2"]; // Example admin UIDs
 
         // Initialize Firebase
         if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
@@ -1250,19 +1246,19 @@
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
         const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
         const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
-            course: "entry.YOUR_COURSE_FIELD_ID",
-            studentName: "entry.YOUR_STUDENT_NAME_FIELD_ID",
-            parentName: "entry.YOUR_PARENT_NAME_FIELD_ID",
-            contactNumber: "entry.YOUR_CONTACT_NUMBER_FIELD_ID",
-            email: "entry.YOUR_EMAIL_FIELD_ID",
-            message: "entry.YOUR_MESSAGE_FIELD_ID"
+            course: "entry.1828229222",
+            studentName: "entry.40854499",
+            parentName: "entry.1504263384",
+            contactNumber: "entry.605564464",
+            email: "entry.352430613",
+            message: "entry.341859473"
         };
-        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdsnzMN4IjQt-5BngRwl-pANGdsSyHDNsBpqF1axuaKd2aVyw/viewform?usp=header"; // Replace with your contact form action URL
-        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLScmXMRi3Hj0f5GMhktl1O2AgI1FthY-WJT5u5iQVdY6FfZS6g/viewform?usp=header"; // Replace with your newsletter form action URL
-        const YOUR_NAME_FIELD_ID = "YOUR_NAME_FIELD_ID";
-        const YOUR_EMAIL_FIELD_ID = "YOUR_EMAIL_FIELD_ID";
-        const YOUR_MESSAGE_FIELD_ID = "YOUR_MESSAGE_FIELD_ID";
-        const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "YOUR_NEWSLETTER_EMAIL_FIELD_ID";
+        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // Replace with your contact form action URL
+        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // Replace with your newsletter form action URL
+        const YOUR_NAME_FIELD_ID = "320465823";
+        const YOUR_EMAIL_FIELD_ID = "196734286";
+        const YOUR_MESSAGE_FIELD_ID = "1567514947";
+        const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "1002277897";
 
         // --- General Functions ---
 
