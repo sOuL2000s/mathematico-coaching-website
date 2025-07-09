@@ -57,13 +57,13 @@
                 border-radius: 0 0 0.5rem 0.5rem;
                 z-index: 60; /* Higher than sticky header */
                 overflow: hidden; /* Hide overflow initially */
-                max-height: 0; /* Start with 0 height for smooth transition */
-                opacity: 0; /* Start with 0 opacity */
-                visibility: hidden; /* Hidden by default */
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out; /* Smooth transition for height, opacity, and visibility */
                 box-sizing: border-box; /* Include padding in the element's total width/height */
-                display: flex; /* Keep flex for layout, but control visibility via other properties */
-                pointer-events: none; /* Disable interaction when hidden */
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition for height and opacity */
+
+                /* Default hidden state for mobile */
+                display: none; /* Explicitly hide it */
+                opacity: 0; /* For opacity transition */
+                max-height: 0; /* For height transition */
 
                 /* Dark mode styles for the mobile menu */
                 .dark & { /* Apply these styles when html has 'dark' class */
@@ -71,11 +71,10 @@
                 }
             }
             .navbar-links.active {
+                display: flex; /* Show as flex when active */
                 max-height: 500px; /* Max height for the menu when active (adjust as needed) */
                 opacity: 1; /* Fully visible */
-                visibility: visible; /* Make visible */
                 overflow-y: auto; /* Enable scrolling if content exceeds max-height */
-                pointer-events: auto; /* Enable interaction when active */
             }
             .navbar-links li {
                 width: 100%;
@@ -295,7 +294,7 @@
                 max-height: 0; /* Control visibility with max-height */
                 opacity: 0;
                 visibility: hidden;
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-in-out;
             }
 
             .navbar-links .dropdown.active .dropdown-menu {
@@ -324,6 +323,37 @@
         #blog-detail-modal p {
             line-height: 1.6;
             margin-bottom: 1rem;
+        }
+
+        /* Gallery Image Modal specific styles */
+        #gallery-image-modal .modal-content {
+            max-width: 90%; /* Allow wider images */
+            max-height: 90vh; /* Limit height to viewport */
+            width: auto; /* Adjust width based on image */
+            height: auto; /* Adjust height based on image */
+            padding: 1rem; /* Smaller padding for image modal */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #gallery-image-modal img {
+            max-width: 100%;
+            max-height: 80vh; /* Max height for the image itself */
+            object-fit: contain; /* Ensure image fits without cropping */
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        #gallery-image-modal .modal-caption {
+            color: #4b5563; /* Default light mode */
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.5rem;
+            word-wrap: break-word; /* Ensure long captions wrap */
+            max-width: 100%;
+        }
+        .dark #gallery-image-modal .modal-caption {
+            color: #d1d5db; /* Dark mode */
         }
     </style>
 
@@ -359,9 +389,10 @@
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative px-6 md:px-12">
             <div class="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
                 <a href="#home" class="text-3xl font-extrabold text-indigo-700 flex items-center" aria-label="MATHEMATICO Home">
-                   <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                    </svg>
+                   <!-- Updated SVG for MATHEMATICO logo (Sigma symbol) -->
+                   <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6H6v2h12V6zm0 3H6v2h12V9zm-6 3H6v2h6v-2zm6 3H6v2h12v-2z"/>
+                   </svg>
                    MATHEMATICO
                 </a>
                 <!-- Hamburger Menu Button -->
@@ -391,17 +422,26 @@
                     </ul>
                 </li>
                 <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Features section">Features</a></li>
-                <!-- Updated navigation links for new pages -->
-                <li><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Book List page">Book List</a></li>
-                <li><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Problems page">Problems</a></li>
-                <li><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Gallery page">Gallery</a></li>
-                <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Testimonials section">Testimonials</a></li>
-                <li><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Success Stories section">Success Stories</a></li>
-                <li><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to FAQ section">FAQ</a></li>
-                <li><a href="#blog-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Blog section">Blog</a></li>
-                <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Contact section">Contact</a></li>
-                <li><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Useful Links section">Links</a></li>
-                <li><a href="#admin-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Admin section">Admin</a></li>
+
+                <!-- New "More" Dropdown -->
+                <li class="relative dropdown">
+                    <a href="#" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="More sections">
+                        More
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#book-list-page" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Book List page">Book List</a></li>
+                        <li><a href="#problems-page" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Problems page">Problems</a></li>
+                        <li><a href="#gallery-page" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Gallery page">Gallery</a></li>
+                        <li><a href="#testimonials" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Testimonials section">Testimonials</a></li>
+                        <li><a href="#success-stories" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Success Stories section">Success Stories</a></li>
+                        <li><a href="#faq" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to FAQ section">FAQ</a></li>
+                        <li><a href="#blog-page" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Blog section">Blog</a></li>
+                        <li><a href="#contact" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Contact section">Contact</a></li>
+                        <li><a href="#links" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Useful Links section">Links</a></li>
+                        <li><a href="#admin-page" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700" aria-label="Go to Admin section">Admin</a></li>
+                    </ul>
+                </li>
                 <li>
                     <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                          dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
@@ -748,9 +788,7 @@
                             <strong>Phone:</strong> +91 9051089673
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                            </svg>
+                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
                             <strong>Landline:</strong> +91-3331712372
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
@@ -807,12 +845,12 @@
                             </div>
                             <div class="mb-4">
                                 <label for="contact-email" class="sr-only">Your Email</label>
-                                <input type="email" id="contact-email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <input type="email" id="contact-email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                   dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             </div>
                             <div class="mb-6">
                                 <label for="contact-message" class="sr-only">Your Message</label>
-                                <textarea id="contact-message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <textarea id="contact-message" rows="5" name="entry.YOUR_MESSAGE_FIELD_ID" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105" aria-label="Send your message">
@@ -821,26 +859,22 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Google Maps Section -->
-        <section id="google-maps" class="page-section py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
-                       dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
-            <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Find Us on the Map</h2>
-                <div class="aspect-w-16 aspect-h-9 w-full h-96 bg-gray-200 rounded-xl overflow-hidden shadow-lg dark:bg-gray-700">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4432.401265241326!2d88.4793815759286!3d22.724858927371475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8a30058617907%3A0x6fb9d10ae1c6b946!2sMATHEMATICO(Maths%20Coaching)%20By%20DipanjanSir!5e1!3m2!1sen!2sin!4v1752090333658!5m2!1sen!2sin"
-                        width="100%"
-                        height="400"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Google Maps location of MATHEMATICO">
-                    </iframe>
-                    <p class="text-gray-600 dark:text-gray-300 mt-4"> (Please replace the `src` attribute with your actual Google Maps embed code for Madhyamgram and Barasat locations.) </p>
+                <!-- Google Maps Section - Moved directly into Contact Section -->
+                <div id="google-maps-container" class="mt-16">
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Find Us on the Map</h2>
+                    <div class="aspect-w-16 aspect-h-9 w-full h-96 bg-gray-200 rounded-xl overflow-hidden shadow-lg dark:bg-gray-700">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4432.401265241326!2d88.4793815759286!3d22.724858927371475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8a30058617907%3A0x6fb9d10ae1c6b946!2sMATHEMATICO(Maths%20Coaching)%20By%20DipanjanSir!5e1!3m2!1sen!2sin!4v1752090333658!5m2!1sen!2sin"
+                            width="100%"
+                            height="400"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Google Maps location of MATHEMATICO">
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </section>
@@ -874,7 +908,7 @@
                         <!-- Google Form for Newsletter -->
                         <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4">
                             <label for="newsletter-email" class="sr-only">Email address</label>
-                            <input type="email" id="newsletter-email" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Subscribe to newsletter">Subscribe</button>
                         </form>
@@ -1141,6 +1175,15 @@
         </div>
     </div>
 
+    <!-- Gallery Image Modal Structure (New) -->
+    <div id="gallery-image-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="gallery-image-modal-title">
+        <div class="modal-content">
+            <button class="modal-close-button" aria-label="Close image view">&times;</button>
+            <img id="gallery-modal-image" src="" alt="Expanded Gallery Image" class="w-full h-auto object-contain rounded-md" loading="lazy">
+            <p id="gallery-modal-caption" class="modal-caption"></p>
+        </div>
+    </div>
+
 
     <!-- Firebase SDKs -->
     <script type="module">
@@ -1186,6 +1229,8 @@
         async function initializeFirebaseAndListeners() {
             // Firebase configuration and initialization
             // IMPORTANT: Replace with your actual Firebase project configuration
+            // You can find these values in your Firebase project console:
+            // Project settings -> General -> Your apps -> Web app -> Firebase SDK snippet (Config)
             const firebaseConfig = {
                 apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
                 authDomain: "mathematico-website.firebaseapp.com",
@@ -1196,16 +1241,22 @@
                 measurementId: "G-5Z24Z4Q97Q"
             };
 
+            // Log the provided Canvas variables for debugging
+            console.log("Canvas __app_id:", typeof __app_id !== 'undefined' ? __app_id : 'undefined');
+            console.log("Canvas __initial_auth_token:", typeof __initial_auth_token !== 'undefined' ? 'Token present' : 'Token not present');
+
             // Assign to the global appId variable
             appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
 
-            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // Authenticate user with custom token if provided by Canvas, otherwise anonymously
+            // Check if essential Firebase config values are provided
+            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain && firebaseConfig.appId) {
                 try {
+                    app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+                    console.log("Firebase initialized successfully.");
+
+                    // Authenticate user with custom token if provided by Canvas, otherwise anonymously
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
                         userId = userCredential.user.uid;
@@ -1215,6 +1266,7 @@
                         userId = userCredential.user.uid;
                         console.log("Firebase signed in anonymously:", userId);
                     }
+
                     // After initial sign-in, set up auth state listener and attach Firebase-dependent event listeners
                     onAuthStateChanged(auth, (user) => {
                         if (user) {
@@ -1235,15 +1287,15 @@
                     attachFirebaseEventListeners();
 
                 } catch (error) {
-                    console.error("Error during initial Firebase authentication:", error);
-                    showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    console.error("Error during Firebase initialization or initial authentication:", error);
+                    showMessageBox("Authentication Error", "Failed to initialize Firebase or authenticate. Some features may not be available. Check console for details.");
                     // Hide all admin panels if Firebase auth fails
                     document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
                     document.getElementById('auth-section').classList.add('hidden');
                 }
             } else {
-                console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
-                showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
+                console.error("Firebase config is incomplete. Please ensure all API keys, project IDs, and auth domains are correctly set.");
+                showMessageBox("Configuration Error", "Firebase is not fully configured. Admin and data management features will be disabled. Check console for details.");
                 // Hide all admin panels if Firebase is not initialized
                 document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
                 document.getElementById('auth-section').classList.add('hidden');
@@ -1364,6 +1416,12 @@
         const cancelEditGalleryBtn = document.getElementById('cancel-edit-gallery-btn');
         const galleryDisplay = document.getElementById('gallery-display');
         const galleryLoading = document.getElementById('gallery-loading');
+        // New Gallery Image Modal Elements
+        const galleryImageModal = document.getElementById('gallery-image-modal');
+        const galleryImageModalCloseButton = document.querySelector('#gallery-image-modal .modal-close-button');
+        const galleryModalImage = document.getElementById('gallery-modal-image');
+        const galleryModalCaption = document.getElementById('gallery-modal-caption');
+
 
         // Blog Elements
         const blogAdminPanel = document.getElementById('blog-admin-panel');
@@ -1393,7 +1451,12 @@
 
 
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
-        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBEAh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
+        // To get these:
+        // 1. Go to your Google Form.
+        // 2. Click "Send" -> "Embed HTML" tab. Copy the 'src' URL from the iframe.
+        // 3. For field IDs, click "Send" -> "Get pre-filled link". Fill out a test entry, then copy the link.
+        //    The field IDs will be in the URL (e.g., entry.123456789).
+        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // <--- REPLACE THIS
         const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
             course: "entry.1828229222",
             studentName: "entry.40854499",
@@ -1402,8 +1465,8 @@
             email: "entry.352430613",
             message: "entry.341859473"
         };
-        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // Replace with your contact form action URL
-        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // Replace with your newsletter form action URL
+        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // <--- REPLACE THIS
+        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // <--- REPLACE THIS
         const YOUR_NAME_FIELD_ID = "320465823";
         const YOUR_EMAIL_FIELD_ID = "196734286";
         const YOUR_MESSAGE_FIELD_ID = "1567514947";
@@ -1441,6 +1504,13 @@
             const targetSection = document.getElementById(pageId);
             if (targetSection) {
                 targetSection.classList.remove('hidden');
+                // If the contact page is rendered, also ensure the map container is visible
+                if (pageId === 'contact') {
+                    const googleMapsContainer = document.getElementById('google-maps-container');
+                    if (googleMapsContainer) {
+                        googleMapsContainer.classList.remove('hidden');
+                    }
+                }
                 // Scroll to top of the new page
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
@@ -1480,14 +1550,12 @@
                 messageBoxOkBtn.addEventListener('click', currentConfirmCallback);
 
                 // Add a "No" button for confirmation if it doesn't exist
-                let newNoBtn = document.getElementById('message-box-no-btn');
-                if (!newNoBtn) {
-                    newNoBtn = document.createElement('button');
-                    newNoBtn.id = 'message-box-no-btn';
-                    newNoBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
-                    newNoBtn.textContent = 'No';
-                    messageBoxOkBtn.parentNode.appendChild(newNoBtn);
-                }
+                let newNoBtn = document.createElement('button'); // Create new button
+                newNoBtn.id = 'message-box-no-btn';
+                newNoBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
+                newNoBtn.textContent = 'No';
+                messageBoxOkBtn.parentNode.appendChild(newNoBtn);
+
                 newNoBtn.addEventListener('click', hideMessageBox); // No button always just hides
                 newNoBtn.classList.remove('hidden');
             } else {
@@ -1579,9 +1647,12 @@
                             }
                         }, 100); // Small delay to allow page render
                     } else {
-                        e.preventDefault(); // Prevent default anchor link behavior
-                        const pageId = link.getAttribute('href').substring(1);
-                        renderPage(pageId);
+                        // Prevent default anchor link behavior only if it's an internal link
+                        if (link.getAttribute('href').startsWith('#')) {
+                            e.preventDefault();
+                            const pageId = link.getAttribute('href').substring(1);
+                            renderPage(pageId);
+                        }
                     }
 
                     // Close hamburger menu on mobile after clicking a link
@@ -1596,15 +1667,15 @@
                 });
             });
 
-            // Handle dropdown toggle for mobile
-            const dropdowns = document.querySelectorAll('.navbar-links .dropdown');
-            dropdowns.forEach(dropdown => {
-                const dropdownToggle = dropdown.querySelector('a[href="#courses"]'); // The main "Courses" link
+            // Handle dropdown toggle for mobile for ALL dropdowns
+            const allDropdowns = document.querySelectorAll('.navbar-links .dropdown');
+            allDropdowns.forEach(dropdown => {
+                const dropdownToggle = dropdown.querySelector('a'); // The first anchor in the dropdown li
                 if (dropdownToggle) {
                     dropdownToggle.addEventListener('click', (e) => {
                         // Only toggle dropdown if on mobile (hamburger menu active)
-                        if (window.innerWidth < 768) {
-                            e.preventDefault(); // Prevent navigating to #courses directly on mobile
+                        if (window.innerWidth < 768 && !dropdownToggle.dataset.courseFilter) { // Don't prevent default for course filters
+                            e.preventDefault(); // Prevent navigating to # directly for the "More" dropdown
                             dropdown.classList.toggle('active');
                         }
                     });
@@ -1660,6 +1731,7 @@
 
         // Toggle hamburger menu on click
         hamburgerButton.addEventListener('click', () => {
+            console.log("Hamburger button clicked!"); // Added for debugging
             navbarLinks.classList.toggle('active');
         });
 
@@ -1693,6 +1765,7 @@
             button.addEventListener('click', () => {
                 const courseName = button.dataset.course;
                 modalCourseName.textContent = courseName;
+                // Construct the Google Form URL with pre-filled course name
                 const formUrl = `${GOOGLE_FORM_ENROLLMENT_BASE_URL}&${GOOGLE_FORM_ENROLLMENT_FIELD_IDS.course}=${encodeURIComponent(courseName)}`;
                 enrollmentGoogleFormIframe.src = formUrl;
                 enrollmentModal.classList.add('active');
@@ -1701,13 +1774,13 @@
 
         modalCloseButton.addEventListener('click', () => {
             enrollmentModal.classList.remove('active');
-            enrollmentGoogleFormIframe.src = "";
+            enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
         });
 
         enrollmentModal.addEventListener('click', (e) => {
             if (e.target === enrollmentModal) {
                 enrollmentModal.classList.remove('active');
-                enrollmentGoogleFormIframe.src = "";
+                enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
             }
         });
 
@@ -1731,6 +1804,21 @@
                 blogDetailModal.classList.remove('active');
                 blogDetailImage.classList.add('hidden'); // Hide image when closing
                 blogDetailImage.src = ''; // Clear image src
+            }
+        });
+
+        // Gallery Image Modal Event Listeners (New)
+        galleryImageModalCloseButton.addEventListener('click', () => {
+            galleryImageModal.classList.remove('active');
+            galleryModalImage.src = ''; // Clear image src
+            galleryModalCaption.textContent = ''; // Clear caption
+        });
+
+        galleryImageModal.addEventListener('click', (e) => {
+            if (e.target === galleryImageModal) {
+                galleryImageModal.classList.remove('active');
+                galleryModalImage.src = ''; // Clear image src
+                galleryModalCaption.textContent = ''; // Clear caption
             }
         });
 
@@ -1924,6 +2012,12 @@
                 }
             });
 
+            cancelEditBookBtn.addEventListener('click', () => {
+                addEditBookForm.reset();
+                bookIdInput.value = '';
+                cancelEditBookBtn.classList.add('hidden');
+            });
+
             addProblemForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAdmin) {
@@ -1956,6 +2050,12 @@
                 }
             });
 
+            cancelEditProblemBtn.addEventListener('click', () => {
+                addProblemForm.reset();
+                problemIdInput.value = '';
+                cancelEditProblemBtn.classList.add('hidden');
+            });
+
             addGalleryForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAdmin) {
@@ -1984,6 +2084,12 @@
                     console.error("Error saving gallery post: ", e);
                     showMessageBox("Error", "Error saving gallery post. Please try again.");
                 }
+            });
+
+            cancelEditGalleryBtn.addEventListener('click', () => {
+                addGalleryForm.reset();
+                galleryPostIdInput.value = '';
+                cancelEditGalleryBtn.classList.add('hidden');
             });
 
             addBlogForm.addEventListener('submit', async (e) => {
@@ -2015,6 +2121,12 @@
                     console.error("Error saving blog post: ", e);
                     showMessageBox("Error", "Error saving blog post. Please try again.");
                 }
+            });
+
+            cancelEditBlogBtn.addEventListener('click', () => {
+                addBlogForm.reset();
+                blogPostIdInput.value = '';
+                cancelEditBlogBtn.classList.add('hidden');
             });
 
             // This function is called after Firebase is initialized and authenticated
@@ -2102,12 +2214,6 @@
                 showMessageBox("Error", "Error fetching book data for editing.");
             }
         }
-
-        cancelEditBookBtn.addEventListener('click', () => {
-            addEditBookForm.reset();
-            bookIdInput.value = '';
-            cancelEditBookBtn.classList.add('hidden');
-        });
 
         async function deleteBook(id) {
             if (!isAdmin) {
@@ -2214,12 +2320,6 @@
             }
         }
 
-        cancelEditProblemBtn.addEventListener('click', () => {
-            addProblemForm.reset();
-            problemIdInput.value = '';
-            cancelEditProblemBtn.classList.add('hidden');
-        });
-
         async function deleteProblem(id) {
             if (!isAdmin) {
                 showMessageBox("Permission Denied", "You must be logged in as an admin to delete problems.");
@@ -2247,7 +2347,9 @@
                 snapshot.forEach((doc) => {
                     const post = doc.data();
                     const postElement = document.createElement('div');
-                    postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800';
+                    postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800 cursor-pointer'; // Added cursor-pointer
+                    postElement.setAttribute('data-image-url', post.imageUrl); // Add data attributes for modal
+                    postElement.setAttribute('data-caption', post.caption);
                     postElement.innerHTML = `
                         <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
                         <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -2263,6 +2365,19 @@
                     galleryDisplay.appendChild(postElement);
                 });
 
+                // Add event listeners for gallery image clicks to open modal
+                document.querySelectorAll('#gallery-display > div').forEach(galleryItem => {
+                    galleryItem.addEventListener('click', (e) => {
+                        // Prevent opening modal if edit/delete button was clicked
+                        if (e.target.classList.contains('edit-gallery-btn') || e.target.classList.contains('delete-gallery-btn')) {
+                            return;
+                        }
+                        const imageUrl = galleryItem.dataset.imageUrl;
+                        const caption = galleryItem.dataset.caption;
+                        showGalleryImageDetail(imageUrl, caption);
+                    });
+                });
+
                 if (isAdmin) {
                     document.querySelectorAll('.edit-gallery-btn').forEach(button => {
                         button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
@@ -2273,6 +2388,16 @@
                 }
             }
             galleryLoading.classList.add('hidden');
+        }
+
+        // Function to show gallery image in modal (New)
+        function showGalleryImageDetail(imageUrl, caption) {
+            galleryModalImage.src = imageUrl;
+            galleryModalImage.onerror = () => {
+                galleryModalImage.src = 'https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';
+            };
+            galleryModalCaption.textContent = caption;
+            galleryImageModal.classList.add('active');
         }
 
         async function editGalleryPost(id) {
@@ -2299,12 +2424,6 @@
                 showMessageBox("Error", "Error fetching gallery post data for editing.");
             }
         }
-
-        cancelEditGalleryBtn.addEventListener('click', () => {
-            addGalleryForm.reset();
-            galleryPostIdInput.value = '';
-            cancelEditGalleryBtn.classList.add('hidden');
-        });
 
         async function deleteGalleryPost(id) {
             if (!isAdmin) {
@@ -2417,12 +2536,6 @@
                 showMessageBox("Error", "Error fetching blog post data for editing.");
             }
         }
-
-        cancelEditBlogBtn.addEventListener('click', () => {
-            addBlogForm.reset();
-            blogPostIdInput.value = '';
-            cancelEditBlogBtn.classList.add('hidden');
-        });
 
         async function deleteBlogPost(id) {
             if (!isAdmin) {
