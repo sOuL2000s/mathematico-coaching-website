@@ -845,12 +845,12 @@
                             </div>
                             <div class="mb-4">
                                 <label for="contact-email" class="sr-only">Your Email</label>
-                                <input type="email" id="contact-email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <input type="email" id="contact-email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                   dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             </div>
                             <div class="mb-6">
                                 <label for="contact-message" class="sr-only">Your Message</label>
-                                <textarea id="contact-message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <textarea id="contact-message" rows="5" name="entry.YOUR_MESSAGE_FIELD_ID" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105" aria-label="Send your message">
@@ -908,7 +908,7 @@
                         <!-- Google Form for Newsletter -->
                         <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4">
                             <label for="newsletter-email" class="sr-only">Email address</label>
-                            <input type="email" id="newsletter-email" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Subscribe to newsletter">Subscribe</button>
                         </form>
@@ -1229,6 +1229,8 @@
         async function initializeFirebaseAndListeners() {
             // Firebase configuration and initialization
             // IMPORTANT: Replace with your actual Firebase project configuration
+            // You can find these values in your Firebase project console:
+            // Project settings -> General -> Your apps -> Web app -> Firebase SDK snippet (Config)
             const firebaseConfig = {
                 apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
                 authDomain: "mathematico-website.firebaseapp.com",
@@ -1239,16 +1241,22 @@
                 measurementId: "G-5Z24Z4Q97Q"
             };
 
+            // Log the provided Canvas variables for debugging
+            console.log("Canvas __app_id:", typeof __app_id !== 'undefined' ? __app_id : 'undefined');
+            console.log("Canvas __initial_auth_token:", typeof __initial_auth_token !== 'undefined' ? 'Token present' : 'Token not present');
+
             // Assign to the global appId variable
             appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
 
-            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // Authenticate user with custom token if provided by Canvas, otherwise anonymously
+            // Check if essential Firebase config values are provided
+            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain && firebaseConfig.appId) {
                 try {
+                    app = initializeApp(firebaseConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+                    console.log("Firebase initialized successfully.");
+
+                    // Authenticate user with custom token if provided by Canvas, otherwise anonymously
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
                         userId = userCredential.user.uid;
@@ -1258,6 +1266,7 @@
                         userId = userCredential.user.uid;
                         console.log("Firebase signed in anonymously:", userId);
                     }
+
                     // After initial sign-in, set up auth state listener and attach Firebase-dependent event listeners
                     onAuthStateChanged(auth, (user) => {
                         if (user) {
@@ -1278,15 +1287,15 @@
                     attachFirebaseEventListeners();
 
                 } catch (error) {
-                    console.error("Error during initial Firebase authentication:", error);
-                    showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    console.error("Error during Firebase initialization or initial authentication:", error);
+                    showMessageBox("Authentication Error", "Failed to initialize Firebase or authenticate. Some features may not be available. Check console for details.");
                     // Hide all admin panels if Firebase auth fails
                     document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
                     document.getElementById('auth-section').classList.add('hidden');
                 }
             } else {
-                console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
-                showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
+                console.error("Firebase config is incomplete. Please ensure all API keys, project IDs, and auth domains are correctly set.");
+                showMessageBox("Configuration Error", "Firebase is not fully configured. Admin and data management features will be disabled. Check console for details.");
                 // Hide all admin panels if Firebase is not initialized
                 document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
                 document.getElementById('auth-section').classList.add('hidden');
@@ -1442,7 +1451,12 @@
 
 
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
-        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBEAh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
+        // To get these:
+        // 1. Go to your Google Form.
+        // 2. Click "Send" -> "Embed HTML" tab. Copy the 'src' URL from the iframe.
+        // 3. For field IDs, click "Send" -> "Get pre-filled link". Fill out a test entry, then copy the link.
+        //    The field IDs will be in the URL (e.g., entry.123456789).
+        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // <--- REPLACE THIS
         const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
             course: "entry.1828229222",
             studentName: "entry.40854499",
@@ -1451,8 +1465,8 @@
             email: "entry.352430613",
             message: "entry.341859473"
         };
-        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // Replace with your contact form action URL
-        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // Replace with your newsletter form action URL
+        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // <--- REPLACE THIS
+        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // <--- REPLACE THIS
         const YOUR_NAME_FIELD_ID = "320465823";
         const YOUR_EMAIL_FIELD_ID = "196734286";
         const YOUR_MESSAGE_FIELD_ID = "1567514947";
@@ -1751,6 +1765,7 @@
             button.addEventListener('click', () => {
                 const courseName = button.dataset.course;
                 modalCourseName.textContent = courseName;
+                // Construct the Google Form URL with pre-filled course name
                 const formUrl = `${GOOGLE_FORM_ENROLLMENT_BASE_URL}&${GOOGLE_FORM_ENROLLMENT_FIELD_IDS.course}=${encodeURIComponent(courseName)}`;
                 enrollmentGoogleFormIframe.src = formUrl;
                 enrollmentModal.classList.add('active');
@@ -1759,13 +1774,13 @@
 
         modalCloseButton.addEventListener('click', () => {
             enrollmentModal.classList.remove('active');
-            enrollmentGoogleFormIframe.src = "";
+            enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
         });
 
         enrollmentModal.addEventListener('click', (e) => {
             if (e.target === enrollmentModal) {
                 enrollmentModal.classList.remove('active');
-                enrollmentGoogleFormIframe.src = "";
+                enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
             }
         });
 
