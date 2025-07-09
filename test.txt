@@ -210,26 +210,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Admin Mode Indicator */
-        .admin-indicator {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ef4444; /* Red-500 */
-            color: white;
-            padding: 0.5rem 1rem;
-            border-bottom-left-radius: 0.5rem;
-            border-bottom-right-radius: 0.5rem;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            display: none; /* Hidden by default */
-        }
-        .admin-indicator.active {
-            display: block;
-        }
     </style>
 
     <!-- SEO Meta Tags -->
@@ -254,11 +234,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 ease-in-out">
 
-    <!-- Admin Mode Indicator -->
-    <div id="admin-mode-indicator" class="admin-indicator">
-        ADMIN MODE
-    </div>
-
     <header class="bg-white shadow-lg py-4 sticky top-0 z-50 rounded-b-lg
                    dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative px-6 md:px-12">
@@ -276,23 +251,21 @@
                     </svg>
                 </button>
             </div>
-            <!-- Adjusted space-x for better fit -->
-            <ul id="navbar-links" class="md:flex space-x-2 md:space-x-4 text-lg font-medium">
-                <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Home section">Home</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to About Us section">About Us</a></li>
-                <li><a href="#courses" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Courses section">Courses</a></li>
-                <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Features section">Features</a></li>
+            <ul id="navbar-links" class="md:flex space-x-4 md:space-x-8 text-lg font-medium">
+                <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Home section">Home</a></li>
+                <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to About Us section">About Us</a></li>
+                <li><a href="#courses" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Courses section">Courses</a></li>
+                <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Features section">Features</a></li>
                 <!-- Updated navigation links for new pages -->
-                <li><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Book List page">Book List</a></li>
-                <li><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Problems page">Problems</a></li>
-                <li><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Gallery page">Gallery</a></li>
-                <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Testimonials section">Testimonials</a></li>
-                <li><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Success Stories section">Success Stories</a></li>
-                <li><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to FAQ section">FAQ</a></li>
-                <li><a href="#blog-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Blog section">Blog</a></li>
-                <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Contact section">Contact</a></li>
-                <li><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Useful Links section">Links</a></li>
-                <li><a href="#admin-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Admin section">Admin</a></li>
+                <li><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Book List page">Book List</a></li>
+                <li><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Problems page">Problems</a></li>
+                <li><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Gallery page">Gallery</a></li>
+                <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Testimonials section">Testimonials</a></li>
+                <li><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Success Stories section">Success Stories</a></li>
+                <li><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to FAQ section">FAQ</a></li>
+                <li><a href="#blog" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Blog section">Blog</a></li>
+                <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Contact section">Contact</a></li>
+                <li><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-3 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Useful Links section">Links</a></li>
                 <li>
                     <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                          dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
@@ -621,6 +594,34 @@
             </div>
         </section>
 
+        <!-- Blog Section -->
+        <section id="blog" class="page-section py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
+                       dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
+            <div class="container mx-auto px-6 md:px-12 text-center">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Blog & Articles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <article class="bg-gray-50 p-6 rounded-xl shadow-lg text-left
+                                    dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">Top 5 Tips for Cracking Olympiads</h3>
+                        <p class="text-gray-600 mb-4 dark:text-gray-300">Learn effective strategies to prepare for and excel in Mathematics Olympiads.</p>
+                        <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Read more about cracking Olympiads">Read More &rarr;</a>
+                    </article>
+                    <article class="bg-gray-50 p-6 rounded-xl shadow-lg text-left
+                                    dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">CBSE vs ICSE Maths – What’s the Difference?</h3>
+                        <p class="text-gray-600 mb-4 dark:text-gray-300">A detailed comparison of mathematics syllabi and approaches in CBSE and ICSE boards.</p>
+                        <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Read more about CBSE vs ICSE Maths">Read More &rarr;</a>
+                    </article>
+                    <article class="bg-gray-50 p-6 rounded-xl shadow-lg text-left
+                                    dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">How to Build a Solid Foundation in Class 9 Algebra</h3>
+                        <p class="text-gray-600 mb-4 dark:text-gray-300">Essential tips and techniques for mastering algebra in early high school years.</p>
+                        <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Read more about Class 9 Algebra foundation">Read More &rarr;</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact" class="page-section py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
                        dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
@@ -780,8 +781,16 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100">Book List</h2>
 
+                <!-- Admin Login Section for Book List -->
+                <div id="book-list-admin-login" class="admin-login-section bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Admin Login for Book List</h3>
+                    <input type="password" id="book-list-admin-password" placeholder="Admin Password" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 mb-4">
+                    <button id="book-list-login-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Login as Admin</button>
+                    <p id="book-list-login-message" class="text-red-500 mt-2 hidden">Incorrect password.</p>
+                </div>
+
                 <!-- Admin Add/Edit Book Form (visible only to admin) -->
-                <div id="book-list-admin-panel" class="admin-panel hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                <div id="book-list-admin-panel" class="hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Add/Edit Book</h3>
                     <form id="add-edit-book-form" class="text-left">
                         <input type="hidden" id="book-id">
@@ -824,8 +833,16 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100">Practice Problems</h2>
 
+                <!-- Admin Login Section for Problems -->
+                <div id="problems-admin-login" class="admin-login-section bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Admin Login for Problems</h3>
+                    <input type="password" id="problems-admin-password" placeholder="Admin Password" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 mb-4">
+                    <button id="problems-login-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Login as Admin</button>
+                    <p id="problems-login-message" class="text-red-500 mt-2 hidden">Incorrect password.</p>
+                </div>
+
                 <!-- Admin Add Problem Form (visible only to admin) -->
-                <div id="problems-admin-panel" class="admin-panel hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                <div id="problems-admin-panel" class="hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Add New Problem</h3>
                     <form id="add-problem-form" class="text-left">
                         <input type="hidden" id="problem-id">
@@ -871,8 +888,16 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100">Our Gallery</h2>
 
+                <!-- Admin Login Section for Gallery -->
+                <div id="gallery-admin-login" class="admin-login-section bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Admin Login for Gallery</h3>
+                    <input type="password" id="gallery-admin-password" placeholder="Admin Password" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 mb-4">
+                    <button id="gallery-login-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Login as Admin</button>
+                    <p id="gallery-login-message" class="text-red-500 mt-2 hidden">Incorrect password.</p>
+                </div>
+
                 <!-- Admin Add Gallery Post Form (visible only to admin) -->
-                <div id="gallery-admin-panel" class="admin-panel hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
+                <div id="gallery-admin-panel" class="hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Add New Gallery Post</h3>
                     <form id="add-gallery-form" class="text-left">
                         <input type="hidden" id="gallery-post-id">
@@ -897,94 +922,6 @@
             </div>
         </section>
 
-        <!-- Blog Page -->
-        <section id="blog-page" class="page-section hidden py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8
-                       dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
-            <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100">Our Blog & Articles</h2>
-
-                <!-- Admin Add Blog Post Form (visible only to admin) -->
-                <div id="blog-admin-panel" class="admin-panel hidden bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Add New Blog Post</h3>
-                    <form id="add-blog-form" class="text-left">
-                        <input type="hidden" id="blog-post-id">
-                        <div class="mb-4">
-                            <label for="blog-title" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Title:</label>
-                            <input type="text" id="blog-title" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="blog-image-url" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Image URL (Optional):</label>
-                            <input type="url" id="blog-image-url" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
-                        </div>
-                        <div class="mb-4">
-                            <label for="blog-content" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Content:</label>
-                            <textarea id="blog-content" rows="10" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
-                        </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Save Blog Post</button>
-                        <button type="button" id="cancel-edit-blog-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
-                    </form>
-                </div>
-
-                <!-- Blog Posts Display -->
-                <div id="blog-display" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <p id="blog-loading" class="text-gray-600 dark:text-gray-300 text-center col-span-full">Loading blog posts... <span class="spinner"></span></p>
-                    <!-- Blog posts will be dynamically loaded here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Page -->
-        <section id="admin-page" class="page-section hidden py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto max-w-6xl mt-8 mb-8
-                       dark:bg-gray-950 dark:shadow-xl transition-colors duration-300 ease-in-out">
-            <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100">Admin Panel</h2>
-
-                <!-- Admin Authentication Section -->
-                <div id="auth-section" class="bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800 max-w-md mx-auto">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100" id="auth-heading">Admin Login</h3>
-
-                    <div id="login-form-container">
-                        <div class="mb-4">
-                            <label for="admin-email" class="sr-only">Email</label>
-                            <input type="email" id="admin-email" placeholder="Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="admin-password" class="sr-only">Password</label>
-                            <input type="password" id="admin-password" placeholder="Password" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                        </div>
-                        <button id="login-btn" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out mb-4">Login</button>
-                        <button id="google-login-btn" class="w-full bg-red-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out flex items-center justify-center gap-2 mb-4">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.24 10.285V11.85h2.956c-.134 1.54-.888 2.766-2.956 2.766-1.72 0-3.12-1.398-3.12-3.12s1.4-3.12 3.12-3.12c.884 0 1.637.368 2.22 1.01L15.99 7.74c-1.01-1.01-2.31-1.637-3.75-1.637-3.12 0-5.64 2.52-5.64 5.64s2.52 5.64 5.64 5.64c3.12 0 5.42-2.26 5.42-5.54 0-.39-.03-.76-.08-1.12h-5.34z" fill="#fff"/></svg>
-                            Sign in with Google
-                        </button>
-                        <button id="register-toggle-btn" class="w-full bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out mb-4">Register</button>
-                        <button id="forgot-password-btn" class="w-full text-indigo-600 hover:underline text-md font-semibold dark:text-indigo-400">Forgot Password?</button>
-                        <p id="auth-message" class="text-red-500 mt-4 hidden"></p>
-                    </div>
-
-                    <div id="register-form-container" class="hidden">
-                        <div class="mb-4">
-                            <label for="register-email" class="sr-only">Email</label>
-                            <input type="email" id="register-email" placeholder="Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="register-password" class="sr-only">Password</label>
-                            <input type="password" id="register-password" placeholder="Password" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                        </div>
-                        <button id="register-btn" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out mb-4">Register</button>
-                        <button id="login-toggle-btn" class="w-full bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out">Back to Login</button>
-                        <p id="register-message" class="text-red-500 mt-4 hidden"></p>
-                    </div>
-
-                    <div id="admin-dashboard" class="hidden">
-                        <p class="text-gray-700 dark:text-gray-300 mb-4">Welcome, <span id="user-email-display" class="font-bold"></span>!</p>
-                        <p class="text-gray-700 dark:text-gray-300 mb-6">Your User ID: <span id="user-id-display" class="font-mono text-sm break-all"></span></p>
-                        <button id="logout-btn" class="w-full bg-red-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-red-700 transition duration-300 ease-in-out">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- Floating WhatsApp CTA Button -->
@@ -992,7 +929,7 @@
         <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-10 h-10">
     </a>
 
-    <!-- Scroll-to-top Button -->
+    <!-- Scroll-to-Top Button -->
     <button id="scroll-to-top" aria-label="Scroll to top">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
@@ -1009,25 +946,13 @@
         </div>
     </div>
 
-    <!-- Message Box Modal -->
-    <div id="message-box-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="message-box-title">
-        <div class="modal-content max-w-sm h-auto">
-            <button class="modal-close-button" aria-label="Close message box">&times;</button>
-            <h3 id="message-box-title" class="text-xl font-bold text-gray-900 mb-4 dark:text-gray-100"></h3>
-            <p id="message-box-content" class="text-gray-700 dark:text-gray-300 mb-4"></p>
-            <button id="message-box-ok-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">OK</button>
-        </div>
-    </div>
-
-
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Firebase configuration and initialization
-        // IMPORTANT: Replace with your actual Firebase project configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
             authDomain: "mathematico-website.firebaseapp.com",
@@ -1037,127 +962,65 @@
             appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
             measurementId: "G-5Z24Z4Q97Q"
         };
-
-        const appId = firebaseConfig.projectId; // Use Canvas provided app ID or default
+        const appId = firebaseConfig.projectId;
 
         let app;
         let db;
         let auth;
         let userId = 'anonymous'; // Default to anonymous
-        let isAdmin = false; // Global flag for admin status
 
-        // Admin User IDs (for demonstration, in a real app, manage roles in Firestore)
-        // For example, you could have a 'users' collection where each user document has a 'role' field.
-        // const ADMIN_USER_IDS = ["admin_uid_1", "admin_uid_2"]; // Example admin UIDs
+        // Admin credentials (for demonstration - NOT SECURE for production)
+        const ADMIN_PASSWORD_BOOK_LIST = "adminbooks123";
+        const ADMIN_PASSWORD_PROBLEMS = "adminproblems123";
+        const ADMIN_PASSWORD_GALLERY = "admingallery123";
+
+        let isAdminBookList = false;
+        let isAdminProblems = false;
+        let isAdminGallery = false;
 
         // Initialize Firebase
-        if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
+        if (Object.keys(firebaseConfig).length > 0) {
             app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
 
-            // Authenticate user with custom token if provided by Canvas, otherwise anonymously
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            // Authenticate user
+            if (typeof __initial_auth_token !== 'undefined') {
                 signInWithCustomToken(auth, __initial_auth_token).then((userCredential) => {
                     userId = userCredential.user.uid;
                     console.log("Firebase signed in with custom token:", userId);
-                    checkAdminStatus(userCredential.user);
+                    // Load data after successful authentication
+                    loadBooks();
+                    loadProblems();
+                    loadGallery();
                 }).catch((error) => {
                     console.error("Error signing in with custom token:", error);
                     signInAnonymously(auth).then((userCredential) => {
                         userId = userCredential.user.uid;
                         console.log("Firebase signed in anonymously:", userId);
-                        checkAdminStatus(userCredential.user);
+                        loadBooks();
+                        loadProblems();
+                        loadGallery();
                     }).catch((anonError) => {
                         console.error("Error signing in anonymously:", anonError);
-                        showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
                     });
                 });
             } else {
                 signInAnonymously(auth).then((userCredential) => {
                     userId = userCredential.user.uid;
                     console.log("Firebase signed in anonymously:", userId);
-                    checkAdminStatus(userCredential.user);
+                    loadBooks();
+                    loadProblems();
+                    loadGallery();
                 }).catch((error) => {
                     console.error("Error signing in anonymously:", error);
-                    showMessageBox("Authentication Error", "Failed to authenticate anonymously. Some features may not be available.");
                 });
             }
         } else {
-            console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
-            showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
-            // Hide all admin panels if Firebase is not initialized
-            document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
-            document.getElementById('auth-section').classList.add('hidden');
+            console.warn("Firebase config not found. Firestore features will not work.");
+            // Hide admin panels if Firestore is not initialized
+            document.querySelectorAll('.admin-login-section').forEach(el => el.style.display = 'none');
         }
-
-        // Function to check admin status (using a Firestore 'roles' collection for flexibility)
-        async function checkAdminStatus(user) {
-            if (!db || !user) {
-                isAdmin = false;
-                updateAdminUI();
-                return;
-            }
-            try {
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${user.uid}`);
-                const userDocSnap = await getDoc(userDocRef);
-                if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
-                    isAdmin = true;
-                    console.log("User is an admin.");
-                } else {
-                    isAdmin = false;
-                    console.log("User is not an admin or role not set.");
-                }
-            } catch (e) {
-                console.error("Error checking admin status:", e);
-                isAdmin = false;
-            }
-            updateAdminUI();
-            initializeFirestoreListeners(); // Initialize listeners after auth state and admin status are known
-        }
-
-        // Function to update UI based on admin status
-        function updateAdminUI() {
-            const adminPanels = document.querySelectorAll('.admin-panel');
-            const adminIndicator = document.getElementById('admin-mode-indicator');
-            const authSection = document.getElementById('auth-section');
-            const loginFormContainer = document.getElementById('login-form-container');
-            const registerFormContainer = document.getElementById('register-form-container');
-            const adminDashboard = document.getElementById('admin-dashboard');
-            const userEmailDisplay = document.getElementById('user-email-display');
-            const userIdDisplay = document.getElementById('user-id-display');
-            const authHeading = document.getElementById('auth-heading');
-
-            if (isAdmin) {
-                adminPanels.forEach(panel => panel.classList.remove('hidden'));
-                adminIndicator.classList.add('active');
-                if (auth.currentUser) {
-                    authHeading.textContent = "Admin Dashboard";
-                    loginFormContainer.classList.add('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.remove('hidden');
-                    userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
-                    userIdDisplay.textContent = auth.currentUser.uid;
-                }
-            } else {
-                adminPanels.forEach(panel => panel.classList.add('hidden'));
-                adminIndicator.classList.remove('active');
-                if (auth.currentUser && !auth.currentUser.isAnonymous) { // Logged in but not admin
-                    authHeading.textContent = "User Profile";
-                    loginFormContainer.classList.add('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.remove('hidden');
-                    userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
-                    userIdDisplay.textContent = auth.currentUser.uid;
-                } else { // Not logged in or anonymous
-                    authHeading.textContent = "Admin Login";
-                    loginFormContainer.classList.remove('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.add('hidden');
-                }
-            }
-        }
-
 
         // --- DOM Elements ---
         const themeToggle = document.getElementById('theme-toggle');
@@ -1168,7 +1031,7 @@
         const navbarLinks = document.getElementById('navbar-links');
         const scrollToTopButton = document.getElementById('scroll-to-top');
         const enrollmentModal = document.getElementById('enrollment-modal');
-        const modalCloseButton = document.querySelector('#enrollment-modal .modal-close-button');
+        const modalCloseButton = document.querySelector('.modal-close-button');
         const enrollButtons = document.querySelectorAll('.enroll-button');
         const modalCourseName = document.getElementById('modal-course-name');
         const enrollmentGoogleFormIframe = document.getElementById('enrollment-google-form-iframe');
@@ -1176,24 +1039,11 @@
         const mainContentContainer = document.getElementById('main-content-container');
         const pageSections = document.querySelectorAll('.page-section');
 
-        // Admin Auth Elements
-        const adminEmailInput = document.getElementById('admin-email');
-        const adminPasswordInput = document.getElementById('admin-password');
-        const loginBtn = document.getElementById('login-btn');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const registerToggleBtn = document.getElementById('register-toggle-btn');
-        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
-        const authMessage = document.getElementById('auth-message');
-
-        const registerEmailInput = document.getElementById('register-email');
-        const registerPasswordInput = document.getElementById('register-password');
-        const registerBtn = document.getElementById('register-btn');
-        const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const registerMessage = document.getElementById('register-message');
-
-        const logoutBtn = document.getElementById('logout-btn');
-
         // Book List Elements
+        const bookListAdminLogin = document.getElementById('book-list-admin-login');
+        const bookListAdminPasswordInput = document.getElementById('book-list-admin-password');
+        const bookListLoginBtn = document.getElementById('book-list-login-btn');
+        const bookListLoginMessage = document.getElementById('book-list-login-message');
         const bookListAdminPanel = document.getElementById('book-list-admin-panel');
         const addEditBookForm = document.getElementById('add-edit-book-form');
         const bookIdInput = document.getElementById('book-id');
@@ -1207,6 +1057,10 @@
         const bookListLoading = document.getElementById('book-list-loading');
 
         // Problems Elements
+        const problemsAdminLogin = document.getElementById('problems-admin-login');
+        const problemsAdminPasswordInput = document.getElementById('problems-admin-password');
+        const problemsLoginBtn = document.getElementById('problems-login-btn');
+        const problemsLoginMessage = document.getElementById('problems-login-message');
         const problemsAdminPanel = document.getElementById('problems-admin-panel');
         const addProblemForm = document.getElementById('add-problem-form');
         const problemIdInput = document.getElementById('problem-id');
@@ -1219,6 +1073,10 @@
         const problemsLoading = document.getElementById('problems-loading');
 
         // Gallery Elements
+        const galleryAdminLogin = document.getElementById('gallery-admin-login');
+        const galleryAdminPasswordInput = document.getElementById('gallery-admin-password');
+        const galleryLoginBtn = document.getElementById('gallery-login-btn');
+        const galleryLoginMessage = document.getElementById('gallery-login-message');
         const galleryAdminPanel = document.getElementById('gallery-admin-panel');
         const addGalleryForm = document.getElementById('add-gallery-form');
         const galleryPostIdInput = document.getElementById('gallery-post-id');
@@ -1228,27 +1086,9 @@
         const galleryDisplay = document.getElementById('gallery-display');
         const galleryLoading = document.getElementById('gallery-loading');
 
-        // Blog Elements
-        const blogAdminPanel = document.getElementById('blog-admin-panel');
-        const addBlogForm = document.getElementById('add-blog-form');
-        const blogPostIdInput = document.getElementById('blog-post-id');
-        const blogTitleInput = document.getElementById('blog-title');
-        const blogImageUrlInput = document.getElementById('blog-image-url');
-        const blogContentInput = document.getElementById('blog-content');
-        const cancelEditBlogBtn = document.getElementById('cancel-edit-blog-btn');
-        const blogDisplay = document.getElementById('blog-display');
-        const blogLoading = document.getElementById('blog-loading');
-
-        // Message Box Elements
-        const messageBoxModal = document.getElementById('message-box-modal');
-        const messageBoxTitle = document.getElementById('message-box-title');
-        const messageBoxContent = document.getElementById('message-box-content');
-        const messageBoxOkBtn = document.getElementById('message-box-ok-btn');
-        const messageBoxCloseButton = document.querySelector('#message-box-modal .modal-close-button');
-
 
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
-        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
+        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"; // Example URL
         const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
             course: "entry.YOUR_COURSE_FIELD_ID",
             studentName: "entry.YOUR_STUDENT_NAME_FIELD_ID",
@@ -1257,8 +1097,8 @@
             email: "entry.YOUR_EMAIL_FIELD_ID",
             message: "entry.YOUR_MESSAGE_FIELD_ID"
         };
-        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdsnzMN4IjQt-5BngRwl-pANGdsSyHDNsBpqF1axuaKd2aVyw/viewform?usp=header"; // Replace with your contact form action URL
-        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLScmXMRi3Hj0f5GMhktl1O2AgI1FthY-WJT5u5iQVdY6FfZS6g/viewform?usp=header"; // Replace with your newsletter form action URL
+        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "YOUR_CONTACT_GOOGLE_FORM_ACTION_URL"; // Replace with your contact form action URL
+        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL"; // Replace with your newsletter form action URL
         const YOUR_NAME_FIELD_ID = "YOUR_NAME_FIELD_ID";
         const YOUR_EMAIL_FIELD_ID = "YOUR_EMAIL_FIELD_ID";
         const YOUR_MESSAGE_FIELD_ID = "YOUR_MESSAGE_FIELD_ID";
@@ -1299,18 +1139,6 @@
                 // Scroll to top of the new page
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        }
-
-        // Function to show a custom message box
-        function showMessageBox(title, message) {
-            messageBoxTitle.textContent = title;
-            messageBoxContent.textContent = message;
-            messageBoxModal.classList.add('active');
-        }
-
-        // Function to hide the custom message box
-        function hideMessageBox() {
-            messageBoxModal.classList.remove('active');
         }
 
         // --- Event Listeners and Initial Setup ---
@@ -1450,210 +1278,100 @@
             }
         });
 
-        // Message Box Event Listeners
-        messageBoxOkBtn.addEventListener('click', hideMessageBox);
-        messageBoxCloseButton.addEventListener('click', hideMessageBox);
-        messageBoxModal.addEventListener('click', (e) => {
-            if (e.target === messageBoxModal) {
-                hideMessageBox();
-            }
-        });
-
-        // --- Firebase Authentication Functions ---
-
-        // Listen for auth state changes globally
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userId = user.uid;
-                console.log("Auth state changed: User is logged in.", userId);
-                checkAdminStatus(user);
+        // --- Admin Login Functions ---
+        function handleAdminLogin(passwordInput, loginMessage, adminPanel, expectedPassword, setAdminFlag) {
+            if (passwordInput.value === expectedPassword) {
+                setAdminFlag(true);
+                loginMessage.classList.add('hidden');
+                passwordInput.value = ''; // Clear password
+                passwordInput.style.display = 'none'; // Hide password input
+                passwordInput.previousElementSibling.style.display = 'none'; // Hide label if exists
+                passwordInput.nextElementSibling.style.display = 'none'; // Hide button
+                adminPanel.classList.remove('hidden');
+                console.log("Admin logged in successfully.");
             } else {
-                userId = 'anonymous';
-                isAdmin = false;
-                console.log("Auth state changed: User is logged out.");
-                updateAdminUI(); // Update UI for logged out state
+                loginMessage.classList.remove('hidden');
+                console.log("Incorrect admin password.");
             }
+        }
+
+        // Book List Admin Login
+        bookListLoginBtn.addEventListener('click', () => {
+            handleAdminLogin(bookListAdminPasswordInput, bookListLoginMessage, bookListAdminPanel, ADMIN_PASSWORD_BOOK_LIST, (val) => isAdminBookList = val);
         });
 
-        // Login with Email and Password
-        loginBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            const password = adminPasswordInput.value;
-            authMessage.classList.add('hidden');
-            if (!email || !password) {
-                authMessage.textContent = "Please enter email and password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log("Logged in:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-            } catch (error) {
-                console.error("Login error:", error.message);
-                authMessage.textContent = `Login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
+        // Problems Admin Login
+        problemsLoginBtn.addEventListener('click', () => {
+            handleAdminLogin(problemsAdminPasswordInput, problemsLoginMessage, problemsAdminPanel, ADMIN_PASSWORD_PROBLEMS, (val) => isAdminProblems = val);
         });
 
-        // Login with Google
-        googleLoginBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            authMessage.classList.add('hidden');
-            try {
-                const userCredential = await signInWithPopup(auth, provider);
-                console.log("Logged in with Google:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-                // If this is a new user, set their role to 'user' by default
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`);
-                const userDocSnap = await getDoc(userDocRef);
-                if (!userDocSnap.exists()) {
-                    await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
-                    console.log("New Google user registered with 'user' role.");
-                }
-            } catch (error) {
-                console.error("Google login error:", error.message);
-                authMessage.textContent = `Google login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
-        });
-
-        // Register with Email and Password
-        registerBtn.addEventListener('click', async () => {
-            const email = registerEmailInput.value;
-            const password = registerPasswordInput.value;
-            registerMessage.classList.add('hidden');
-            if (!email || !password) {
-                registerMessage.textContent = "Please enter email and password.";
-                registerMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("Registered:", userCredential.user.email);
-                // Set the role for the new user (default to 'user')
-                await setDoc(doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`), {
-                    role: 'user', // New users are 'user' by default
-                    email: userCredential.user.email,
-                    created_at: new Date()
-                });
-                showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
-                // Switch back to login form
-                loginFormContainer.classList.remove('hidden');
-                registerFormContainer.classList.add('hidden');
-                adminEmailInput.value = email; // Pre-fill email for login
-                adminPasswordInput.value = '';
-                registerEmailInput.value = '';
-                registerPasswordInput.value = '';
-            } catch (error) {
-                console.error("Registration error:", error.message);
-                registerMessage.textContent = `Registration failed: ${error.message}`;
-                registerMessage.classList.remove('hidden');
-            }
-        });
-
-        // Logout
-        logoutBtn.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                console.log("Logged out successfully.");
-                showMessageBox("Logged Out", "You have been successfully logged out.");
-                // onAuthStateChanged will handle UI update
-            } catch (error) {
-                console.error("Logout error:", error.message);
-                showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
-            }
-        });
-
-        // Forgot Password
-        forgotPasswordBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            if (!email) {
-                authMessage.textContent = "Please enter your email to reset password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                await sendPasswordResetEmail(auth, email);
-                showMessageBox("Password Reset", `Password reset email sent to ${email}. Please check your inbox.`);
-            } catch (error) {
-                console.error("Forgot password error:", error.message);
-                showMessageBox("Password Reset Error", `Failed to send reset email: ${error.message}`);
-            }
-        });
-
-        // Toggle between Login and Register forms
-        registerToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.add('hidden');
-            registerFormContainer.classList.remove('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Registration";
-        });
-
-        loginToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.remove('hidden');
-            registerFormContainer.classList.add('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Login";
+        // Gallery Admin Login
+        galleryLoginBtn.addEventListener('click', () => {
+            handleAdminLogin(galleryAdminPasswordInput, galleryLoginMessage, galleryAdminPanel, ADMIN_PASSWORD_GALLERY, (val) => isAdminGallery = val);
         });
 
 
         // --- Firestore Operations ---
 
-        // Function to create a Firestore collection path based on app ID
-        // Note: For a multi-user app where data is private to a user,
-        // the path would be `artifacts/${appId}/users/${userId}/${collectionName}`
-        // For public data editable by admin, it's `artifacts/${appId}/public/data/${collectionName}`
+        // Function to create a Firestore collection path based on app ID and user ID
         function getCollectionRef(collectionName) {
             return collection(db, `artifacts/${appId}/public/data/${collectionName}`);
         }
 
         // --- Book List Functions ---
-        function renderBooks(snapshot) {
-            bookListDisplay.innerHTML = ''; // Clear previous content
-            if (snapshot.empty) {
-                bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No books added yet.</p>';
-            } else {
-                snapshot.forEach((doc) => {
-                    const book = doc.data();
-                    const bookElement = document.createElement('div');
-                    bookElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
-                    bookElement.innerHTML = `
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${book.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Author:</strong> ${book.author}</p>
-                        <p class="text-gray-600 dark:text-gray-300 mb-2"><strong>Category:</strong> ${book.category}</p>
-                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${book.description}</p>
-                        ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Book &rarr;</a>` : ''}
-                        ${isAdmin ? `
-                            <div class="mt-4 flex space-x-2">
-                                <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    bookListDisplay.appendChild(bookElement);
-                });
-
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-book-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editBook(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-book-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteBook(e.target.dataset.id));
-                    });
-                }
+        async function loadBooks() {
+            if (!db) {
+                console.error("Firestore not initialized.");
+                return;
             }
-            bookListLoading.classList.add('hidden');
+            bookListDisplay.innerHTML = ''; // Clear previous content
+            bookListLoading.classList.remove('hidden');
+
+            try {
+                const q = query(getCollectionRef("books"));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No books added yet.</p>';
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const book = doc.data();
+                        const bookElement = document.createElement('div');
+                        bookElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                        bookElement.innerHTML = `
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${book.title}</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Author:</strong> ${book.author}</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-2"><strong>Category:</strong> ${book.category}</p>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${book.description}</p>
+                            ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Book &rarr;</a>` : ''}
+                            ${isAdminBookList ? `
+                                <div class="mt-4 flex space-x-2">
+                                    <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
+                                    <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                </div>
+                            ` : ''}
+                        `;
+                        bookListDisplay.appendChild(bookElement);
+                    });
+
+                    if (isAdminBookList) {
+                        document.querySelectorAll('.edit-book-btn').forEach(button => {
+                            button.addEventListener('click', (e) => editBook(e.target.dataset.id));
+                        });
+                        document.querySelectorAll('.delete-book-btn').forEach(button => {
+                            button.addEventListener('click', (e) => deleteBook(e.target.dataset.id));
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading documents: ", e);
+                bookListDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading books. Please try again.</p>';
+            } finally {
+                bookListLoading.classList.add('hidden');
+            }
         }
 
         addEditBookForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage books.");
-                return;
-            }
             const bookId = bookIdInput.value;
             const bookData = {
                 title: bookTitleInput.value,
@@ -1661,34 +1379,30 @@
                 category: bookCategoryInput.value,
                 description: bookDescriptionInput.value,
                 url: bookUrlInput.value || null,
-                date_posted: new Date() // Use server timestamp for consistency
+                date_posted: new Date()
             };
 
             try {
                 if (bookId) {
                     // Update existing book
                     await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
-                    showMessageBox("Success", "Book updated successfully!");
+                    console.log("Book updated successfully!");
                 } else {
                     // Add new book
                     await addDoc(getCollectionRef("books"), bookData);
-                    showMessageBox("Success", "Book added successfully!");
+                    console.log("Book added successfully!");
                 }
                 addEditBookForm.reset();
                 bookIdInput.value = ''; // Clear book ID
                 cancelEditBookBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
+                loadBooks(); // Reload books to reflect changes
             } catch (e) {
                 console.error("Error saving book: ", e);
-                showMessageBox("Error", "Error saving book. Please try again.");
+                alert("Error saving book. Please try again.");
             }
         });
 
         async function editBook(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to edit books.");
-                return;
-            }
             try {
                 const docRef = doc(getCollectionRef("books"), id);
                 const docSnap = await getDoc(docRef);
@@ -1704,11 +1418,9 @@
                     window.scrollTo({ top: bookListAdminPanel.offsetTop, behavior: 'smooth' }); // Scroll to form
                 } else {
                     console.error("No such document!");
-                    showMessageBox("Error", "Book not found for editing.");
                 }
             } catch (e) {
                 console.error("Error fetching document for edit: ", e);
-                showMessageBox("Error", "Error fetching book data for editing.");
             }
         }
 
@@ -1719,88 +1431,94 @@
         });
 
         async function deleteBook(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to delete books.");
-                return;
-            }
-            showMessageBox("Confirm Delete", "Are you sure you want to delete this book?", true, async () => {
+            if (confirm("Are you sure you want to delete this book?")) {
                 try {
                     await deleteDoc(doc(getCollectionRef("books"), id));
-                    showMessageBox("Success", "Book deleted successfully!");
-                    // Data will be re-rendered by the real-time listener
+                    console.log("Book deleted successfully!");
+                    loadBooks(); // Reload books to reflect changes
                 } catch (e) {
                     console.error("Error deleting book: ", e);
-                    showMessageBox("Error", "Error deleting book. Please try again.");
+                    alert("Error deleting book. Please try again.");
                 }
-            });
+            }
         }
 
         // --- Problems Functions ---
-        function renderProblems(snapshot) {
+        async function loadProblems() {
+            if (!db) {
+                console.error("Firestore not initialized.");
+                return;
+            }
             problemsDisplay.innerHTML = ''; // Clear previous content
+            problemsLoading.classList.remove('hidden');
+
             const categories = ["Geometry", "Inequality", "Number Theory", "Calculus", "Algebra"];
             const problemsByCategory = {};
             categories.forEach(cat => problemsByCategory[cat] = []);
 
-            if (snapshot.empty) {
-                problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No problems added yet.</p>';
-            } else {
-                snapshot.forEach((doc) => {
-                    const problem = doc.data();
-                    problem.id = doc.id; // Store document ID
-                    if (problemsByCategory[problem.category]) {
-                        problemsByCategory[problem.category].push(problem);
-                    }
-                });
+            try {
+                const q = query(getCollectionRef("problems"));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No problems added yet.</p>';
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const problem = doc.data();
+                        problem.id = doc.id; // Store document ID
+                        if (problemsByCategory[problem.category]) {
+                            problemsByCategory[problem.category].push(problem);
+                        }
+                    });
 
-                categories.forEach(category => {
-                    if (problemsByCategory[category].length > 0) {
-                        const categorySection = document.createElement('div');
-                        categorySection.className = 'mb-8';
-                        categorySection.innerHTML = `
-                            <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100 text-center">${category} Problems</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="problems-${category.replace(/\s/g, '-')}-container"></div>
-                        `;
-                        problemsDisplay.appendChild(categorySection);
-
-                        const container = document.getElementById(`problems-${category.replace(/\s/g, '-')}-container`);
-                        problemsByCategory[category].forEach(problem => {
-                            const problemElement = document.createElement('div');
-                            problemElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
-                            problemElement.innerHTML = `
-                                <h4 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${problem.title}</h4>
-                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${problem.description}</p>
-                                ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Solution &rarr;</a>` : ''}
-                                ${isAdmin ? `
-                                    <div class="mt-4 flex space-x-2">
-                                        <button class="edit-problem-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${problem.id}">Edit</button>
-                                        <button class="delete-problem-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${problem.id}">Delete</button>
-                                    </div>
-                                ` : ''}
+                    categories.forEach(category => {
+                        if (problemsByCategory[category].length > 0) {
+                            const categorySection = document.createElement('div');
+                            categorySection.className = 'mb-8';
+                            categorySection.innerHTML = `
+                                <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100 text-center">${category} Problems</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="problems-${category.replace(/\s/g, '-')}-container"></div>
                             `;
-                            container.appendChild(problemElement);
+                            problemsDisplay.appendChild(categorySection);
+
+                            const container = document.getElementById(`problems-${category.replace(/\s/g, '-')}-container`);
+                            problemsByCategory[category].forEach(problem => {
+                                const problemElement = document.createElement('div');
+                                problemElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                                problemElement.innerHTML = `
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${problem.title}</h4>
+                                    <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${problem.description}</p>
+                                    ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Solution &rarr;</a>` : ''}
+                                    ${isAdminProblems ? `
+                                        <div class="mt-4 flex space-x-2">
+                                            <button class="edit-problem-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${problem.id}">Edit</button>
+                                            <button class="delete-problem-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${problem.id}">Delete</button>
+                                        </div>
+                                    ` : ''}
+                                `;
+                                container.appendChild(problemElement);
+                            });
+                        }
+                    });
+
+                    if (isAdminProblems) {
+                        document.querySelectorAll('.edit-problem-btn').forEach(button => {
+                            button.addEventListener('click', (e) => editProblem(e.target.dataset.id));
+                        });
+                        document.querySelectorAll('.delete-problem-btn').forEach(button => {
+                            button.addEventListener('click', (e) => deleteProblem(e.target.dataset.id));
                         });
                     }
-                });
-
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-problem-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editProblem(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-problem-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteProblem(e.target.dataset.id));
-                    });
                 }
+            } catch (e) {
+                console.error("Error loading problems: ", e);
+                problemsDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading problems. Please try again.</p>';
+            } finally {
+                problemsLoading.classList.add('hidden');
             }
-            problemsLoading.classList.add('hidden');
         }
 
         addProblemForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage problems.");
-                return;
-            }
             const problemId = problemIdInput.value;
             const problemData = {
                 title: problemTitleInput.value,
@@ -1814,27 +1532,23 @@
                 if (problemId) {
                     // Update existing problem
                     await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
-                    showMessageBox("Success", "Problem updated successfully!");
+                    console.log("Problem updated successfully!");
                 } else {
                     // Add new problem
                     await addDoc(getCollectionRef("problems"), problemData);
-                    showMessageBox("Success", "Problem added successfully!");
+                    console.log("Problem added successfully!");
                 }
                 addProblemForm.reset();
                 problemIdInput.value = '';
                 cancelEditProblemBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
+                loadProblems();
             } catch (e) {
                 console.error("Error saving problem: ", e);
-                showMessageBox("Error", "Error saving problem. Please try again.");
+                alert("Error saving problem. Please try again.");
             }
         });
 
         async function editProblem(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to edit problems.");
-                return;
-            }
             try {
                 const docRef = doc(getCollectionRef("problems"), id);
                 const docSnap = await getDoc(docRef);
@@ -1849,11 +1563,9 @@
                     window.scrollTo({ top: problemsAdminPanel.offsetTop, behavior: 'smooth' });
                 } else {
                     console.error("No such document!");
-                    showMessageBox("Error", "Problem not found for editing.");
                 }
             } catch (e) {
                 console.error("Error fetching document for edit: ", e);
-                showMessageBox("Error", "Error fetching problem data for editing.");
             }
         }
 
@@ -1864,65 +1576,71 @@
         });
 
         async function deleteProblem(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to delete problems.");
-                return;
-            }
-            showMessageBox("Confirm Delete", "Are you sure you want to delete this problem?", true, async () => {
+            if (confirm("Are you sure you want to delete this problem?")) {
                 try {
                     await deleteDoc(doc(getCollectionRef("problems"), id));
-                    showMessageBox("Success", "Problem deleted successfully!");
-                    // Data will be re-rendered by the real-time listener
+                    console.log("Problem deleted successfully!");
+                    loadProblems();
                 } catch (e) {
                     console.error("Error deleting problem: ", e);
-                    showMessageBox("Error", "Error deleting problem. Please try again.");
+                    alert("Error deleting problem. Please try again.");
                 }
-            });
+            }
         }
 
         // --- Gallery Functions ---
-        function renderGallery(snapshot) {
-            galleryDisplay.innerHTML = ''; // Clear previous content
-            if (snapshot.empty) {
-                galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No gallery posts yet.</p>';
-            } else {
-                snapshot.forEach((doc) => {
-                    const post = doc.data();
-                    const postElement = document.createElement('div');
-                    postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800';
-                    postElement.innerHTML = `
-                        <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <p class="text-white text-lg font-semibold px-4">${post.caption}</p>
-                        </div>
-                        ${isAdmin ? `
-                            <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${doc.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    galleryDisplay.appendChild(postElement);
-                });
-
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-gallery-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-gallery-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteGalleryPost(e.target.dataset.id));
-                    });
-                }
+        async function loadGallery() {
+            if (!db) {
+                console.error("Firestore not initialized.");
+                return;
             }
-            galleryLoading.classList.add('hidden');
+            galleryDisplay.innerHTML = ''; // Clear previous content
+            galleryLoading.classList.remove('hidden');
+
+            try {
+                const q = query(getCollectionRef("gallery_posts"), orderBy("date_posted", "desc"));
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No gallery posts yet.</p>';
+                } else {
+                    querySnapshot.forEach((doc) => {
+                        const post = doc.data();
+                        const postElement = document.createElement('div');
+                        postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800';
+                        postElement.innerHTML = `
+                            <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
+                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <p class="text-white text-lg font-semibold px-4">${post.caption}</p>
+                            </div>
+                            ${isAdminGallery ? `
+                                <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${doc.id}">Edit</button>
+                                    <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                </div>
+                            ` : ''}
+                        `;
+                        galleryDisplay.appendChild(postElement);
+                    });
+
+                    if (isAdminGallery) {
+                        document.querySelectorAll('.edit-gallery-btn').forEach(button => {
+                            button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
+                        });
+                        document.querySelectorAll('.delete-gallery-btn').forEach(button => {
+                            button.addEventListener('click', (e) => deleteGalleryPost(e.target.dataset.id));
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading gallery posts: ", e);
+                galleryDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading gallery. Please try again.</p>';
+            } finally {
+                galleryLoading.classList.add('hidden');
+            }
         }
 
         addGalleryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
-                return;
-            }
             const postId = galleryPostIdInput.value;
             const postData = {
                 imageUrl: galleryImageUrlInput.value,
@@ -1934,27 +1652,23 @@
                 if (postId) {
                     // Update existing post
                     await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
-                    showMessageBox("Success", "Gallery post updated successfully!");
+                    console.log("Gallery post updated successfully!");
                 } else {
                     // Add new post
                     await addDoc(getCollectionRef("gallery_posts"), postData);
-                    showMessageBox("Success", "Gallery post added successfully!");
+                    console.log("Gallery post added successfully!");
                 }
                 addGalleryForm.reset();
                 galleryPostIdInput.value = '';
                 cancelEditGalleryBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
+                loadGallery();
             } catch (e) {
                 console.error("Error saving gallery post: ", e);
-                showMessageBox("Error", "Error saving gallery post. Please try again.");
+                alert("Error saving gallery post. Please try again.");
             }
         });
 
         async function editGalleryPost(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to edit gallery posts.");
-                return;
-            }
             try {
                 const docRef = doc(getCollectionRef("gallery_posts"), id);
                 const docSnap = await getDoc(docRef);
@@ -1967,11 +1681,9 @@
                     window.scrollTo({ top: galleryAdminPanel.offsetTop, behavior: 'smooth' });
                 } else {
                     console.error("No such document!");
-                    showMessageBox("Error", "Gallery post not found for editing.");
                 }
             } catch (e) {
                 console.error("Error fetching document for edit: ", e);
-                showMessageBox("Error", "Error fetching gallery post data for editing.");
             }
         }
 
@@ -1982,149 +1694,57 @@
         });
 
         async function deleteGalleryPost(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to delete gallery posts.");
-                return;
-            }
-            showMessageBox("Confirm Delete", "Are you sure you want to delete this gallery post?", true, async () => {
+            if (confirm("Are you sure you want to delete this gallery post?")) {
                 try {
                     await deleteDoc(doc(getCollectionRef("gallery_posts"), id));
-                    showMessageBox("Success", "Gallery post deleted successfully!");
-                    // Data will be re-rendered by the real-time listener
+                    console.log("Gallery post deleted successfully!");
+                    loadGallery();
                 } catch (e) {
                     console.error("Error deleting gallery post: ", e);
-                    showMessageBox("Error", "Error deleting gallery post. Please try again.");
-                }
-            });
-        }
-
-        // --- Blog Functions ---
-        function renderBlogs(snapshot) {
-            blogDisplay.innerHTML = ''; // Clear previous content
-            if (snapshot.empty) {
-                blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No blog posts yet.</p>';
-            } else {
-                snapshot.forEach((doc) => {
-                    const post = doc.data();
-                    const postElement = document.createElement('article');
-                    postElement.className = 'bg-gray-50 p-6 rounded-xl shadow-lg text-left dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out flex flex-col';
-                    postElement.innerHTML = `
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">${post.title}</h3>
-                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 object-cover rounded-md mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';">` : ''}
-                        <p class="text-gray-600 mb-4 dark:text-gray-300 flex-grow">${post.content.substring(0, 150)}...</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Posted on: ${post.date_posted ? new Date(post.date_posted.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
-                        <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto" aria-label="Read more about ${post.title}">Read More &rarr;</a>
-                        ${isAdmin ? `
-                            <div class="mt-4 flex space-x-2">
-                                <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-blog-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    blogDisplay.appendChild(postElement);
-                });
-
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-blog-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editBlogPost(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-blog-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteBlogPost(e.target.dataset.id));
-                    });
+                    alert("Error deleting gallery post. Please try again.");
                 }
             }
-            blogLoading.classList.add('hidden');
-        }
-
-        addBlogForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage blog posts.");
-                return;
-            }
-            const postId = blogPostIdInput.value;
-            const postData = {
-                title: blogTitleInput.value,
-                imageUrl: blogImageUrlInput.value || null,
-                content: blogContentInput.value,
-                date_posted: new Date()
-            };
-
-            try {
-                if (postId) {
-                    // Update existing post
-                    await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
-                    showMessageBox("Success", "Blog post updated successfully!");
-                } else {
-                    // Add new post
-                    await addDoc(getCollectionRef("blog_posts"), postData);
-                    showMessageBox("Success", "Blog post added successfully!");
-                }
-                addBlogForm.reset();
-                blogPostIdInput.value = '';
-                cancelEditBlogBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving blog post: ", e);
-                showMessageBox("Error", "Error saving blog post. Please try again.");
-            }
-        });
-
-        async function editBlogPost(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to edit blog posts.");
-                return;
-            }
-            try {
-                const docRef = doc(getCollectionRef("blog_posts"), id);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    const post = docSnap.data();
-                    blogPostIdInput.value = id;
-                    blogTitleInput.value = post.title;
-                    blogImageUrlInput.value = post.imageUrl || '';
-                    blogContentInput.value = post.content;
-                    cancelEditBlogBtn.classList.remove('hidden');
-                    window.scrollTo({ top: blogAdminPanel.offsetTop, behavior: 'smooth' });
-                } else {
-                    console.error("No such document!");
-                    showMessageBox("Error", "Blog post not found for editing.");
-                }
-            } catch (e) {
-                console.error("Error fetching document for edit: ", e);
-                showMessageBox("Error", "Error fetching blog post data for editing.");
-            }
-        }
-
-        cancelEditBlogBtn.addEventListener('click', () => {
-            addBlogForm.reset();
-            blogPostIdInput.value = '';
-            cancelEditBlogBtn.classList.add('hidden');
-        });
-
-        async function deleteBlogPost(id) {
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to delete blog posts.");
-                return;
-            }
-            showMessageBox("Confirm Delete", "Are you sure you want to delete this blog post?", true, async () => {
-                try {
-                    await deleteDoc(doc(getCollectionRef("blog_posts"), id));
-                    showMessageBox("Success", "Blog post deleted successfully!");
-                    // Data will be re-rendered by the real-time listener
-                } catch (e) {
-                    console.error("Error deleting blog post: ", e);
-                    showMessageBox("Error", "Error deleting blog post. Please try again.");
-                }
-            } );
         }
 
         // This function is called after Firebase is initialized and authenticated
         function initializeFirestoreListeners() {
             if (db) {
                 // Real-time listener for books
-                onSnapshot(query(getCollectionRef("books"), orderBy("date_posted", "desc")), (snapshot) => {
-                    renderBooks(snapshot);
+                onSnapshot(query(getCollectionRef("books")), (snapshot) => {
+                    bookListDisplay.innerHTML = ''; // Clear current display
+                    if (snapshot.empty) {
+                        bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No books added yet.</p>';
+                    } else {
+                        snapshot.forEach((doc) => {
+                            const book = doc.data();
+                            const bookElement = document.createElement('div');
+                            bookElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                            bookElement.innerHTML = `
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${book.title}</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Author:</strong> ${book.author}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-2"><strong>Category:</strong> ${book.category}</p>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${book.description}</p>
+                                ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Book &rarr;</a>` : ''}
+                                ${isAdminBookList ? `
+                                    <div class="mt-4 flex space-x-2">
+                                        <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
+                                        <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                    </div>
+                                ` : ''}
+                            `;
+                            bookListDisplay.appendChild(bookElement);
+                        });
+
+                        if (isAdminBookList) {
+                            document.querySelectorAll('.edit-book-btn').forEach(button => {
+                                button.addEventListener('click', (e) => editBook(e.target.dataset.id));
+                            });
+                            document.querySelectorAll('.delete-book-btn').forEach(button => {
+                                button.addEventListener('click', (e) => deleteBook(e.target.dataset.id));
+                            });
+                        }
+                    }
+                    bookListLoading.classList.add('hidden');
                 }, (error) => {
                     console.error("Error listening to books collection: ", error);
                     bookListDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading books. Please try again.</p>';
@@ -2132,36 +1752,126 @@
                 });
 
                 // Real-time listener for problems
-                onSnapshot(query(getCollectionRef("problems"), orderBy("date_posted", "desc")), (snapshot) => {
-                    renderProblems(snapshot);
+                onSnapshot(query(getCollectionRef("problems")), (snapshot) => {
+                    problemsDisplay.innerHTML = ''; // Clear current display
+                    const categories = ["Geometry", "Inequality", "Number Theory", "Calculus", "Algebra"];
+                    const problemsByCategory = {};
+                    categories.forEach(cat => problemsByCategory[cat] = []);
+
+                    if (snapshot.empty) {
+                        problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No problems added yet.</p>';
+                    } else {
+                        snapshot.forEach((doc) => {
+                            const problem = doc.data();
+                            problem.id = doc.id;
+                            if (problemsByCategory[problem.category]) {
+                                problemsByCategory[problem.category].push(problem);
+                            }
+                        });
+
+                        categories.forEach(category => {
+                            if (problemsByCategory[category].length > 0) {
+                                const categorySection = document.createElement('div');
+                                categorySection.className = 'mb-8';
+                                categorySection.innerHTML = `
+                                    <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100 text-center">${category} Problems</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="problems-${category.replace(/\s/g, '-')}-container"></div>
+                                `;
+                                problemsDisplay.appendChild(categorySection);
+
+                                const container = document.getElementById(`problems-${category.replace(/\s/g, '-')}-container`);
+                                problemsByCategory[category].forEach(problem => {
+                                    const problemElement = document.createElement('div');
+                                    problemElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                                    problemElement.innerHTML = `
+                                        <h4 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${problem.title}</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${problem.description}</p>
+                                        ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Solution &rarr;</a>` : ''}
+                                        ${isAdminProblems ? `
+                                            <div class="mt-4 flex space-x-2">
+                                                <button class="edit-problem-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${problem.id}">Edit</button>
+                                                <button class="delete-problem-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${problem.id}">Delete</button>
+                                            </div>
+                                        ` : ''}
+                                    `;
+                                    container.appendChild(problemElement);
+                                });
+                            }
+                        });
+
+                        if (isAdminProblems) {
+                            document.querySelectorAll('.edit-problem-btn').forEach(button => {
+                                button.addEventListener('click', (e) => editProblem(e.target.dataset.id));
+                            });
+                            document.querySelectorAll('.delete-problem-btn').forEach(button => {
+                                button.addEventListener('click', (e) => deleteProblem(e.target.dataset.id));
+                            });
+                        }
+                    }
+                    problemsLoading.classList.add('hidden');
                 }, (error) => {
                     console.error("Error listening to problems collection: ", error);
                     problemsDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading problems. Please try again.</p>';
                     problemsLoading.classList.add('hidden');
                 });
 
+
                 // Real-time listener for gallery posts
                 onSnapshot(query(getCollectionRef("gallery_posts"), orderBy("date_posted", "desc")), (snapshot) => {
-                    renderGallery(snapshot);
+                    galleryDisplay.innerHTML = ''; // Clear current display
+                    if (snapshot.empty) {
+                        galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No gallery posts yet.</p>';
+                    } else {
+                        snapshot.forEach((doc) => {
+                            const post = doc.data();
+                            const postElement = document.createElement('div');
+                            postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800';
+                            postElement.innerHTML = `
+                                <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p class="text-white text-lg font-semibold px-4">${post.caption}</p>
+                                </div>
+                                ${isAdminGallery ? `
+                                    <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${doc.id}">Edit</button>
+                                        <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                    </div>
+                                ` : ''}
+                            `;
+                            galleryDisplay.appendChild(postElement);
+                        });
+
+                        if (isAdminGallery) {
+                            document.querySelectorAll('.edit-gallery-btn').forEach(button => {
+                                button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
+                            });
+                            document.querySelectorAll('.delete-gallery-btn').forEach(button => {
+                                button.addEventListener('click', (e) => deleteGalleryPost(e.target.dataset.id));
+                            });
+                        }
+                    }
+                    galleryLoading.classList.add('hidden');
                 }, (error) => {
                     console.error("Error listening to gallery collection: ", error);
                     galleryDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading gallery. Please try again.</p>';
                     galleryLoading.classList.add('hidden');
                 });
-
-                // Real-time listener for blog posts
-                onSnapshot(query(getCollectionRef("blog_posts"), orderBy("date_posted", "desc")), (snapshot) => {
-                    renderBlogs(snapshot);
-                }, (error) => {
-                    console.error("Error listening to blog collection: ", error);
-                    blogDisplay.innerHTML = '<p class="text-red-500 text-center col-span-full">Error loading blog posts. Please try again.</p>';
-                    blogLoading.classList.add('hidden');
-                });
-
             } else {
                 console.warn("Firestore not initialized for real-time listeners.");
             }
         }
+
+        // Listen for auth state changes to initialize Firestore listeners
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                userId = user.uid;
+                console.log("Auth state changed: User is logged in.", userId);
+                initializeFirestoreListeners();
+            } else {
+                console.log("Auth state changed: User is logged out.");
+                // Handle logged out state if needed, e.g., clear data
+            }
+        });
 
     </script>
 </body>
