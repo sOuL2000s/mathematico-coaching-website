@@ -230,6 +230,101 @@
         .admin-indicator.active {
             display: block;
         }
+
+        /* Dropdown specific styles for Navbar */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white; /* Default light mode */
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 70; /* Higher than navbar-links on mobile, but lower than main modals */
+            border-radius: 0.5rem;
+            overflow: hidden;
+            top: calc(100% + 0.5rem); /* Position below the parent link */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+
+            /* Dark mode styles for dropdown */
+            .dark & {
+                background-color: #1f2937;
+            }
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown.active .dropdown-menu { /* .active for mobile toggle */
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu a {
+            color: #4b5563; /* Default light mode */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f3f4f6; /* Light gray hover */
+        }
+
+        /* Dark mode for dropdown links */
+        .dark .dropdown-menu a {
+            color: #d1d5db;
+        }
+        .dark .dropdown-menu a:hover {
+            background-color: #374151; /* Darker gray hover */
+        }
+
+        /* Mobile dropdown specific adjustments */
+        @media (max-width: 767px) {
+            .navbar-links .dropdown-menu {
+                position: static; /* Allow it to flow naturally in the column layout */
+                transform: none;
+                box-shadow: none;
+                border-radius: 0;
+                min-width: unset;
+                width: 100%; /* Take full width of parent li */
+                padding: 0; /* Remove padding, links handle it */
+                max-height: 0; /* Control visibility with max-height */
+                opacity: 0;
+                visibility: hidden;
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+            }
+
+            .navbar-links .dropdown.active .dropdown-menu {
+                max-height: 300px; /* Adjust as needed */
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .navbar-links .dropdown-menu a {
+                padding-left: 2.5rem; /* Indent dropdown items */
+            }
+        }
+
+        /* Blog Detail Modal specific styles */
+        #blog-detail-modal .modal-content {
+            max-width: 800px; /* Larger for blog content */
+            height: 90%; /* Allow more height */
+            overflow-y: auto; /* Enable scrolling for long content */
+        }
+        #blog-detail-modal img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        #blog-detail-modal p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
     </style>
 
     <!-- SEO Meta Tags -->
@@ -280,7 +375,21 @@
             <ul id="navbar-links" class="md:flex space-x-2 md:space-x-4 text-lg font-medium">
                 <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Home section">Home</a></li>
                 <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to About Us section">About Us</a></li>
-                <li><a href="#courses" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Courses section">Courses</a></li>
+                <!-- Courses Dropdown -->
+                <li class="relative dropdown">
+                    <a href="#courses" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="View Courses">
+                        Courses
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
+                        <li><a href="#courses" data-course-filter="IIT Foundation & Olympiad" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">IIT Foundation & Olympiad</a></li>
+                        <li><a href="#courses" data-course-filter="Competitive Entrance Exams" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Competitive Entrance Exams</a></li>
+                        <li><a href="#courses" data-course-filter="B.Sc (Hons/Pass) All Universities" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Sc (Hons/Pass) All Universities</a></li>
+                        <li><a href="#courses" data-course-filter="B.Tech, GATE & Other Exams" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Tech, GATE & Other Exams</a></li>
+                        <li><a href="#courses" data-course-filter="General Math Support" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">General Math Support</a></li>
+                    </ul>
+                </li>
                 <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Features section">Features</a></li>
                 <!-- Updated navigation links for new pages -->
                 <li><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to Book List page">Book List</a></li>
@@ -363,7 +472,7 @@
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Comprehensive Courses</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="Classes 9-12 (All Boards)">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
@@ -375,19 +484,19 @@
                     </div>
 
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="IIT Foundation & Olympiad">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">IIT Foundation & Olympiad</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            Specialized programs for IIT Foundation and various Mathematics Olympiads, building competitive skills from an early age.
+                            Specialized programs for IIT Foundation and various Mathematics Olympiads, including IOQM, RMO (Regional Maths Olympiad), building competitive skills from an early age.
                         </p>
                         <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="IIT Foundation & Olympiad" aria-label="Enroll in IIT Foundation & Olympiad course">Enroll Now</button>
                     </div>
 
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="Competitive Entrance Exams">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 5h18M4 12h16M4 18h16"></path></svg>
                         </div>
@@ -399,7 +508,7 @@
                     </div>
 
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="B.Sc (Hons/Pass) All Universities">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
@@ -411,7 +520,7 @@
                     </div>
 
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="B.Tech, GATE & Other Exams">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
                         </div>
@@ -423,7 +532,7 @@
                     </div>
 
                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="General Math Support">
                         <div class="text-indigo-600 mb-4">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
@@ -698,12 +807,12 @@
                             </div>
                             <div class="mb-4">
                                 <label for="contact-email" class="sr-only">Your Email</label>
-                                <input type="email" id="contact-email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <input type="email" id="contact-email" placeholder="Your Email" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                   dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             </div>
                             <div class="mb-6">
                                 <label for="contact-message" class="sr-only">Your Message</label>
-                                <textarea id="contact-message" name="entry.YOUR_MESSAGE_FIELD_ID" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                                <textarea id="contact-message" rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105" aria-label="Send your message">
@@ -722,7 +831,7 @@
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Find Us on the Map</h2>
                 <div class="aspect-w-16 aspect-h-9 w-full h-96 bg-gray-200 rounded-xl overflow-hidden shadow-lg dark:bg-gray-700">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4432.400349212377!2d88.4818971!3d22.724887199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8a30058617907%3A0x6fb9d10ae1c6b946!2sMATHEMATICO%20(Maths%20Coaching)%20By%20DipanjanSir!5e0!3m2!1sen!2sin!4v1751963886629!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4432.401265241326!2d88.4793815759286!3d22.724858927371475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8a30058617907%3A0x6fb9d10ae1c6b946!2sMATHEMATICO(Maths%20Coaching)%20By%20DipanjanSir!5e1!3m2!1sen!2sin!4v1752090333658!5m2!1sen!2sin"
                         width="100%"
                         height="400"
                         style="border:0;"
@@ -748,7 +857,7 @@
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Visit our main official page for more information.
                         </p>
-                        <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Go to official page">Go to Page</a>
+                        <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Go to official page">Go to Page</a>
                     </div>
                     <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
                                  dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
@@ -756,7 +865,7 @@
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Join our community group for discussions and updates.
                         </p>
-                        <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Join community group">Join Group</a>
+                        <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Join community group">Join Group</a>
                     </div>
                     <!-- New Section: Email Newsletter Sign-up -->
                     <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
@@ -765,7 +874,7 @@
                         <!-- Google Form for Newsletter -->
                         <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4">
                             <label for="newsletter-email" class="sr-only">Email address</label>
-                            <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
+                            <input type="email" id="newsletter-email" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
                             <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Subscribe to newsletter">Subscribe</button>
                         </form>
@@ -941,7 +1050,7 @@
 
                 <!-- Admin Authentication Section -->
                 <div id="auth-section" class="bg-white p-8 rounded-xl shadow-lg mb-8 dark:bg-gray-800 max-w-md mx-auto">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100" id="auth-heading">Admin Login</h3>
+                    <h3 id="auth-heading" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Admin Login</h3>
 
                     <div id="login-form-container">
                         <div class="mb-4">
@@ -1019,76 +1128,126 @@
         </div>
     </div>
 
+    <!-- Blog Detail Modal Structure -->
+    <div id="blog-detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="blog-detail-modal-title">
+        <div class="modal-content">
+            <button class="modal-close-button" aria-label="Close blog post">&times;</button>
+            <h3 id="blog-detail-title" class="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-100"></h3>
+            <p id="blog-detail-date" class="text-sm text-gray-500 dark:text-gray-400 mb-4"></p>
+            <img id="blog-detail-image" src="" alt="Blog Post Image" class="hidden w-full h-auto object-cover rounded-md mb-6">
+            <div id="blog-detail-content" class="text-gray-700 dark:text-gray-300 prose prose-indigo max-w-none">
+                <!-- Blog content will be injected here -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase configuration and initialization
-        // IMPORTANT: Replace with your actual Firebase project configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
-            authDomain: "mathematico-website.firebaseapp.com",
-            projectId: "mathematico-website",
-            storageBucket: "mathematico-website.firebasestorage.app",
-            messagingSenderId: "186709981685",
-            appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
-            measurementId: "G-5Z24Z4Q97Q"
-        };
-
-        const appId = firebaseConfig.projectId; // Use Canvas provided app ID or default
-
-        let app;
-        let db;
-        let auth;
+        // Global Firebase variables, initialized to null
+        let app = null;
+        let db = null;
+        let auth = null;
         let userId = 'anonymous'; // Default to anonymous
         let isAdmin = false; // Global flag for admin status
+        let appId = null; // Declare appId globally
+        let allBlogPosts = []; // Store all blog posts for modal display
 
-        // Admin User IDs (for demonstration, in a real app, manage roles in Firestore)
-        // For example, you could have a 'users' collection where each user document has a 'role' field.
-        // const ADMIN_USER_IDS = ["admin_uid_1", "admin_uid_2"]; // Example admin UIDs
+        // Admin Auth Elements - Moved to global scope
+        const adminEmailInput = document.getElementById('admin-email');
+        const adminPasswordInput = document.getElementById('admin-password');
+        const loginBtn = document.getElementById('login-btn');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const registerToggleBtn = document.getElementById('register-toggle-btn');
+        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+        const authMessage = document.getElementById('auth-message');
 
-        // Initialize Firebase
-        if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
+        const registerEmailInput = document.getElementById('register-email');
+        const registerPasswordInput = document.getElementById('register-password');
+        const registerBtn = document.getElementById('register-btn');
+        const loginToggleBtn = document.getElementById('login-toggle-btn');
+        const registerMessage = document.getElementById('register-message');
 
-            // Authenticate user with custom token if provided by Canvas, otherwise anonymously
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                signInWithCustomToken(auth, __initial_auth_token).then((userCredential) => {
-                    userId = userCredential.user.uid;
-                    console.log("Firebase signed in with custom token:", userId);
-                    checkAdminStatus(userCredential.user);
-                }).catch((error) => {
-                    console.error("Error signing in with custom token:", error);
-                    signInAnonymously(auth).then((userCredential) => {
+        const logoutBtn = document.getElementById('logout-btn');
+
+        const loginFormContainer = document.getElementById('login-form-container');
+        const registerFormContainer = document.getElementById('register-form-container');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const userIdDisplay = document.getElementById('user-id-display');
+        const authHeading = document.getElementById('auth-heading');
+
+
+        // Function to initialize Firebase and attach listeners
+        async function initializeFirebaseAndListeners() {
+            // Firebase configuration and initialization
+            // IMPORTANT: Replace with your actual Firebase project configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
+                authDomain: "mathematico-website.firebaseapp.com",
+                projectId: "mathematico-website",
+                storageBucket: "mathematico-website.firebaseapp.com",
+                messagingSenderId: "186709981685",
+                appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
+                measurementId: "G-5Z24Z4Q97Q"
+            };
+
+            // Assign to the global appId variable
+            appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
+
+            if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authenticate user with custom token if provided by Canvas, otherwise anonymously
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
+                        userId = userCredential.user.uid;
+                        console.log("Firebase signed in with custom token:", userId);
+                    } else {
+                        const userCredential = await signInAnonymously(auth);
                         userId = userCredential.user.uid;
                         console.log("Firebase signed in anonymously:", userId);
-                        checkAdminStatus(userCredential.user);
-                    }).catch((anonError) => {
-                        console.error("Error signing in anonymously:", anonError);
-                        showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    }
+                    // After initial sign-in, set up auth state listener and attach Firebase-dependent event listeners
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            console.log("Auth state changed: User is logged in.", userId);
+                            checkAdminStatus(user);
+                        } else {
+                            userId = 'anonymous';
+                            isAdmin = false;
+                            console.log("Auth state changed: User is logged out.");
+                            updateAdminUI(); // Update UI for logged out state
+                        }
                     });
-                });
+                    // Initial check after sign-in
+                    checkAdminStatus(auth.currentUser);
+
+                    // Attach Firebase-dependent event listeners here
+                    attachFirebaseEventListeners();
+
+                } catch (error) {
+                    console.error("Error during initial Firebase authentication:", error);
+                    showMessageBox("Authentication Error", "Failed to authenticate. Some features may not be available.");
+                    // Hide all admin panels if Firebase auth fails
+                    document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
+                    document.getElementById('auth-section').classList.add('hidden');
+                }
             } else {
-                signInAnonymously(auth).then((userCredential) => {
-                    userId = userCredential.user.uid;
-                    console.log("Firebase signed in anonymously:", userId);
-                    checkAdminStatus(userCredential.user);
-                }).catch((error) => {
-                    console.error("Error signing in anonymously:", error);
-                    showMessageBox("Authentication Error", "Failed to authenticate anonymously. Some features may not be available.");
-                });
+                console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
+                showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
+                // Hide all admin panels if Firebase is not initialized
+                document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
+                document.getElementById('auth-section').classList.add('hidden');
             }
-        } else {
-            console.warn("Firebase config not fully provided. Firestore and Auth features will not work.");
-            showMessageBox("Configuration Error", "Firebase is not configured. Admin and data management features will be disabled.");
-            // Hide all admin panels if Firebase is not initialized
-            document.querySelectorAll('.admin-panel').forEach(el => el.classList.add('hidden'));
-            document.getElementById('auth-section').classList.add('hidden');
         }
 
         // Function to check admin status (using a Firestore 'roles' collection for flexibility)
@@ -1099,7 +1258,8 @@
                 return;
             }
             try {
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${user.uid}`);
+                // Corrected Firestore path for user roles
+                const userDocRef = doc(getCollectionRef("users"), user.uid); // Using getCollectionRef for consistency
                 const userDocSnap = await getDoc(userDocRef);
                 if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
                     isAdmin = true;
@@ -1120,13 +1280,7 @@
         function updateAdminUI() {
             const adminPanels = document.querySelectorAll('.admin-panel');
             const adminIndicator = document.getElementById('admin-mode-indicator');
-            const authSection = document.getElementById('auth-section');
-            const loginFormContainer = document.getElementById('login-form-container');
-            const registerFormContainer = document.getElementById('register-form-container');
-            const adminDashboard = document.getElementById('admin-dashboard');
-            const userEmailDisplay = document.getElementById('user-email-display');
-            const userIdDisplay = document.getElementById('user-id-display');
-            const authHeading = document.getElementById('auth-heading');
+            const authSection = document.getElementById('auth-section'); // This is already global
 
             if (isAdmin) {
                 adminPanels.forEach(panel => panel.classList.remove('hidden'));
@@ -1175,23 +1329,6 @@
 
         const mainContentContainer = document.getElementById('main-content-container');
         const pageSections = document.querySelectorAll('.page-section');
-
-        // Admin Auth Elements
-        const adminEmailInput = document.getElementById('admin-email');
-        const adminPasswordInput = document.getElementById('admin-password');
-        const loginBtn = document.getElementById('login-btn');
-        const googleLoginBtn = document.getElementById('google-login-btn');
-        const registerToggleBtn = document.getElementById('register-toggle-btn');
-        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
-        const authMessage = document.getElementById('auth-message');
-
-        const registerEmailInput = document.getElementById('register-email');
-        const registerPasswordInput = document.getElementById('register-password');
-        const registerBtn = document.getElementById('register-btn');
-        const loginToggleBtn = document.getElementById('login-toggle-btn');
-        const registerMessage = document.getElementById('register-message');
-
-        const logoutBtn = document.getElementById('logout-btn');
 
         // Book List Elements
         const bookListAdminPanel = document.getElementById('book-list-admin-panel');
@@ -1246,9 +1383,17 @@
         const messageBoxOkBtn = document.getElementById('message-box-ok-btn');
         const messageBoxCloseButton = document.querySelector('#message-box-modal .modal-close-button');
 
+        // Blog Detail Modal Elements
+        const blogDetailModal = document.getElementById('blog-detail-modal');
+        const blogDetailModalCloseButton = document.querySelector('#blog-detail-modal .modal-close-button');
+        const blogDetailTitle = document.getElementById('blog-detail-title');
+        const blogDetailDate = document.getElementById('blog-detail-date');
+        const blogDetailImage = document.getElementById('blog-detail-image');
+        const blogDetailContent = document.getElementById('blog-detail-content');
+
 
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
-        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
+        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBEAh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // Example URL
         const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
             course: "entry.1828229222",
             studentName: "entry.40854499",
@@ -1259,10 +1404,10 @@
         };
         const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // Replace with your contact form action URL
         const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // Replace with your newsletter form action URL
-        const YOUR_NAME_FIELD_ID = "entry.320465823";
-        const YOUR_EMAIL_FIELD_ID = "entry.196734286";
-        const YOUR_MESSAGE_FIELD_ID = "entry.1567514947";
-        const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "entry.1002277897";
+        const YOUR_NAME_FIELD_ID = "320465823";
+        const YOUR_EMAIL_FIELD_ID = "196734286";
+        const YOUR_MESSAGE_FIELD_ID = "1567514947";
+        const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "1002277897";
 
         // --- General Functions ---
 
@@ -1301,17 +1446,76 @@
             }
         }
 
+        // Global variable to hold the current confirm callback
+        let currentConfirmCallback = null;
+
         // Function to show a custom message box
-        function showMessageBox(title, message) {
+        function showMessageBox(title, message, isConfirm = false, onConfirm = null) {
             messageBoxTitle.textContent = title;
             messageBoxContent.textContent = message;
+            messageBoxOkBtn.textContent = isConfirm ? "Yes" : "OK";
+
+            // Clear any previous click handler on the OK button
+            if (currentConfirmCallback) {
+                messageBoxOkBtn.removeEventListener('click', currentConfirmCallback);
+                currentConfirmCallback = null;
+            }
+            // Ensure the generic hideMessageBox listener is also removed if it was added
+            messageBoxOkBtn.removeEventListener('click', hideMessageBox);
+
+            // Remove any existing 'No' button listener and hide it
+            const noBtn = document.getElementById('message-box-no-btn');
+            if (noBtn) {
+                noBtn.removeEventListener('click', hideMessageBox); // Remove its listener
+                noBtn.classList.add('hidden'); // Hide it
+            }
+
+            if (isConfirm) {
+                currentConfirmCallback = async () => { // Make sure this is async
+                    hideMessageBox(); // Hide first
+                    if (onConfirm) {
+                        await onConfirm(); // Await the async callback
+                    }
+                };
+                messageBoxOkBtn.addEventListener('click', currentConfirmCallback);
+
+                // Add a "No" button for confirmation if it doesn't exist
+                let newNoBtn = document.getElementById('message-box-no-btn');
+                if (!newNoBtn) {
+                    newNoBtn = document.createElement('button');
+                    newNoBtn.id = 'message-box-no-btn';
+                    newNoBtn.className = 'bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2';
+                    newNoBtn.textContent = 'No';
+                    messageBoxOkBtn.parentNode.appendChild(newNoBtn);
+                }
+                newNoBtn.addEventListener('click', hideMessageBox); // No button always just hides
+                newNoBtn.classList.remove('hidden');
+            } else {
+                // For non-confirm messages, just hide the box
+                messageBoxOkBtn.addEventListener('click', hideMessageBox);
+            }
             messageBoxModal.classList.add('active');
         }
 
         // Function to hide the custom message box
         function hideMessageBox() {
             messageBoxModal.classList.remove('active');
+            // Clean up the specific OK button handler when hiding
+            if (currentConfirmCallback) {
+                messageBoxOkBtn.removeEventListener('click', currentConfirmCallback);
+                currentConfirmCallback = null;
+            }
+            // Also remove the generic hideMessageBox listener if it was added
+            messageBoxOkBtn.removeEventListener('click', hideMessageBox);
+
+            // Hide and clean up the 'No' button if it exists
+            const noBtn = document.getElementById('message-box-no-btn');
+            if (noBtn) {
+                noBtn.removeEventListener('click', hideMessageBox); // Remove No button handler
+                noBtn.classList.add('hidden');
+            }
         }
+
 
         // --- Event Listeners and Initial Setup ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -1362,17 +1566,71 @@
             // Update navigation links to use renderPage
             navbarLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent default anchor link behavior
-                    const pageId = link.getAttribute('href').substring(1);
-                    renderPage(pageId);
+                    // Check if it's a dropdown item (course filter)
+                    const courseFilter = link.dataset.courseFilter;
+                    if (courseFilter) {
+                        e.preventDefault(); // Prevent default link behavior for dropdown items
+                        renderPage('courses'); // Navigate to courses page
+                        // Scroll to the specific course card
+                        setTimeout(() => {
+                            const targetCourseCard = document.querySelector(`[data-course-category="${courseFilter}"]`);
+                            if (targetCourseCard) {
+                                targetCourseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 100); // Small delay to allow page render
+                    } else {
+                        e.preventDefault(); // Prevent default anchor link behavior
+                        const pageId = link.getAttribute('href').substring(1);
+                        renderPage(pageId);
+                    }
+
                     // Close hamburger menu on mobile after clicking a link
                     if (navbarLinks.classList.contains('active')) {
                         navbarLinks.classList.remove('active');
                     }
+                    // Close dropdown menu if open
+                    const parentDropdown = link.closest('.dropdown');
+                    if (parentDropdown && parentDropdown.classList.contains('active')) {
+                        parentDropdown.classList.remove('active');
+                    }
                 });
             });
 
-            // Update form actions for Google Forms
+            // Handle dropdown toggle for mobile
+            const dropdowns = document.querySelectorAll('.navbar-links .dropdown');
+            dropdowns.forEach(dropdown => {
+                const dropdownToggle = dropdown.querySelector('a[href="#courses"]'); // The main "Courses" link
+                if (dropdownToggle) {
+                    dropdownToggle.addEventListener('click', (e) => {
+                        // Only toggle dropdown if on mobile (hamburger menu active)
+                        if (window.innerWidth < 768) {
+                            e.preventDefault(); // Prevent navigating to #courses directly on mobile
+                            dropdown.classList.toggle('active');
+                        }
+                    });
+                }
+            });
+
+
+            // Add specific event listeners for the hero section buttons
+            const startLearningBtn = document.querySelector('#home a[href="#courses"]');
+            const seeResultsBtn = document.querySelector('#home a[href="#testimonials"]');
+
+            if (startLearningBtn) {
+                startLearningBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage('courses');
+                });
+            }
+
+            if (seeResultsBtn) {
+                seeResultsBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage('testimonials');
+                });
+            }
+
+            // Update form actions for Google Forms (these don't depend on Firebase directly)
             const contactForm = document.querySelector('#contact form');
             if (contactForm) {
                 contactForm.action = YOUR_CONTACT_GOOGLE_FORM_ACTION_URL;
@@ -1386,6 +1644,9 @@
                 newsletterForm.action = YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL;
                 newsletterForm.querySelector('#newsletter-email').name = `entry.${YOUR_NEWSLETTER_EMAIL_FIELD_ID}`;
             }
+
+            // Call Firebase initialization and listener attachment function
+            initializeFirebaseAndListeners();
         });
 
         // Toggle theme on button click
@@ -1450,8 +1711,7 @@
             }
         });
 
-        // Message Box Event Listeners
-        messageBoxOkBtn.addEventListener('click', hideMessageBox);
+        // Message Box Event Listeners (only for close button and modal background)
         messageBoxCloseButton.addEventListener('click', hideMessageBox);
         messageBoxModal.addEventListener('click', (e) => {
             if (e.target === messageBoxModal) {
@@ -1459,154 +1719,321 @@
             }
         });
 
+        // Blog Detail Modal Event Listeners
+        blogDetailModalCloseButton.addEventListener('click', () => {
+            blogDetailModal.classList.remove('active');
+            blogDetailImage.classList.add('hidden'); // Hide image when closing
+            blogDetailImage.src = ''; // Clear image src
+        });
+
+        blogDetailModal.addEventListener('click', (e) => {
+            if (e.target === blogDetailModal) {
+                blogDetailModal.classList.remove('active');
+                blogDetailImage.classList.add('hidden'); // Hide image when closing
+                blogDetailImage.src = ''; // Clear image src
+            }
+        });
+
+
         // --- Firebase Authentication Functions ---
 
-        // Listen for auth state changes globally
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userId = user.uid;
-                console.log("Auth state changed: User is logged in.", userId);
-                checkAdminStatus(user);
-            } else {
-                userId = 'anonymous';
-                isAdmin = false;
-                console.log("Auth state changed: User is logged out.");
-                updateAdminUI(); // Update UI for logged out state
-            }
-        });
-
-        // Login with Email and Password
-        loginBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            const password = adminPasswordInput.value;
-            authMessage.classList.add('hidden');
-            if (!email || !password) {
-                authMessage.textContent = "Please enter email and password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log("Logged in:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-            } catch (error) {
-                console.error("Login error:", error.message);
-                authMessage.textContent = `Login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
-        });
-
-        // Login with Google
-        googleLoginBtn.addEventListener('click', async () => {
-            const provider = new GoogleAuthProvider();
-            authMessage.classList.add('hidden');
-            try {
-                const userCredential = await signInWithPopup(auth, provider);
-                console.log("Logged in with Google:", userCredential.user.email);
-                // checkAdminStatus will be called by onAuthStateChanged listener
-                // If this is a new user, set their role to 'user' by default
-                const userDocRef = doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`);
-                const userDocSnap = await getDoc(userDocRef);
-                if (!userDocSnap.exists()) {
-                    await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
-                    console.log("New Google user registered with 'user' role.");
+        // Function to attach all event listeners that depend on Firebase being initialized
+        function attachFirebaseEventListeners() {
+            // Admin Auth Elements Listeners
+            loginBtn.addEventListener('click', async () => {
+                const email = adminEmailInput.value;
+                const password = adminPasswordInput.value;
+                authMessage.classList.add('hidden');
+                if (!email || !password) {
+                    authMessage.textContent = "Please enter email and password.";
+                    authMessage.classList.remove('hidden');
+                    return;
                 }
-            } catch (error) {
-                console.error("Google login error:", error.message);
-                authMessage.textContent = `Google login failed: ${error.message}`;
-                authMessage.classList.remove('hidden');
-            }
-        });
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    console.log("Logged in:", userCredential.user.email);
+                    // onAuthStateChanged listener will handle UI update and admin status check
+                } catch (error) {
+                    console.error("Login error:", error.message);
+                    authMessage.textContent = `Login failed: ${error.message}`;
+                    authMessage.classList.remove('hidden');
+                }
+            });
 
-        // Register with Email and Password
-        registerBtn.addEventListener('click', async () => {
-            const email = registerEmailInput.value;
-            const password = registerPasswordInput.value;
-            registerMessage.classList.add('hidden');
-            if (!email || !password) {
-                registerMessage.textContent = "Please enter email and password.";
-                registerMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("Registered:", userCredential.user.email);
-                // Set the role for the new user (default to 'user')
-                await setDoc(doc(db, `artifacts/${appId}/public/users/${userCredential.user.uid}`), {
-                    role: 'user', // New users are 'user' by default
-                    email: userCredential.user.email,
-                    created_at: new Date()
-                });
-                showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
-                // Switch back to login form
+            googleLoginBtn.addEventListener('click', async () => {
+                const provider = new GoogleAuthProvider();
+                authMessage.classList.add('hidden');
+                try {
+                    const userCredential = await signInWithPopup(auth, provider);
+                    console.log("Logged in with Google:", userCredential.user.email);
+                    // Corrected Firestore path for user roles
+                    const userDocRef = doc(getCollectionRef("users"), userCredential.user.uid); // Using getCollectionRef
+                    const userDocSnap = await getDoc(userDocRef);
+                    if (!userDocSnap.exists()) {
+                        await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
+                        console.log("New Google user registered with 'user' role.");
+                    }
+                    // onAuthStateChanged listener will handle UI update and admin status check
+                } catch (error) {
+                    console.error("Google login error:", error.message);
+                    authMessage.textContent = `Google login failed: ${error.message}`;
+                    authMessage.classList.remove('hidden');
+                }
+            });
+
+            registerBtn.addEventListener('click', async () => {
+                console.log("Register button clicked.");
+                const email = registerEmailInput.value;
+                const password = registerPasswordInput.value;
+                registerMessage.classList.add('hidden'); // Hide previous messages
+                registerMessage.textContent = ''; // Clear previous text
+
+                if (!email || !password) {
+                    registerMessage.textContent = "Please enter both email and password.";
+                    registerMessage.classList.remove('hidden');
+                    console.log("Validation failed: email or password missing.");
+                    return;
+                }
+
+                try {
+                    console.log("Attempting to register user with email:", email);
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    console.log("Registered user UID:", userCredential.user.uid);
+
+                    // --- ADDED LOG HERE ---
+                    console.log(`Attempting to set user role for UID: ${userCredential.user.uid} at path: artifacts/${appId}/public/data/users`);
+
+                    // Set user role in Firestore
+                    // Corrected Firestore path for user roles
+                    await setDoc(doc(getCollectionRef("users"), userCredential.user.uid), { // Using getCollectionRef
+                        role: 'user', // Default role for new registrations
+                        email: userCredential.user.email,
+                        created_at: new Date()
+                    });
+                    console.log("User role successfully set in Firestore."); // Added success log
+
+                    showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
+                    // After successful registration, switch back to login form
+                    loginFormContainer.classList.remove('hidden');
+                    registerFormContainer.classList.add('hidden');
+                    adminEmailInput.value = email; // Pre-fill email for easy login
+                    adminPasswordInput.value = '';
+                    registerEmailInput.value = '';
+                    registerPasswordInput.value = '';
+                } catch (error) {
+                    console.error("Registration error:", error); // Log full error object for debugging
+                    let errorMessage = "Registration failed. Please try again.";
+                    if (error.code) {
+                        switch (error.code) {
+                            case 'auth/email-already-in-use':
+                                errorMessage = "The email address is already in use by another account.";
+                                break;
+                            case 'auth/invalid-email':
+                                errorMessage = "The email address is not valid.";
+                                break;
+                            case 'auth/operation-not-allowed':
+                                errorMessage = "Email/password accounts are not enabled. Please contact support.";
+                                break;
+                            case 'auth/weak-password':
+                                errorMessage = "The password is too weak. Please choose a stronger password (at least 6 characters).";
+                                break;
+                            default:
+                                errorMessage = `Registration failed: ${error.message}`;
+                        }
+                    }
+                    registerMessage.textContent = errorMessage;
+                    registerMessage.classList.remove('hidden');
+                }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    await signOut(auth);
+                    console.log("Logged out successfully.");
+                    showMessageBox("Logged Out", "You have been successfully logged out.");
+                } catch (error) {
+                    console.error("Logout error:", error.message);
+                    showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
+                }
+            });
+
+            forgotPasswordBtn.addEventListener('click', async () => {
+                const email = adminEmailInput.value;
+                if (!email) {
+                    authMessage.textContent = "Please enter your email to reset password.";
+                    authMessage.classList.remove('hidden');
+                    return;
+                }
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    showMessageBox("Password Reset", `Password reset email sent to ${email}. Please check your inbox.`);
+                } catch (error) {
+                    console.error("Forgot password error:", error.message);
+                    showMessageBox("Password Reset Error", `Failed to send reset email: ${error.message}`);
+                }
+            });
+
+            // Toggle between Login and Register forms
+            registerToggleBtn.addEventListener('click', () => {
+                loginFormContainer.classList.add('hidden');
+                registerFormContainer.classList.remove('hidden');
+                authMessage.classList.add('hidden'); // Clear login message
+                registerMessage.classList.add('hidden'); // Clear register message
+                document.getElementById('auth-heading').textContent = "Admin Registration";
+            });
+
+            loginToggleBtn.addEventListener('click', () => {
                 loginFormContainer.classList.remove('hidden');
                 registerFormContainer.classList.add('hidden');
-                adminEmailInput.value = email; // Pre-fill email for login
-                adminPasswordInput.value = '';
-                registerEmailInput.value = '';
-                registerPasswordInput.value = '';
-            } catch (error) {
-                console.error("Registration error:", error.message);
-                registerMessage.textContent = `Registration failed: ${error.message}`;
-                registerMessage.classList.remove('hidden');
-            }
-        });
+                authMessage.classList.add('hidden'); // Clear login message
+                registerMessage.classList.add('hidden'); // Clear register message
+                document.getElementById('auth-heading').textContent = "Admin Login";
+            });
 
-        // Logout
-        logoutBtn.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                console.log("Logged out successfully.");
-                showMessageBox("Logged Out", "You have been successfully logged out.");
-                // onAuthStateChanged will handle UI update
-            } catch (error) {
-                console.error("Logout error:", error.message);
-                showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
-            }
-        });
+            // Admin CRUD form submissions (these were already correctly placed, but ensuring context)
+            addEditBookForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage books.");
+                    return;
+                }
+                const bookId = bookIdInput.value;
+                const bookData = {
+                    title: bookTitleInput.value,
+                    author: bookAuthorInput.value,
+                    category: bookCategoryInput.value,
+                    description: bookDescriptionInput.value,
+                    url: bookUrlInput.value || null,
+                    date_posted: new Date() // Use server timestamp for consistency
+                };
 
-        // Forgot Password
-        forgotPasswordBtn.addEventListener('click', async () => {
-            const email = adminEmailInput.value;
-            if (!email) {
-                authMessage.textContent = "Please enter your email to reset password.";
-                authMessage.classList.remove('hidden');
-                return;
-            }
-            try {
-                await sendPasswordResetEmail(auth, email);
-                showMessageBox("Password Reset", `Password reset email sent to ${email}. Please check your inbox.`);
-            } catch (error) {
-                console.error("Forgot password error:", error.message);
-                showMessageBox("Password Reset Error", `Failed to send reset email: ${error.message}`);
-            }
-        });
+                try {
+                    if (bookId) {
+                        await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
+                        showMessageBox("Success", "Book updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("books"), bookData);
+                        showMessageBox("Success", "Book added successfully!");
+                    }
+                    addEditBookForm.reset();
+                    bookIdInput.value = ''; // Clear book ID
+                    cancelEditBookBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving book: ", e);
+                    showMessageBox("Error", "Error saving book. Please try again.");
+                }
+            });
 
-        // Toggle between Login and Register forms
-        registerToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.add('hidden');
-            registerFormContainer.classList.remove('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Registration";
-        });
+            addProblemForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage problems.");
+                    return;
+                }
+                const problemId = problemIdInput.value;
+                const problemData = {
+                    title: problemTitleInput.value,
+                    category: problemCategorySelect.value,
+                    description: problemDescriptionInput.value,
+                    solution_url: problemSolutionUrlInput.value || null,
+                    date_posted: new Date()
+                };
 
-        loginToggleBtn.addEventListener('click', () => {
-            loginFormContainer.classList.remove('hidden');
-            registerFormContainer.classList.add('hidden');
-            authMessage.classList.add('hidden'); // Clear login message
-            registerMessage.classList.add('hidden'); // Clear register message
-            document.getElementById('auth-heading').textContent = "Admin Login";
-        });
+                try {
+                    if (problemId) {
+                        await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
+                        showMessageBox("Success", "Problem updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("problems"), problemData);
+                        showMessageBox("Success", "Problem added successfully!");
+                    }
+                    addProblemForm.reset();
+                    problemIdInput.value = '';
+                    cancelEditProblemBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving problem: ", e);
+                    showMessageBox("Error", "Error saving problem. Please try again.");
+                }
+            });
+
+            addGalleryForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
+                    return;
+                }
+                const postId = galleryPostIdInput.value;
+                const postData = {
+                    imageUrl: galleryImageUrlInput.value,
+                    caption: galleryCaptionInput.value,
+                    date_posted: new Date()
+                };
+
+                try {
+                    if (postId) {
+                        await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
+                        showMessageBox("Success", "Gallery post updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("gallery_posts"), postData);
+                        showMessageBox("Success", "Gallery post added successfully!");
+                    }
+                    addGalleryForm.reset();
+                    galleryPostIdInput.value = '';
+                    cancelEditGalleryBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving gallery post: ", e);
+                    showMessageBox("Error", "Error saving gallery post. Please try again.");
+                }
+            });
+
+            addBlogForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) {
+                    showMessageBox("Permission Denied", "You must be logged in as an admin to manage blog posts.");
+                    return;
+                }
+                const postId = blogPostIdInput.value;
+                const postData = {
+                    title: blogTitleInput.value,
+                    imageUrl: blogImageUrlInput.value || null,
+                    content: blogContentInput.value,
+                    date_posted: new Date()
+                };
+
+                try {
+                    if (postId) {
+                        await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
+                        showMessageBox("Success", "Blog post updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("blog_posts"), postData);
+                        showMessageBox("Success", "Blog post added successfully!");
+                    }
+                    addBlogForm.reset();
+                    blogPostIdInput.value = '';
+                    cancelEditBlogBtn.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving blog post: ", e);
+                    showMessageBox("Error", "Error saving blog post. Please try again.");
+                }
+            });
+
+            // This function is called after Firebase is initialized and authenticated
+            initializeFirestoreListeners();
+        }
 
 
         // --- Firestore Operations ---
 
         // Function to create a Firestore collection path based on app ID
         // Note: For a multi-user app where data is private to a user,
-        // the path would be `artifacts/${appId}/users/${userId}/${collectionName}`
+        // the path would be `artifacts/${appId}/users/${userId}/{collectionName}`
         // For public data editable by admin, it's `artifacts/${appId}/public/data/${collectionName}`
         function getCollectionRef(collectionName) {
+            // Now appId is globally accessible
+            // Special handling for 'users' collection to place it under 'public/data'
+            if (collectionName === "users") {
+                return collection(db, `artifacts/${appId}/public/data/users`);
+            }
             return collection(db, `artifacts/${appId}/public/data/${collectionName}`);
         }
 
@@ -1647,42 +2074,6 @@
             }
             bookListLoading.classList.add('hidden');
         }
-
-        addEditBookForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage books.");
-                return;
-            }
-            const bookId = bookIdInput.value;
-            const bookData = {
-                title: bookTitleInput.value,
-                author: bookAuthorInput.value,
-                category: bookCategoryInput.value,
-                description: bookDescriptionInput.value,
-                url: bookUrlInput.value || null,
-                date_posted: new Date() // Use server timestamp for consistency
-            };
-
-            try {
-                if (bookId) {
-                    // Update existing book
-                    await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
-                    showMessageBox("Success", "Book updated successfully!");
-                } else {
-                    // Add new book
-                    await addDoc(getCollectionRef("books"), bookData);
-                    showMessageBox("Success", "Book added successfully!");
-                }
-                addEditBookForm.reset();
-                bookIdInput.value = ''; // Clear book ID
-                cancelEditBookBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving book: ", e);
-                showMessageBox("Error", "Error saving book. Please try again.");
-            }
-        });
 
         async function editBook(id) {
             if (!isAdmin) {
@@ -1725,12 +2116,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this book?", true, async () => {
                 try {
+                    console.log(`Attempting to delete book with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("books"), id));
                     showMessageBox("Success", "Book deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting book: ", e);
-                    showMessageBox("Error", "Error deleting book. Please try again.");
+                    showMessageBox("Error", "Error deleting book. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -1795,41 +2187,6 @@
             problemsLoading.classList.add('hidden');
         }
 
-        addProblemForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage problems.");
-                return;
-            }
-            const problemId = problemIdInput.value;
-            const problemData = {
-                title: problemTitleInput.value,
-                category: problemCategorySelect.value,
-                description: problemDescriptionInput.value,
-                solution_url: problemSolutionUrlInput.value || null,
-                date_posted: new Date()
-            };
-
-            try {
-                if (problemId) {
-                    // Update existing problem
-                    await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
-                    showMessageBox("Success", "Problem updated successfully!");
-                } else {
-                    // Add new problem
-                    await addDoc(getCollectionRef("problems"), problemData);
-                    showMessageBox("Success", "Problem added successfully!");
-                }
-                addProblemForm.reset();
-                problemIdInput.value = '';
-                cancelEditProblemBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving problem: ", e);
-                showMessageBox("Error", "Error saving problem. Please try again.");
-            }
-        });
-
         async function editProblem(id) {
             if (!isAdmin) {
                 showMessageBox("Permission Denied", "You must be logged in as an admin to edit problems.");
@@ -1870,12 +2227,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this problem?", true, async () => {
                 try {
+                    console.log(`Attempting to delete problem with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("problems"), id));
                     showMessageBox("Success", "Problem deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting problem: ", e);
-                    showMessageBox("Error", "Error deleting problem. Please try again.");
+                    showMessageBox("Error", "Error deleting problem. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -1917,39 +2275,6 @@
             galleryLoading.classList.add('hidden');
         }
 
-        addGalleryForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
-                return;
-            }
-            const postId = galleryPostIdInput.value;
-            const postData = {
-                imageUrl: galleryImageUrlInput.value,
-                caption: galleryCaptionInput.value,
-                date_posted: new Date()
-            };
-
-            try {
-                if (postId) {
-                    // Update existing post
-                    await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
-                    showMessageBox("Success", "Gallery post updated successfully!");
-                } else {
-                    // Add new post
-                    await addDoc(getCollectionRef("gallery_posts"), postData);
-                    showMessageBox("Success", "Gallery post added successfully!");
-                }
-                addGalleryForm.reset();
-                galleryPostIdInput.value = '';
-                cancelEditGalleryBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving gallery post: ", e);
-                showMessageBox("Error", "Error saving gallery post. Please try again.");
-            }
-        });
-
         async function editGalleryPost(id) {
             if (!isAdmin) {
                 showMessageBox("Permission Denied", "You must be logged in as an admin to edit gallery posts.");
@@ -1988,12 +2313,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this gallery post?", true, async () => {
                 try {
+                    console.log(`Attempting to delete gallery post with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("gallery_posts"), id));
                     showMessageBox("Success", "Gallery post deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting gallery post: ", e);
-                    showMessageBox("Error", "Error deleting gallery post. Please try again.");
+                    showMessageBox("Error", "Error deleting gallery post. Please try again. Details: " + e.message); // Added error detail
                 }
             });
         }
@@ -2001,11 +2327,13 @@
         // --- Blog Functions ---
         function renderBlogs(snapshot) {
             blogDisplay.innerHTML = ''; // Clear previous content
+            allBlogPosts = []; // Clear previous posts and populate with new data
             if (snapshot.empty) {
                 blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No blog posts yet.</p>';
             } else {
                 snapshot.forEach((doc) => {
-                    const post = doc.data();
+                    const post = { id: doc.id, ...doc.data() };
+                    allBlogPosts.push(post); // Store full post data
                     const postElement = document.createElement('article');
                     postElement.className = 'bg-gray-50 p-6 rounded-xl shadow-lg text-left dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out flex flex-col';
                     postElement.innerHTML = `
@@ -2013,7 +2341,7 @@
                         ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 object-cover rounded-md mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';">` : ''}
                         <p class="text-gray-600 mb-4 dark:text-gray-300 flex-grow">${post.content.substring(0, 150)}...</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Posted on: ${post.date_posted ? new Date(post.date_posted.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
-                        <a href="#" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto" aria-label="Read more about ${post.title}">Read More &rarr;</a>
+                        <button class="read-more-blog-btn text-indigo-600 hover:underline dark:text-indigo-400 mt-auto" data-id="${post.id}" aria-label="Read more about ${post.title}">Read More &rarr;</button>
                         ${isAdmin ? `
                             <div class="mt-4 flex space-x-2">
                                 <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
@@ -2022,6 +2350,11 @@
                         ` : ''}
                     `;
                     blogDisplay.appendChild(postElement);
+                });
+
+                // Add event listeners for "Read More" buttons
+                document.querySelectorAll('.read-more-blog-btn').forEach(button => {
+                    button.addEventListener('click', (e) => showBlogDetail(e.target.dataset.id));
                 });
 
                 if (isAdmin) {
@@ -2036,39 +2369,28 @@
             blogLoading.classList.add('hidden');
         }
 
-        addBlogForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!isAdmin) {
-                showMessageBox("Permission Denied", "You must be logged in as an admin to manage blog posts.");
-                return;
-            }
-            const postId = blogPostIdInput.value;
-            const postData = {
-                title: blogTitleInput.value,
-                imageUrl: blogImageUrlInput.value || null,
-                content: blogContentInput.value,
-                date_posted: new Date()
-            };
+        function showBlogDetail(id) {
+            const post = allBlogPosts.find(p => p.id === id);
+            if (post) {
+                blogDetailTitle.textContent = post.title;
+                blogDetailDate.textContent = `Posted on: ${post.date_posted ? new Date(post.date_posted.seconds * 1000).toLocaleDateString() : 'N/A'}`;
+                blogDetailContent.innerHTML = `<p>${post.content.replace(/\n/g, '</p><p>')}</p>`; // Basic line break to paragraph conversion
 
-            try {
-                if (postId) {
-                    // Update existing post
-                    await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
-                    showMessageBox("Success", "Blog post updated successfully!");
+                if (post.imageUrl) {
+                    blogDetailImage.src = post.imageUrl;
+                    blogDetailImage.classList.remove('hidden');
+                    blogDetailImage.onerror = () => {
+                        blogDetailImage.src = 'https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';
+                    };
                 } else {
-                    // Add new post
-                    await addDoc(getCollectionRef("blog_posts"), postData);
-                    showMessageBox("Success", "Blog post added successfully!");
+                    blogDetailImage.classList.add('hidden');
+                    blogDetailImage.src = '';
                 }
-                addBlogForm.reset();
-                blogPostIdInput.value = '';
-                cancelEditBlogBtn.classList.add('hidden');
-                // Data will be re-rendered by the real-time listener
-            } catch (e) {
-                console.error("Error saving blog post: ", e);
-                showMessageBox("Error", "Error saving blog post. Please try again.");
+                blogDetailModal.classList.add('active');
+            } else {
+                showMessageBox("Error", "Blog post not found.");
             }
-        });
+        }
 
         async function editBlogPost(id) {
             if (!isAdmin) {
@@ -2109,12 +2431,13 @@
             }
             showMessageBox("Confirm Delete", "Are you sure you want to delete this blog post?", true, async () => {
                 try {
+                    console.log(`Attempting to delete blog post with ID: ${id}. isAdmin: ${isAdmin}`); // Added log
                     await deleteDoc(doc(getCollectionRef("blog_posts"), id));
                     showMessageBox("Success", "Blog post deleted successfully!");
                     // Data will be re-rendered by the real-time listener
                 } catch (e) {
                     console.error("Error deleting blog post: ", e);
-                    showMessageBox("Error", "Error deleting blog post. Please try again.");
+                    showMessageBox("Error", "Error deleting blog post. Please try again. Details: " + e.message); // Added error detail
                 }
             } );
         }
