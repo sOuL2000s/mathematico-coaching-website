@@ -1136,7 +1136,7 @@
             }
             try {
                 // Corrected Firestore path for user roles
-                const userDocRef = doc(collection(db, `artifacts/${appId}/public/users`), user.uid);
+                const userDocRef = doc(getCollectionRef("users"), user.uid); // Using getCollectionRef for consistency
                 const userDocSnap = await getDoc(userDocRef);
                 if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
                     isAdmin = true;
@@ -1557,7 +1557,7 @@
                     const userCredential = await signInWithPopup(auth, provider);
                     console.log("Logged in with Google:", userCredential.user.email);
                     // Corrected Firestore path for user roles
-                    const userDocRef = doc(collection(db, `artifacts/${appId}/public/users`), userCredential.user.uid);
+                    const userDocRef = doc(getCollectionRef("users"), userCredential.user.uid); // Using getCollectionRef
                     const userDocSnap = await getDoc(userDocRef);
                     if (!userDocSnap.exists()) {
                         await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: new Date() });
@@ -1591,11 +1591,11 @@
                     console.log("Registered user UID:", userCredential.user.uid);
 
                     // --- ADDED LOG HERE ---
-                    console.log(`Attempting to set user role for UID: ${userCredential.user.uid} at path: artifacts/${appId}/public/users`);
+                    console.log(`Attempting to set user role for UID: ${userCredential.user.uid} at path: artifacts/${appId}/public/data/users`);
 
                     // Set user role in Firestore
                     // Corrected Firestore path for user roles
-                    await setDoc(doc(collection(db, `artifacts/${appId}/public/users`), userCredential.user.uid), {
+                    await setDoc(doc(getCollectionRef("users"), userCredential.user.uid), { // Using getCollectionRef
                         role: 'user', // Default role for new registrations
                         email: userCredential.user.email,
                         created_at: new Date()
@@ -1820,6 +1820,10 @@
         // For public data editable by admin, it's `artifacts/${appId}/public/data/${collectionName}`
         function getCollectionRef(collectionName) {
             // Now appId is globally accessible
+            // Special handling for 'users' collection to place it under 'public/data'
+            if (collectionName === "users") {
+                return collection(db, `artifacts/${appId}/public/data/users`);
+            }
             return collection(db, `artifacts/${appId}/public/data/${collectionName}`);
         }
 
