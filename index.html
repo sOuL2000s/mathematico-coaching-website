@@ -232,7 +232,9 @@
 
         /* Dropdown specific styles for Navbar */
         .dropdown-menu {
-            display: none;
+            visibility: hidden; /* Changed from display: none; */
+            opacity: 0; /* Changed from display: none; */
+            pointer-events: none; /* Prevents interaction when hidden */
             position: absolute;
             background-color: white; /* Default light mode */
             min-width: 160px;
@@ -243,9 +245,7 @@
             top: calc(100% + 0.5rem); /* Position below the parent link */
             left: 50%;
             transform: translateX(-50%);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out; /* Smooth transition */
 
             /* Dark mode styles for dropdown */
             .dark & {
@@ -255,9 +255,9 @@
 
         .dropdown:hover .dropdown-menu,
         .dropdown.active .dropdown-menu { /* .active for mobile toggle */
-            display: block;
-            opacity: 1;
-            visibility: visible;
+            visibility: visible; /* Changed from display: block; */
+            opacity: 1; /* Changed from display: block; */
+            pointer-events: auto; /* Allows interaction when visible */
         }
 
         .dropdown-menu a {
@@ -388,7 +388,8 @@
                    dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative px-6 md:px-12">
             <div class="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
-                <a href="#home" class="text-3xl font-extrabold text-indigo-700 flex items-center" aria-label="MATHEMATICO Home">
+                <!-- Added ID to the logo link for easier targeting -->
+                <a href="#home" id="mathematico-logo" class="text-3xl font-extrabold text-indigo-700 flex items-center" aria-label="MATHEMATICO Home">
                    <!-- Updated SVG for MATHEMATICO logo (Sigma symbol) -->
                    <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 6H6v2h12V6zm0 3H6v2h12V9zm-6 3H6v2h6v-2zm6 3H6v2h12v-2z"/>
@@ -408,7 +409,8 @@
                 <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700" aria-label="Go to About Us section">About Us</a></li>
                 <!-- Courses Dropdown -->
                 <li class="relative dropdown">
-                    <a href="#courses" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="View Courses">
+                    <!-- Changed href to javascript:void(0) for dropdown toggle on desktop to prevent page jump -->
+                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="View Courses">
                         Courses
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </a>
@@ -425,7 +427,8 @@
 
                 <!-- New "More" Dropdown -->
                 <li class="relative dropdown">
-                    <a href="#" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="More sections">
+                    <!-- Changed href to javascript:void(0) to prevent page jump on click -->
+                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-md px-2 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center" aria-label="More sections">
                         More
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </a>
@@ -1189,7 +1192,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, orderBy, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // Removed orderBy from import as it will be handled client-side
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Global Firebase variables, initialized to null
         let app = null;
@@ -1449,6 +1453,8 @@
         const blogDetailImage = document.getElementById('blog-detail-image');
         const blogDetailContent = document.getElementById('blog-detail-content');
 
+        // Get the Mathematico logo element
+        const mathematicoLogo = document.getElementById('mathematico-logo');
 
         // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
         // To get these:
@@ -1636,6 +1642,9 @@
                 link.addEventListener('click', (e) => {
                     // Check if it's a dropdown item (course filter)
                     const courseFilter = link.dataset.courseFilter;
+                    // Check if it's a dropdown toggle (which has href="javascript:void(0)")
+                    const isDropdownToggle = link.getAttribute('href') === 'javascript:void(0)';
+
                     if (courseFilter) {
                         e.preventDefault(); // Prevent default link behavior for dropdown items
                         renderPage('courses'); // Navigate to courses page
@@ -1646,6 +1655,16 @@
                                 targetCourseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             }
                         }, 100); // Small delay to allow page render
+                    } else if (isDropdownToggle) { // Handle dropdown toggles (Courses and More)
+                        e.preventDefault(); // Prevent default for dropdown toggles to avoid page jump
+                        const parentDropdown = link.closest('.dropdown');
+                        if (parentDropdown) {
+                            // On mobile, always toggle the dropdown
+                            // On desktop, only toggle if it's not a direct navigation link within the dropdown
+                            if (window.innerWidth < 768 || (window.innerWidth >= 768 && parentDropdown.classList.contains('dropdown'))) {
+                                parentDropdown.classList.toggle('active');
+                            }
+                        }
                     } else {
                         // Prevent default anchor link behavior only if it's an internal link
                         if (link.getAttribute('href').startsWith('#')) {
@@ -1659,29 +1678,25 @@
                     if (navbarLinks.classList.contains('active')) {
                         navbarLinks.classList.remove('active');
                     }
-                    // Close dropdown menu if open
+                    // Close dropdown menu if open (for desktop dropdowns after clicking an item or if it's not a toggle)
                     const parentDropdown = link.closest('.dropdown');
-                    if (parentDropdown && parentDropdown.classList.contains('active')) {
+                    if (parentDropdown && !isDropdownToggle) { // Only close if it's not the toggle itself
                         parentDropdown.classList.remove('active');
                     }
                 });
             });
 
-            // Handle dropdown toggle for mobile for ALL dropdowns
-            const allDropdowns = document.querySelectorAll('.navbar-links .dropdown');
-            allDropdowns.forEach(dropdown => {
-                const dropdownToggle = dropdown.querySelector('a'); // The first anchor in the dropdown li
-                if (dropdownToggle) {
-                    dropdownToggle.addEventListener('click', (e) => {
-                        // Only toggle dropdown if on mobile (hamburger menu active)
-                        if (window.innerWidth < 768 && !dropdownToggle.dataset.courseFilter) { // Don't prevent default for course filters
-                            e.preventDefault(); // Prevent navigating to # directly for the "More" dropdown
-                            dropdown.classList.toggle('active');
+            // Close dropdowns when clicking anywhere else on the document (for desktop)
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth >= 768) { // Only for desktop dropdowns
+                    document.querySelectorAll('.navbar-links .dropdown').forEach(dropdown => {
+                        // Check if the click was outside the current dropdown
+                        if (!dropdown.contains(e.target)) {
+                            dropdown.classList.remove('active');
                         }
                     });
                 }
             });
-
 
             // Add specific event listeners for the hero section buttons
             const startLearningBtn = document.querySelector('#home a[href="#courses"]');
@@ -1700,6 +1715,19 @@
                     renderPage('testimonials');
                 });
             }
+
+            // Fix for Mathematico logo not taking back to home
+            if (mathematicoLogo) {
+                mathematicoLogo.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default anchor behavior
+                    renderPage('home'); // Navigate to the home section
+                    // Close hamburger menu if open
+                    if (navbarLinks.classList.contains('active')) {
+                        navbarLinks.classList.remove('active');
+                    }
+                });
+            }
+
 
             // Update form actions for Google Forms (these don't depend on Firebase directly)
             const contactForm = document.querySelector('#contact form');
@@ -2152,11 +2180,22 @@
         // --- Book List Functions ---
         function renderBooks(snapshot) {
             bookListDisplay.innerHTML = ''; // Clear previous content
-            if (snapshot.empty) {
+            const books = [];
+            snapshot.forEach((doc) => {
+                books.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Client-side sorting by date_posted in descending order
+            books.sort((a, b) => {
+                const dateA = a.date_posted ? (a.date_posted.seconds || 0) : 0;
+                const dateB = b.date_posted ? (b.date_posted.seconds || 0) : 0;
+                return dateB - dateA;
+            });
+
+            if (books.length === 0) {
                 bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No books added yet.</p>';
             } else {
-                snapshot.forEach((doc) => {
-                    const book = doc.data();
+                books.forEach((book) => {
                     const bookElement = document.createElement('div');
                     bookElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
                     bookElement.innerHTML = `
@@ -2167,8 +2206,8 @@
                         ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto">View Book &rarr;</a>` : ''}
                         ${isAdmin ? `
                             <div class="mt-4 flex space-x-2">
-                                <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${book.id}">Edit</button>
+                                <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${book.id}">Delete</button>
                             </div>
                         ` : ''}
                     `;
@@ -2236,16 +2275,26 @@
         // --- Problems Functions ---
         function renderProblems(snapshot) {
             problemsDisplay.innerHTML = ''; // Clear previous content
+            const problems = [];
+            snapshot.forEach((doc) => {
+                problems.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Client-side sorting by date_posted in descending order
+            problems.sort((a, b) => {
+                const dateA = a.date_posted ? (a.date_posted.seconds || 0) : 0;
+                const dateB = b.date_posted ? (b.date_posted.seconds || 0) : 0;
+                return dateB - dateA;
+            });
+
             const categories = ["Geometry", "Inequality", "Number Theory", "Calculus", "Algebra"];
             const problemsByCategory = {};
             categories.forEach(cat => problemsByCategory[cat] = []);
 
-            if (snapshot.empty) {
+            if (problems.length === 0) {
                 problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No problems added yet.</p>';
             } else {
-                snapshot.forEach((doc) => {
-                    const problem = doc.data();
-                    problem.id = doc.id; // Store document ID
+                problems.forEach(problem => {
                     if (problemsByCategory[problem.category]) {
                         problemsByCategory[problem.category].push(problem);
                     }
@@ -2341,11 +2390,22 @@
         // --- Gallery Functions ---
         function renderGallery(snapshot) {
             galleryDisplay.innerHTML = ''; // Clear previous content
-            if (snapshot.empty) {
+            const galleryPosts = [];
+            snapshot.forEach((doc) => {
+                galleryPosts.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Client-side sorting by date_posted in descending order
+            galleryPosts.sort((a, b) => {
+                const dateA = a.date_posted ? (a.date_posted.seconds || 0) : 0;
+                const dateB = b.date_posted ? (b.date_posted.seconds || 0) : 0;
+                return dateB - dateA;
+            });
+
+            if (galleryPosts.length === 0) {
                 galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No gallery posts yet.</p>';
             } else {
-                snapshot.forEach((doc) => {
-                    const post = doc.data();
+                galleryPosts.forEach((post) => {
                     const postElement = document.createElement('div');
                     postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800 cursor-pointer'; // Added cursor-pointer
                     postElement.setAttribute('data-image-url', post.imageUrl); // Add data attributes for modal
@@ -2357,8 +2417,8 @@
                         </div>
                         ${isAdmin ? `
                             <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${post.id}">Edit</button>
+                                <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${post.id}">Delete</button>
                             </div>
                         ` : ''}
                     `;
@@ -2447,12 +2507,23 @@
         function renderBlogs(snapshot) {
             blogDisplay.innerHTML = ''; // Clear previous content
             allBlogPosts = []; // Clear previous posts and populate with new data
-            if (snapshot.empty) {
+            const blogPosts = [];
+            snapshot.forEach((doc) => {
+                blogPosts.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Client-side sorting by date_posted in descending order
+            blogPosts.sort((a, b) => {
+                const dateA = a.date_posted ? (a.date_posted.seconds || 0) : 0;
+                const dateB = b.date_posted ? (b.date_posted.seconds || 0) : 0;
+                return dateB - dateA;
+            });
+            allBlogPosts = blogPosts; // Store sorted posts
+
+            if (blogPosts.length === 0) {
                 blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full">No blog posts yet.</p>';
             } else {
-                snapshot.forEach((doc) => {
-                    const post = { id: doc.id, ...doc.data() };
-                    allBlogPosts.push(post); // Store full post data
+                blogPosts.forEach((post) => {
                     const postElement = document.createElement('article');
                     postElement.className = 'bg-gray-50 p-6 rounded-xl shadow-lg text-left dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out flex flex-col';
                     postElement.innerHTML = `
@@ -2463,8 +2534,8 @@
                         <button class="read-more-blog-btn text-indigo-600 hover:underline dark:text-indigo-400 mt-auto" data-id="${post.id}" aria-label="Read more about ${post.title}">Read More &rarr;</button>
                         ${isAdmin ? `
                             <div class="mt-4 flex space-x-2">
-                                <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${doc.id}">Edit</button>
-                                <button class="delete-blog-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${doc.id}">Delete</button>
+                                <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" data-id="${post.id}">Edit</button>
+                                <button class="delete-blog-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" data-id="${post.id}">Delete</button>
                             </div>
                         ` : ''}
                     `;
@@ -2559,7 +2630,7 @@
         function initializeFirestoreListeners() {
             if (db) {
                 // Real-time listener for books
-                onSnapshot(query(getCollectionRef("books"), orderBy("date_posted", "desc")), (snapshot) => {
+                onSnapshot(query(getCollectionRef("books")), (snapshot) => { // Removed orderBy
                     renderBooks(snapshot);
                 }, (error) => {
                     console.error("Error listening to books collection: ", error);
@@ -2568,7 +2639,7 @@
                 });
 
                 // Real-time listener for problems
-                onSnapshot(query(getCollectionRef("problems"), orderBy("date_posted", "desc")), (snapshot) => {
+                onSnapshot(query(getCollectionRef("problems")), (snapshot) => { // Removed orderBy
                     renderProblems(snapshot);
                 }, (error) => {
                     console.error("Error listening to problems collection: ", error);
@@ -2577,7 +2648,7 @@
                 });
 
                 // Real-time listener for gallery posts
-                onSnapshot(query(getCollectionRef("gallery_posts"), orderBy("date_posted", "desc")), (snapshot) => {
+                onSnapshot(query(getCollectionRef("gallery_posts")), (snapshot) => { // Removed orderBy
                     renderGallery(snapshot);
                 }, (error) => {
                     console.error("Error listening to gallery collection: ", error);
@@ -2586,7 +2657,7 @@
                 });
 
                 // Real-time listener for blog posts
-                onSnapshot(query(getCollectionRef("blog_posts"), orderBy("date_posted", "desc")), (snapshot) => {
+                onSnapshot(query(getCollectionRef("blog_posts")), (snapshot) => { // Removed orderBy
                     renderBlogs(snapshot);
                 }, (error) => {
                     console.error("Error listening to blog collection: ", error);
