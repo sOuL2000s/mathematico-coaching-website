@@ -1023,14 +1023,18 @@
                     <form id="add-gallery-form" class="text-left">
                         <input type="hidden" id="gallery-post-id">
                         <div class="mb-4">
-                            <label for="gallery-image-url" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Image URL:</label>
-                            <input type="url" id="gallery-image-url" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                            <label for="gallery-image-upload" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload Image:</label>
+                            <input type="file" id="gallery-image-upload" accept="image/*" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <div id="gallery-image-preview-container" class="mt-2 flex items-center space-x-4">
+                                <img id="gallery-image-preview" src="#" alt="Image Preview" class="max-w-[150px] max-h-[150px] rounded-md object-cover hidden">
+                                <span id="gallery-upload-spinner" class="spinner hidden"></span>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="gallery-caption" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Caption:</label>
                             <textarea id="gallery-caption" rows="3" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
                         </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Add Post</button>
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Save Post</button>
                         <button type="button" id="cancel-edit-gallery-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
                     </form>
                 </div>
@@ -1059,8 +1063,12 @@
                             <input type="text" id="blog-title" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
                         </div>
                         <div class="mb-4">
-                            <label for="blog-image-url" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Image URL (Optional):</label>
-                            <input type="url" id="blog-image-url" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <label for="blog-image-upload" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload Image (Optional):</label>
+                            <input type="file" id="blog-image-upload" accept="image/*" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <div id="blog-image-preview-container" class="mt-2 flex items-center space-x-4">
+                                <img id="blog-image-preview" src="#" alt="Image Preview" class="max-w-[150px] max-h-[150px] rounded-md object-cover hidden">
+                                <span id="blog-upload-spinner" class="spinner hidden"></span>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="blog-content" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Content:</label>
@@ -1192,13 +1200,14 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        // Removed orderBy from import as it will be handled client-side
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // Global Firebase variables, initialized to null
         let app = null;
         let db = null;
         let auth = null;
+        let storage = null; // Initialize storage
         let userId = 'anonymous'; // Default to anonymous
         let isAdmin = false; // Global flag for admin status
         let appId = null; // Declare appId globally
@@ -1239,7 +1248,7 @@
                 apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
                 authDomain: "mathematico-website.firebaseapp.com",
                 projectId: "mathematico-website",
-                storageBucket: "mathematico-website.firebaseapp.com",
+                storageBucket: "mathematico-website.appspot.com", // Corrected storageBucket
                 messagingSenderId: "186709981685",
                 appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
                 measurementId: "G-5Z24Z4Q97Q"
@@ -1258,6 +1267,7 @@
                     app = initializeApp(firebaseConfig);
                     db = getFirestore(app);
                     auth = getAuth(app);
+                    storage = getStorage(app); // Initialize Firebase Storage
                     console.log("Firebase initialized successfully.");
 
                     // Authenticate user with custom token if provided by Canvas, otherwise anonymously
@@ -1415,7 +1425,10 @@
         const galleryAdminPanel = document.getElementById('gallery-admin-panel');
         const addGalleryForm = document.getElementById('add-gallery-form');
         const galleryPostIdInput = document.getElementById('gallery-post-id');
-        const galleryImageUrlInput = document.getElementById('gallery-image-url');
+        // Changed from URL input to file input
+        const galleryImageUploadInput = document.getElementById('gallery-image-upload');
+        const galleryImagePreview = document.getElementById('gallery-image-preview');
+        const galleryUploadSpinner = document.getElementById('gallery-upload-spinner');
         const galleryCaptionInput = document.getElementById('gallery-caption');
         const cancelEditGalleryBtn = document.getElementById('cancel-edit-gallery-btn');
         const galleryDisplay = document.getElementById('gallery-display');
@@ -1432,7 +1445,10 @@
         const addBlogForm = document.getElementById('add-blog-form');
         const blogPostIdInput = document.getElementById('blog-post-id');
         const blogTitleInput = document.getElementById('blog-title');
-        const blogImageUrlInput = document.getElementById('blog-image-url');
+        // Changed from URL input to file input
+        const blogImageUploadInput = document.getElementById('blog-image-upload');
+        const blogImagePreview = document.getElementById('blog-image-preview');
+        const blogUploadSpinner = document.getElementById('blog-upload-spinner');
         const blogContentInput = document.getElementById('blog-content');
         const cancelEditBlogBtn = document.getElementById('cancel-edit-blog-btn');
         const blogDisplay = document.getElementById('blog-display');
@@ -2084,20 +2100,109 @@
                 cancelEditProblemBtn.classList.add('hidden');
             });
 
+            // --- Image Upload Functions ---
+
+            // Function to upload file to Firebase Storage
+            async function uploadFile(file, folderPath, spinnerElement, previewElement) {
+                if (!file) return null;
+
+                spinnerElement.classList.remove('hidden'); // Show spinner
+                previewElement.classList.add('hidden'); // Hide preview during upload
+
+                const storageRef = ref(storage, `${folderPath}/${file.name}_${Date.now()}`);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                return new Promise((resolve, reject) => {
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            // You can show progress here if needed
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log('Upload is ' + progress + '% done');
+                        },
+                        (error) => {
+                            spinnerElement.classList.add('hidden');
+                            console.error("Upload failed:", error);
+                            showMessageBox("Upload Error", `Image upload failed: ${error.message}`);
+                            reject(error);
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                spinnerElement.classList.add('hidden');
+                                previewElement.src = downloadURL;
+                                previewElement.classList.remove('hidden');
+                                resolve(downloadURL);
+                            }).catch(error => {
+                                spinnerElement.classList.add('hidden');
+                                console.error("Error getting download URL:", error);
+                                showMessageBox("Error", "Failed to get image download URL.");
+                                reject(error);
+                            });
+                        }
+                    );
+                });
+            }
+
+            // Event listener for Gallery image upload input
+            galleryImageUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        galleryImagePreview.src = e.target.result;
+                        galleryImagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    galleryImagePreview.classList.add('hidden');
+                    galleryImagePreview.src = '#';
+                }
+            });
+
+            // Event listener for Blog image upload input
+            blogImageUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        blogImagePreview.src = e.target.result;
+                        blogImagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    blogImagePreview.classList.add('hidden');
+                    blogImagePreview.src = '#';
+                }
+            });
+
+
             addGalleryForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAdmin) {
                     showMessageBox("Permission Denied", "You must be logged in as an admin to manage gallery posts.");
                     return;
                 }
+
                 const postId = galleryPostIdInput.value;
-                const postData = {
-                    imageUrl: galleryImageUrlInput.value,
-                    caption: galleryCaptionInput.value,
-                    date_posted: new Date()
-                };
+                const caption = galleryCaptionInput.value;
+                const imageFile = galleryImageUploadInput.files[0];
+                let imageUrl = galleryImagePreview.src !== '#' && galleryImagePreview.src !== window.location.href ? galleryImagePreview.src : null; // Keep existing if no new file
 
                 try {
+                    if (imageFile) {
+                        // Upload new image if selected
+                        imageUrl = await uploadFile(imageFile, 'gallery_images', galleryUploadSpinner, galleryImagePreview);
+                    } else if (!postId && !imageUrl) {
+                        // If it's a new post and no image is uploaded
+                        showMessageBox("Error", "Please upload an image for the gallery post.");
+                        return;
+                    }
+
+                    const postData = {
+                        imageUrl: imageUrl,
+                        caption: caption,
+                        date_posted: new Date()
+                    };
+
                     if (postId) {
                         await updateDoc(doc(getCollectionRef("gallery_posts"), postId), postData);
                         showMessageBox("Success", "Gallery post updated successfully!");
@@ -2108,6 +2213,9 @@
                     addGalleryForm.reset();
                     galleryPostIdInput.value = '';
                     cancelEditGalleryBtn.classList.add('hidden');
+                    galleryImagePreview.classList.add('hidden'); // Hide preview
+                    galleryImagePreview.src = '#'; // Clear preview source
+                    galleryImageUploadInput.value = ''; // Clear file input
                 } catch (e) {
                     console.error("Error saving gallery post: ", e);
                     showMessageBox("Error", "Error saving gallery post. Please try again.");
@@ -2118,6 +2226,9 @@
                 addGalleryForm.reset();
                 galleryPostIdInput.value = '';
                 cancelEditGalleryBtn.classList.add('hidden');
+                galleryImagePreview.classList.add('hidden'); // Hide preview
+                galleryImagePreview.src = '#'; // Clear preview source
+                galleryImageUploadInput.value = ''; // Clear file input
             });
 
             addBlogForm.addEventListener('submit', async (e) => {
@@ -2127,14 +2238,26 @@
                     return;
                 }
                 const postId = blogPostIdInput.value;
-                const postData = {
-                    title: blogTitleInput.value,
-                    imageUrl: blogImageUrlInput.value || null,
-                    content: blogContentInput.value,
-                    date_posted: new Date()
-                };
+                const title = blogTitleInput.value;
+                const content = blogContentInput.value;
+                const imageFile = blogImageUploadInput.files[0];
+                let imageUrl = blogImagePreview.src !== '#' && blogImagePreview.src !== window.location.href ? blogImagePreview.src : null; // Keep existing if no new file
+
 
                 try {
+                    if (imageFile) {
+                        // Upload new image if selected
+                        imageUrl = await uploadFile(imageFile, 'blog_images', blogUploadSpinner, blogImagePreview);
+                    }
+                    // No error if no image is uploaded for blog, as it's optional
+
+                    const postData = {
+                        title: title,
+                        imageUrl: imageUrl,
+                        content: content,
+                        date_posted: new Date()
+                    };
+
                     if (postId) {
                         await updateDoc(doc(getCollectionRef("blog_posts"), postId), postData);
                         showMessageBox("Success", "Blog post updated successfully!");
@@ -2145,6 +2268,9 @@
                     addBlogForm.reset();
                     blogPostIdInput.value = '';
                     cancelEditBlogBtn.classList.add('hidden');
+                    blogImagePreview.classList.add('hidden'); // Hide preview
+                    blogImagePreview.src = '#'; // Clear preview source
+                    blogImageUploadInput.value = ''; // Clear file input
                 } catch (e) {
                     console.error("Error saving blog post: ", e);
                     showMessageBox("Error", "Error saving blog post. Please try again.");
@@ -2155,6 +2281,9 @@
                 addBlogForm.reset();
                 blogPostIdInput.value = '';
                 cancelEditBlogBtn.classList.add('hidden');
+                blogImagePreview.classList.add('hidden'); // Hide preview
+                blogImagePreview.src = '#'; // Clear preview source
+                blogImageUploadInput.value = ''; // Clear file input
             });
 
             // This function is called after Firebase is initialized and authenticated
@@ -2471,8 +2600,18 @@
                 if (docSnap.exists()) {
                     const post = docSnap.data();
                     galleryPostIdInput.value = id;
-                    galleryImageUrlInput.value = post.imageUrl;
                     galleryCaptionInput.value = post.caption;
+                    
+                    // Set preview image and show it
+                    if (post.imageUrl) {
+                        galleryImagePreview.src = post.imageUrl;
+                        galleryImagePreview.classList.remove('hidden');
+                    } else {
+                        galleryImagePreview.classList.add('hidden');
+                        galleryImagePreview.src = '#';
+                    }
+                    galleryImageUploadInput.value = ''; // Clear file input so user has to re-select
+                    
                     cancelEditGalleryBtn.classList.remove('hidden');
                     window.scrollTo({ top: galleryAdminPanel.offsetTop, behavior: 'smooth' });
                 } else {
@@ -2594,8 +2733,18 @@
                     const post = docSnap.data();
                     blogPostIdInput.value = id;
                     blogTitleInput.value = post.title;
-                    blogImageUrlInput.value = post.imageUrl || '';
                     blogContentInput.value = post.content;
+                    
+                    // Set preview image and show it
+                    if (post.imageUrl) {
+                        blogImagePreview.src = post.imageUrl;
+                        blogImagePreview.classList.remove('hidden');
+                    } else {
+                        blogImagePreview.classList.add('hidden');
+                        blogImagePreview.src = '#';
+                    }
+                    blogImageUploadInput.value = ''; // Clear file input so user has to re-select
+                    
                     cancelEditBlogBtn.classList.remove('hidden');
                     window.scrollTo({ top: blogAdminPanel.offsetTop, behavior: 'smooth' });
                 } else {
