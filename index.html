@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MATHEMATICO - Special Mathematics Coaching</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon for the website -->
+    <link rel="icon" href="https://placehold.co/32x32/E0E7FF/4F46E5?text=%CE%A3" type="image/png">
     <style>
         /* Custom styles for the Inter font */
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden; /* Ensure no horizontal scrolling on the body */
+            background-color: #f8fafc; /* Lighter background for overall aesthetic */
         }
         html {
             overflow-x: hidden; /* Ensure no horizontal scrolling on the html element either */
@@ -99,6 +102,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 0.75rem; /* Added rounded corners */
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .accordion-header:hover {
+            background-color: #f3f4f6; /* Light hover effect */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow on hover */
+        }
+        .dark .accordion-header:hover {
+            background-color: #374151; /* Dark hover effect */
         }
         .accordion-content {
             max-height: 0;
@@ -355,6 +367,263 @@
         .dark #gallery-image-modal .modal-caption {
             color: #d1d5db; /* Dark mode */
         }
+
+        /* Custom card styles for sections like Courses, Features, Testimonials, Success Stories */
+        .card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem; /* More rounded corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #e0e7ff; /* Light indigo border */
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.02); /* Lift and slightly enlarge on hover */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
+            border-color: #818cf8; /* Darker indigo border on hover */
+        }
+        .dark .card {
+            background-color: #1f2937; /* Dark mode background */
+            border-color: #374151; /* Dark mode border */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .dark .card:hover {
+            border-color: #6366f1; /* Darker indigo border on hover in dark mode */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Icon styling within cards */
+        .card svg {
+            color: #4f46e5; /* Indigo-600 */
+            margin-bottom: 1rem;
+            width: 3rem; /* Larger icons */
+            height: 3rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover svg {
+            transform: scale(1.1); /* Icon slightly scales on card hover */
+        }
+        .dark .card svg {
+            color: #818cf8; /* Lighter indigo for dark mode */
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background-image: linear-gradient(to right, #6366f1, #8b5cf6); /* Gradient background */
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); /* Shadow matching gradient */
+            transition: all 0.3s ease-in-out;
+            border: none; /* Remove default border */
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6); /* More pronounced shadow */
+            background-image: linear-gradient(to left, #6366f1, #8b5cf6); /* Reverse gradient on hover */
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #6366f1;
+            color: #6366f1;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: #6366f1;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        .dark .btn-secondary {
+            border-color: #818cf8;
+            color: #818cf8;
+        }
+        .dark .btn-secondary:hover {
+            background-color: #818cf8;
+            color: #1f2937;
+        }
+
+        /* Input and textarea styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="url"],
+        input[type="file"],
+        textarea,
+        select {
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db; /* Light gray border */
+            background-color: #f9fafb; /* Off-white background */
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="url"]:focus,
+        input[type="file"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); /* Focus ring */
+            background-color: white;
+        }
+        .dark input[type="text"],
+        .dark input[type="email"],
+        .dark input[type="password"],
+        .dark input[type="url"],
+        .dark input[type="file"],
+        .dark textarea,
+        .dark select {
+            background-color: #374151; /* Darker background */
+            border-color: #4b5563; /* Darker border */
+            color: #d1d5db;
+        }
+        .dark input[type="text"]:focus,
+        .dark input[type="email"]:focus,
+        .dark input[type="password"]:focus,
+        .dark input[type="url"]:focus,
+        .dark input[type="file"]:focus,
+        .dark textarea:focus,
+        .dark select:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.3);
+            background-color: #1f2937;
+        }
+
+        /* Specific section background patterns/gradients */
+        #home {
+            background-image: linear-gradient(to right top, #6366f1, #8b5cf6, #a855f7, #c14ff9, #d94ffb); /* More vibrant gradient */
+            position: relative;
+            overflow: hidden;
+        }
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='30'/%3E%3Cpath d='M30 0C13.431 0 0 13.431 0 30s13.431 30 30 30 30-13.431 30-30S46.569 0 30 0zm0 58C14.536 58 2 45.464 2 30S14.536 2 30 2s28 12.536 28 28-12.536 28-28 28z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 60px 60px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        /* Ensure .page-section has consistent margin and padding */
+        .page-section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 1rem; /* Consistent rounded corners for sections */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Lighter shadow for sections */
+        }
+        .dark .page-section {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Testimonial image borders */
+        .testimonial-img {
+            border: 4px solid #c7d2fe; /* Light indigo */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark .testimonial-img {
+            border-color: #4338ca; /* Darker indigo */
+        }
+
+        /* Success Story image borders */
+        .success-story-img {
+            border: 4px solid #d8b4fe; /* Light purple */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .dark .success-story-img {
+            border-color: #7e22ce; /* Darker purple */
+        }
+
+        /* Blog and Gallery item styling */
+        .blog-card, .gallery-card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+        .blog-card:hover, .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #a5b4fc; /* Light blueish-indigo hover border */
+        }
+        .dark .blog-card, .dark .gallery-card {
+            background-color: #1f2937;
+            border-color: #374151;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .dark .blog-card:hover, .dark .gallery-card:hover {
+            border-color: #6366f1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .blog-card img, .gallery-card img {
+            object-fit: cover;
+            width: 100%;
+            height: 200px; /* Consistent height for images */
+            border-radius: 0.75rem 0.75rem 0 0; /* Rounded top corners */
+        }
+        .gallery-card img {
+            height: 192px; /* Adjusted for gallery to fit better */
+        }
+
+        /* Specific styling for the contact form and info cards */
+        .contact-info-card {
+            background-color: #f0f4f8; /* Lighter background for info cards */
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #d1d5db;
+        }
+        .dark .contact-info-card {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        .contact-info-card svg {
+            color: #4f46e5; /* Indigo-600 */
+        }
+        .dark .contact-info-card svg {
+            color: #818cf8;
+        }
+
+        /* Google Maps iframe styling */
+        #google-maps-container iframe {
+            border-radius: 1rem; /* Match section border-radius */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .dark #google-maps-container iframe {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Admin panel styling */
+        .admin-panel {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+            border: 1px solid #e5e7eb;
+        }
+        .dark .admin-panel {
+            background-color: #1f2937;
+            border-color: #374151;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
     </style>
 
     <!-- SEO Meta Tags -->
@@ -390,7 +659,7 @@
             <div class="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
                 <!-- Added ID to the logo link for easier targeting -->
                 <a href="#home" id="mathematico-logo" class="text-3xl font-extrabold text-indigo-700 flex items-center" aria-label="MATHEMATICO Home">
-                   <!-- Updated SVG for MATHEMATICO logo (Sigma symbol) -->
+                   <!-- Updated SVG for MATHEMATICO logo (Sigma symbol) - Keeping original thematic icon -->
                    <svg class="w-8 h-8 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 6H6v2h12V6zm0 3H6v2h12V9zm-6 3H6v2h6v-2zm6 3H6v2h12v-2z"/>
                    </svg>
@@ -463,14 +732,7 @@
     <main id="main-content-container">
         <!-- Home Section -->
         <section id="home" class="page-section relative bg-gradient-to-r from-indigo-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-lg shadow-xl">
-            <div class="absolute inset-0 opacity-10">
-                <svg class="w-full h-full" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                    <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.1)"></circle>
-                    </pattern>
-                    <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
-                </svg>
-            </div>
+            <!-- Background pattern moved to CSS for better control and reusability -->
             <div class="container mx-auto text-center relative z-10 px-4">
                 <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-up">
                     Special Mathematics Coaching by <br> Dipanjan Chatterjee <br> @ MATHEMATICO
@@ -479,10 +741,10 @@
                     Comprehensive coaching for all boards, competitive exams, and higher studies.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#courses" class="bg-white text-indigo-700 hover:bg-indigo-100 px-8 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out" aria-label="Explore our courses">
+                    <a href="#courses" class="btn-primary" aria-label="Explore our courses">
                         Start Learning Today
                     </a>
-                    <a href="#testimonials" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-700 px-8 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out" aria-label="View student testimonials">
+                    <a href="#testimonials" class="btn-secondary" aria-label="View student testimonials">
                         See Student Results
                     </a>
                 </div>
@@ -514,76 +776,76 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Comprehensive Courses</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="Classes 9-12 (All Boards)">
+                    <div class="card" data-course-category="Classes 9-12 (All Boards)">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <!-- Lucide Icon: BookOpen -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Classes 9-12 (All Boards)</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Comprehensive coaching for students from class 9 to 12, covering all major educational boards. Strong foundation and advanced concepts.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="Classes 9-12 (All Boards)" aria-label="Enroll in Classes 9-12 course">Enroll Now</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="Classes 9-12 (All Boards)" aria-label="Enroll in Classes 9-12 course">Enroll Now</button>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="IIT Foundation & Olympiad">
+                    <div class="card" data-course-category="IIT Foundation & Olympiad">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            <!-- Lucide Icon: Award -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.89"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">IIT Foundation & Olympiad</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Specialized programs for IIT Foundation and various Mathematics Olympiads, including IOQM, RMO (Regional Maths Olympiad), building competitive skills from an early age.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="IIT Foundation & Olympiad" aria-label="Enroll in IIT Foundation & Olympiad course">Enroll Now</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="IIT Foundation & Olympiad" aria-label="Enroll in IIT Foundation & Olympiad course">Enroll Now</button>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="Competitive Entrance Exams">
+                    <div class="card" data-course-category="Competitive Entrance Exams">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 5h18M4 12h16M4 18h16"></path></svg>
+                            <!-- Lucide Icon: TrendingUp -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Competitive Entrance Exams</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Targeted preparation for JEE (Mains/Advanced), WBJEE, ISI B-Stat/B-Math Entrance, and other engineering/statistics entrances.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="Competitive Entrance Exams" aria-label="Enroll in Competitive Entrance Exams course">Enroll Now</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="Competitive Entrance Exams" aria-label="Enroll in Competitive Entrance Exams course">Enroll Now</button>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="B.Sc (Hons/Pass) All Universities">
+                    <div class="card" data-course-category="B.Sc (Hons/Pass) All Universities">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <!-- Lucide Icon: University -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-university"><path d="M22 10a2 2 0 0 0-2-2h-2V7a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2Z"/><path d="M6 18v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4"/><path d="M12 4v2"/><path d="M12 12v6"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">B.Sc (Hons/Pass) All Universities</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Support for B.Sc (Honours/Pass) mathematics students across all university syllabi, focusing on core concepts and advanced topics.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="B.Sc (Hons/Pass) All Universities" aria-label="Enroll in B.Sc course">Enroll Now</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="B.Sc (Hons/Pass) All Universities" aria-label="Enroll in B.Sc course">Enroll Now</button>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="B.Tech, GATE & Other Exams">
+                    <div class="card" data-course-category="B.Tech, GATE & Other Exams">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                            <!-- Lucide Icon: Cpu -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 9h2"/><path d="M2 15h2"/><path d="M20 9h2"/><path d="M20 15h2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M18 18v2h2"/><path d="M18 4v-2h2"/><path d="M4 18v2H2"/><path d="M4 4V2H2"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">B.Tech, GATE & Other Exams</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Coaching for B.Tech mathematics, GATE, and other engineering-related mathematics examinations.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="B.Tech, GATE & Other Exams" aria-label="Enroll in B.Tech & GATE course">Enroll Now</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="B.Tech, GATE & Other Exams" aria-label="Enroll in B.Tech & GATE course">Enroll Now</button>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center text-center
-                                 dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out" data-course-category="General Math Support">
+                    <div class="card" data-course-category="General Math Support">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <!-- Lucide Icon: HelpCircle -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">General Math Support</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Flexible support for various other mathematical needs, including doubt clearing and specific topic mastery.
                         </p>
-                        <button class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out enroll-button" data-course="General Math Support" aria-label="Learn more about General Math Support">Learn More</button>
+                        <button class="btn-primary mt-auto enroll-button" data-course="General Math Support" aria-label="Learn more about General Math Support">Learn More</button>
                     </div>
                 </div>
             </div>
@@ -595,60 +857,60 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Why Choose MATHEMATICO?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a4 4 0 014-4h12.356"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12v-1a4 4 0 014-4h2a4 4 0 014 4v1m-6 0h.01M6 16h.01"></path></svg>
+                            <!-- Lucide Icon: UserCheck -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-check"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Experienced Educator</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Learn from Dipanjan Chatterjee, M.Sc in Pure Maths, a highly qualified and passionate teacher.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                            <!-- Lucide Icon: Users -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Personalized Attention</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Small batch sizes ensure individual focus and tailored guidance for every student.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <!-- Lucide Icon: FileText -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Comprehensive Curriculum</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Well-structured curriculum covering all essential topics for various boards and exams.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v2m-3-2v2m-3-2v2m9-2v2m-3-2v2m-3-2v2M9 10V7m-3 3V7m-3 3V7m9 3V7m-3 3V7m-3 3V7M3 4h18V3H3v1zm0 16h18v-1H3v1zm0-4h18v-1H3v1zm0-4h18v-1H3v1zm0-4h18V7H3v1z"></path></svg>
+                            <!-- Lucide Icon: ClipboardCheck -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-check"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Regular Assessments</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Frequent tests and quizzes to track progress and identify areas for improvement.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <!-- Lucide Icon: Clock -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Flexible Timings</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Options for various batch timings to suit different student schedules.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out bg-indigo-50
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <div class="text-indigo-600 mb-4">
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <!-- Lucide Icon: TrendingUp (reused for results) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 dark:text-gray-100 transition-colors duration-300 ease-in-out">Proven Results</h3>
                         <p class="text-gray-600 dark:text-gray-300 transition-colors duration-300 ease-in-out">
@@ -665,27 +927,24 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">What Our Students Say</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_q97477q97477q974.png" alt="Student testimonial image for Anjali Sharma" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700" loading="lazy">
+                    <div class="card">
+                        <img src="Gemini_Generated_Image_q97477q97477q974.png" alt="Student testimonial image for Anjali Sharma" class="w-24 h-24 rounded-full mb-6 testimonial-img" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             "MATHEMATICO transformed my understanding of complex topics. The teachers are incredibly supportive and make learning fun!"
                         </p>
                         <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Anjali Sharma</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 10 Student</p>
                     </div>
-                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_a45rwpa45rwpa45r.png" alt="Student testimonial image for Rahul Verma" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700" loading="lazy">
+                    <div class="card">
+                        <img src="Gemini_Generated_Image_a45rwpa45rwpa45r.png" alt="Student testimonial image for Rahul Verma" class="w-24 h-24 rounded-full mb-6 testimonial-img" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             "Thanks to their rigorous practice and clear explanations, I scored exceptionally well in my JEE Mains math section."
                         </p>
                         <p class="font-semibold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out">- Rahul Verma</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">JEE Aspirant</p>
                     </div>
-                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-800 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_r5xzj2r5xzj2r5xz.png" alt="Student testimonial image for Priya Singh" class="w-24 h-24 rounded-full mb-6 border-4 border-indigo-200 dark:border-indigo-700" loading="lazy">
+                    <div class="card">
+                        <img src="Gemini_Generated_Image_r5xzj2r5xzj2r5xz.png" alt="Student testimonial image for Priya Singh" class="w-24 h-24 rounded-full mb-6 testimonial-img" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             "The personalized attention helped me grasp concepts I struggled with. Highly recommend for anyone looking to improve their math skills."
                         </p>
@@ -702,23 +961,20 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Our Success Stories</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_ep7txep7txep7txe.png" alt="Successful student Rohan Kumar" class="w-24 h-24 rounded-full mb-6 border-4 border-purple-300 dark:border-purple-600" loading="lazy">
+                    <div class="card bg-gray-50 dark:bg-gray-700">
+                        <img src="Gemini_Generated_Image_ep7txep7txep7txe.png" alt="Successful student Rohan Kumar" class="w-24 h-24 rounded-full mb-6 success-story-img" loading="lazy">
                         <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">Rohan Kumar</h3>
                         <p class="text-gray-600 mb-4 dark:text-gray-300">IIT Bombay (JEE Advanced 2024)</p>
                         <p class="text-gray-700 italic dark:text-gray-300">"Achieved my dream thanks to the focused guidance and challenging problems provided by MATHEMATICO!"</p>
                     </div>
-                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_uwrcaruwrcaruwrc.png" alt="Successful student Sanya Gupta" class="w-24 h-24 rounded-full mb-6 border-4 border-purple-300 dark:border-purple-600" loading="lazy">
+                    <div class="card bg-gray-50 dark:bg-gray-700">
+                        <img src="Gemini_Generated_Image_uwrcaruwrcaruwrc.png" alt="Successful student Sanya Gupta" class="w-24 h-24 rounded-full mb-6 success-story-img" loading="lazy">
                         <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">Sanya Gupta</h3>
                         <p class="text-gray-600 mb-4 dark:text-gray-300">ISI Kolkata (B.Stat Entrance 2024)</p>
                         <p class="text-gray-700 italic dark:text-gray-300">"The in-depth concept clarity and problem-solving strategies were key to my success in ISI entrance."</p>
                     </div>
-                    <div class="bg-gray-50 p-8 rounded-xl shadow-lg flex flex-col items-center text-center
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-                        <img src="Gemini_Generated_Image_o8ymwgo8ymwgo8ym.png" alt="Successful student Arjun Das" class="w-24 h-24 rounded-full mb-6 border-4 border-purple-300 dark:border-purple-600" loading="lazy">
+                    <div class="card bg-gray-50 dark:bg-gray-700">
+                        <img src="Gemini_Generated_Image_o8ymwgo8ymwgo8ym.png" alt="Successful student Arjun Das" class="w-24 h-24 rounded-full mb-6 success-story-img" loading="lazy">
                         <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">Arjun Das</h3>
                         <p class="text-gray-600 mb-4 dark:text-gray-300">Class 12 Board Topper (98% Maths)</p>
                         <p class="text-gray-700 italic dark:text-gray-300">"From struggling to topping, MATHEMATICO made math my favorite subject. Highly grateful!"</p>
@@ -779,49 +1035,45 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Get in Touch with MATHEMATICO</h2>
                 <div class="flex flex-col md:flex-row justify-center items-center gap-10">
-                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg text-left
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="md:w-1/2 contact-info-card dark:bg-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M10 2a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            <!-- Lucide Icon: User -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user mr-3"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                             <strong>Instructor:</strong> Dipanjan Chatterjee, M.Sc in Pure Maths
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            <!-- Lucide Icon: Phone -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone mr-3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.86-6.86A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.18 2h3a2 2 0 0 1 2 1.72l.4 4.5a2 2 0 0 1-1.16 2.01l-1.68.84a10 10 0 0 0 6.16 6.16l.84-1.68a2 2 0 0 1 2.01-1.16l4.5.4a2 2 0 0 1 1.72 2z"/></svg>
                             <strong>Phone:</strong> +91 9051089673
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            <!-- Lucide Icon: Phone (reused) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone mr-3"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.86-6.86A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.18 2h3a2 2 0 0 1 2 1.72l.4 4.5a2 2 0 0 1-1.16 2.01l-1.68.84a10 10 0 0 0 6.16 6.16l.84-1.68a2 2 0 0 1 2.01-1.16l4.5.4a2 2 0 0 1 1.72 2z"/></svg>
                             <strong>Landline:</strong> +91-3331712372
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.86-6.86A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.18 2h3a2 2 0 0 1 2 1.72l.4 4.5a2 2 0 0 1-1.16 2.01l-1.68.84a10 10 0 0 0 6.16 6.16l.84-1.68a2 2 0 0 1 2.01-1.16l4.5.4a2 2 0 0 1 1.72 2z"></path></svg>
+                            <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-6 h-6 mr-3">
                             <strong>WhatsApp:</strong> <a href="https://wa.link/80qjr2" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Chat with us on WhatsApp">+91 9748559613</a>
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                            <!-- Lucide Icon: Mail -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail mr-3"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                             <strong>Email:</strong> dipanjanchatterjee23@gmail.com
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
+                            <!-- Lucide Icon: MapPin -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin mr-3"><path d="M12 12.72a3 3 0 1 0 0-5.44 3 3 0 0 0 0 5.44Z"/><path d="M18.8 12.52a7 7 0 1 0-13.6 0c.5 1.5 1.7 2.9 3.5 4.1L12 22l5.3-5.3c1.8-1.2 3-2.6 3.5-4.1Z"/></svg>
                             <strong>Locations:</strong> Madhyamgram & Barasat
                         </p>
                         <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                            </svg>
+                            <!-- Lucide Icon: Send (often used for Telegram) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send mr-3"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                             <strong>Telegram:</strong> <a href="https://t.me/dipanjan9271" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Join our Telegram group">Join our Telegram Group</a>
                         </p>
                         <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
-                                <path d="M12 14l6.16-3.422a12.004 12.004 0 01-.476 1.772L12 16.5l-5.684-3.15a12.004 12.004 0 01-.476-1.772L12 14z"/>
-                                <path d="M12 14l9-5-9-5-9 5 9 5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 14l6.16-3.422a12.004 12.004 0 01-.476 1.772L12 16.5l-5.684-3.15a12.004 12.004 0 01-.476-1.772L12 14z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <!-- Lucide Icon: Chalkboard (for classes) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chalkboard mr-3"><path d="M4 13.5V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5.5"/><path d="M12 16v4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4"/><path d="M4 16v4a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-4"/></svg>
                             <strong>Classes Available:</strong> Offline & Online
                         </p>
                         <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Social Media</h3>
@@ -836,8 +1088,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-xl shadow-lg
-                                dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="md:w-1/2 contact-info-card dark:bg-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Send Us a Message</h3>
                         <!-- Google Form for Contact Us -->
                         <form action="YOUR_CONTACT_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank">
@@ -856,7 +1107,7 @@
                                 <textarea id="contact-message" rows="5" name="entry.YOUR_MESSAGE_FIELD_ID" placeholder="Your Message" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true"></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105" aria-label="Send your message">
+                            <button type="submit" class="btn-primary w-full shadow-md transform hover:scale-105" aria-label="Send your message">
                                 Send Message
                             </button>
                         </form>
@@ -888,32 +1139,41 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl font-extrabold text-gray-900 mb-12 dark:text-gray-100 transition-colors duration-300 ease-in-out">Useful Links</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
-                                 dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Official Page Link</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Visit our main official page for more information.
                         </p>
-                        <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Go to official page">Go to Page</a>
+                        <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="btn-primary mt-auto" aria-label="Go to official page">
+                            <!-- Lucide Icon: ExternalLink -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link inline-block mr-2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                            Go to Page
+                        </a>
                     </div>
-                    <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
-                                 dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Community Group Link</h3>
                         <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
                             Join our community group for discussions and updates.
                         </p>
-                        <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Join community group">Join Group</a>
+                        <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="btn-primary mt-auto" aria-label="Join community group">
+                            <!-- Lucide Icon: Users (reused) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users inline-block mr-2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Join Group
+                        </a>
                     </div>
                     <!-- New Section: Email Newsletter Sign-up -->
-                    <div class="bg-indigo-50 p-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out
-                                 dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+                    <div class="card bg-indigo-50 dark:bg-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Newsletter Sign-up</h3>
                         <!-- Google Form for Newsletter -->
-                        <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4">
+                        <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4 w-full">
                             <label for="newsletter-email" class="sr-only">Email address</label>
                             <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 transition-colors duration-300 ease-in-out" required aria-required="true">
-                            <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out" aria-label="Subscribe to newsletter">Subscribe</button>
+                            <button type="submit" class="btn-primary" aria-label="Subscribe to newsletter">
+                                <!-- Lucide Icon: Mail (reused) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail inline-block mr-2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                                Subscribe
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -951,7 +1211,7 @@
                             <label for="book-url" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">URL (Optional):</label>
                             <input type="url" id="book-url" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
                         </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Save Book</button>
+                        <button type="submit" class="btn-primary">Save Book</button>
                         <button type="button" id="cancel-edit-book-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
                     </form>
                 </div>
@@ -998,7 +1258,7 @@
                             <label for="problem-solution-url" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Solution URL (Optional):</label>
                             <input type="url" id="problem-solution-url" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
                         </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Add Problem</button>
+                        <button type="submit" class="btn-primary">Add Problem</button>
                         <button type="button" id="cancel-edit-problem-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
                     </form>
                 </div>
@@ -1034,7 +1294,7 @@
                             <label for="gallery-caption" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Caption:</label>
                             <textarea id="gallery-caption" rows="3" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
                         </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Save Post</button>
+                        <button type="submit" class="btn-primary">Save Post</button>
                         <button type="button" id="cancel-edit-gallery-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
                     </form>
                 </div>
@@ -1074,7 +1334,7 @@
                             <label for="blog-content" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Content:</label>
                             <textarea id="blog-content" rows="10" class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
                         </div>
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">Save Blog Post</button>
+                        <button type="submit" class="btn-primary">Save Blog Post</button>
                         <button type="button" id="cancel-edit-blog-btn" class="bg-gray-400 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-gray-500 transition duration-300 ease-in-out ml-2 hidden">Cancel Edit</button>
                     </form>
                 </div>
@@ -1169,7 +1429,7 @@
             <button class="modal-close-button" aria-label="Close message box">&times;</button>
             <h3 id="message-box-title" class="text-xl font-bold text-gray-900 mb-4 dark:text-gray-100"></h3>
             <p id="message-box-content" class="text-gray-700 dark:text-gray-300 mb-4"></p>
-            <button id="message-box-ok-btn" class="bg-indigo-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out">OK</button>
+            <button id="message-box-ok-btn" class="btn-primary">OK</button>
         </div>
     </div>
 
@@ -2326,7 +2586,7 @@
             } else {
                 books.forEach((book) => {
                     const bookElement = document.createElement('div');
-                    bookElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                    bookElement.className = 'card text-left'; /* Applied card class */
                     bookElement.innerHTML = `
                         <h3 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${book.title}</h3>
                         <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Author:</strong> ${book.author}</p>
@@ -2442,7 +2702,7 @@
                         const container = document.getElementById(`problems-${category.replace(/\s/g, '-')}-container`);
                         problemsByCategory[category].forEach(problem => {
                             const problemElement = document.createElement('div');
-                            problemElement.className = 'bg-white p-6 rounded-xl shadow-lg text-left dark:bg-gray-800 flex flex-col';
+                            problemElement.className = 'card text-left'; /* Applied card class */
                             problemElement.innerHTML = `
                                 <h4 class="text-xl font-bold text-gray-900 mb-2 dark:text-gray-100">${problem.title}</h4>
                                 <p class="text-gray-700 dark:text-gray-300 text-sm mb-4 flex-grow">${problem.description}</p>
@@ -2536,7 +2796,7 @@
             } else {
                 galleryPosts.forEach((post) => {
                     const postElement = document.createElement('div');
-                    postElement.className = 'relative overflow-hidden rounded-lg shadow-lg group bg-white dark:bg-gray-800 cursor-pointer'; // Added cursor-pointer
+                    postElement.className = 'gallery-card relative overflow-hidden group cursor-pointer'; // Applied gallery-card class
                     postElement.setAttribute('data-image-url', post.imageUrl); // Add data attributes for modal
                     postElement.setAttribute('data-caption', post.caption);
                     postElement.innerHTML = `
@@ -2664,7 +2924,7 @@
             } else {
                 blogPosts.forEach((post) => {
                     const postElement = document.createElement('article');
-                    postElement.className = 'bg-gray-50 p-6 rounded-xl shadow-lg text-left dark:bg-gray-700 dark:shadow-2xl transition-colors duration-300 ease-in-out flex flex-col';
+                    postElement.className = 'blog-card p-6 rounded-xl shadow-lg text-left flex flex-col'; /* Applied blog-card class */
                     postElement.innerHTML = `
                         <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">${post.title}</h3>
                         ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 object-cover rounded-md mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';">` : ''}
