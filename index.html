@@ -132,7 +132,7 @@
                 opacity: 0;
                 max-height: 0;
                 visibility: hidden;
-                pointer-events: none; /* Prevent clicks when hidden */
+                pointer-events: none; /* Prevent clicks when hidden - IMPORTANT FOR TRANSITION */
                 transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
 
                 /* Dark mode styles for the mobile menu */
@@ -347,7 +347,7 @@
         .dropdown-menu {
             visibility: hidden;
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none; /* Prevent clicks when hidden */
             position: absolute;
             background-color: white; /* Default light mode */
             min-width: 180px; /* Slightly wider */
@@ -365,7 +365,7 @@
             }
         }
 
-        .dropdown:hover .dropdown-menu,
+        /* Only activate dropdown on 'active' class (controlled by JS click) */
         .dropdown.active .dropdown-menu {
             visibility: visible;
             opacity: 1;
@@ -397,8 +397,8 @@
         /* Mobile dropdown specific adjustments */
         @media (max-width: 767px) {
             .navbar-links .dropdown-menu {
-                position: static;
-                transform: none;
+                position: static; /* No longer absolute positioning */
+                transform: none; /* Remove translation */
                 box-shadow: none;
                 border-radius: 0;
                 min-width: unset;
@@ -416,15 +416,16 @@
             }
 
             .navbar-links .dropdown.active .dropdown-menu {
-                max-height: 300px; /* Adjust as needed */
+                max-height: 300px; /* Adjust as needed for mobile sub-menu */
                 opacity: 1;
                 visibility: visible;
                 pointer-events: auto;
             }
 
             .navbar-links .dropdown-menu a {
+                padding: 0.75rem 1rem; /* Consistent padding for links */
                 padding-left: 2.5rem; /* Indent dropdown items */
-                text-align: center; /* Center align for mobile dropdown items */
+                text-align: left; /* Align left for mobile dropdown items to respect padding */
             }
         }
 
@@ -544,9 +545,9 @@
                 <!-- Courses Dropdown -->
                 <li class="relative dropdown">
                     <!-- Changed href to javascript:void(0) for dropdown toggle on desktop to prevent page jump -->
-                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full">
+                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                         Courses
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
@@ -562,9 +563,9 @@
                 <!-- New "More" Dropdown -->
                 <li class="relative dropdown">
                     <!-- Changed href to javascript:void(0) to prevent page jump on click -->
-                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full">
+                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                         More
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#book-list-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Book List</a></li>
@@ -1877,30 +1878,49 @@
                 renderPage('home'); // Default to home page
             }
 
-            // Update navigation links to use renderPage and handle mobile dropdowns
-            navbarLinks.querySelectorAll('a').forEach(link => {
+            // Refined Navigation and Dropdown Logic
+            // Attach click listeners to all relevant links within the header navigation
+            const navLinksAndDropdownToggles = document.querySelectorAll('#navbar-links a');
+
+            navLinksAndDropdownToggles.forEach(link => {
                 link.addEventListener('click', (e) => {
                     const parentDropdown = link.closest('.dropdown');
                     const isDropdownToggle = link.getAttribute('href') === 'javascript:void(0)';
-                    const courseFilter = link.dataset.courseFilter;
+                    const isInternalNavLink = link.getAttribute('href').startsWith('#');
 
                     if (isDropdownToggle) {
-                        e.preventDefault(); // Prevent default for dropdown toggles (no page jump)
+                        e.preventDefault();
                         if (parentDropdown) {
-                            // Toggle the 'active' class on the parent dropdown LI
+                            const dropdownToggle = parentDropdown.querySelector('a[aria-haspopup="true"]');
+                            const dropdownArrow = parentDropdown.querySelector('.dropdown-arrow'); // Get the arrow SVG
+
                             parentDropdown.classList.toggle('active');
+                            const isActive = parentDropdown.classList.contains('active');
+
+                            if (dropdownToggle) {
+                                dropdownToggle.setAttribute('aria-expanded', isActive);
+                            }
+                            if (dropdownArrow) {
+                                dropdownArrow.classList.toggle('rotate-180', isActive); // Rotate arrow for visual feedback
+                            }
+
                             // For mobile, close other open dropdowns in the same main menu
                             if (window.innerWidth < 768) {
                                 document.querySelectorAll('#navbar-links > li.dropdown.active').forEach(otherDropdown => {
                                     if (otherDropdown !== parentDropdown) {
                                         otherDropdown.classList.remove('active');
+                                        const otherToggle = otherDropdown.querySelector('a[aria-haspopup="true"]');
+                                        const otherArrow = otherDropdown.querySelector('.dropdown-arrow');
+                                        if (otherToggle) otherToggle.setAttribute('aria-expanded', false);
+                                        if (otherArrow) otherArrow.classList.remove('rotate-180'); // Reset arrow
                                     }
                                 });
                             }
                         }
-                    } else if (link.getAttribute('href').startsWith('#')) {
+                    } else if (isInternalNavLink) {
                         e.preventDefault(); // Prevent default anchor link behavior
                         const pageId = link.getAttribute('href').substring(1);
+                        const courseFilter = link.dataset.courseFilter;
 
                         if (courseFilter) {
                             renderPage('courses'); // Navigate to courses page first
@@ -1915,29 +1935,49 @@
                         }
 
                         // Always close the main hamburger menu after a successful navigation to a page
+                        // This handles both direct nav links and links within dropdowns
                         if (navbarLinks.classList.contains('active')) {
                             navbarLinks.classList.remove('active');
+                            // Reset all dropdowns within the mobile menu when main menu is closed
+                            document.querySelectorAll('#navbar-links .dropdown.active').forEach(dropdown => {
+                                dropdown.classList.remove('active');
+                                const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
+                                const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
+                                if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
+                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
+                            });
                         }
-                        // Ensure all dropdowns are closed when navigating to a page
+                        // Ensure all dropdowns are closed for both desktop and mobile when navigating
                         document.querySelectorAll('.navbar-links .dropdown.active').forEach(dropdown => {
                             dropdown.classList.remove('active');
+                            const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
+                            const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
+                            if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
+                            if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
                         });
                     }
+                    // For external links, do nothing; let them behave normally
                 });
             });
 
-
-            // Close dropdowns when clicking anywhere else on the document (for desktop)
+            // Close desktop dropdowns when clicking anywhere else on the document (only applies to desktop)
             document.addEventListener('click', (e) => {
                 if (window.innerWidth >= 768) { // Only for desktop dropdowns
                     document.querySelectorAll('.navbar-links .dropdown').forEach(dropdown => {
                         // Check if the click was outside the current dropdown
                         if (!dropdown.contains(e.target)) {
-                            dropdown.classList.remove('active');
+                            if (dropdown.classList.contains('active')) {
+                                dropdown.classList.remove('active');
+                                const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
+                                const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
+                                if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
+                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180'); // Reset arrow
+                            }
                         }
                     });
                 }
             });
+
 
             // Add specific event listeners for the hero section buttons
             const startLearningBtn = document.querySelector('#home a[href="#courses"]');
@@ -2000,18 +2040,20 @@
 
         // Toggle hamburger menu on click
         hamburgerButton.addEventListener('click', () => {
-            console.log("Hamburger button clicked!"); // Added for debugging
+            console.log("Hamburger button clicked!");
             navbarLinks.classList.toggle('active');
-        });
 
-        // Close hamburger menu when a link is clicked (for smooth scrolling) - Handled by the more comprehensive link click handler now
-        // navbarLinks.querySelectorAll('a').forEach(link => {
-        //     link.addEventListener('click', () => {
-        //         if (navbarLinks.classList.contains('active')) {
-        //             navbarLinks.classList.remove('active');
-        //         }
-        //     });
-        // });
+            // If the navbar is being closed, ensure all dropdowns within it are also closed
+            if (!navbarLinks.classList.contains('active')) {
+                document.querySelectorAll('#navbar-links .dropdown.active').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
+                    const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
+                    if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
+                    if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
+                });
+            }
+        });
 
         // Scroll-to-top button functionality
         window.addEventListener('scroll', () => {
@@ -2728,12 +2770,6 @@
             if (problems.length === 0) {
                 problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems added yet.</p>';
             } else {
-                problems.forEach(problem => {
-                    if (problemsByCategory[problem.category]) {
-                        problemsByCategory[problem.category].push(problem);
-                    }
-                });
-
                 categories.forEach(category => {
                     if (problemsByCategory[category].length > 0) {
                         const categorySection = document.createElement('div');
