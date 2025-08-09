@@ -105,15 +105,11 @@
             scroll-margin-top: 80px; /* Adjust this value based on your header's height */
         }
 
-        /* Styles for the hamburger menu */
-        .hamburger-menu {
-            display: none; /* Hidden by default, shown on small screens */
-        }
+        /* --- START Mobile Specific Nav Styles (ONLY applies on screens <= 767px) --- */
         @media (max-width: 767px) {
-            .hamburger-menu {
-                display: block;
-            }
-            .navbar-links {
+            /* Hamburger menu button is implicitly handled by Tailwind's md:hidden class on the button itself */
+
+            #navbar-links { /* This targets the <ul> element itself */
                 flex-direction: column;
                 background-color: white; /* Default light mode background */
                 position: absolute;
@@ -124,7 +120,7 @@
                 box-shadow: 0 8px 16px rgba(0,0,0,0.1);
                 border-radius: 0 0 0.5rem 0.5rem;
                 z-index: 60; /* Higher than sticky header */
-                overflow: hidden; /* Hide overflow initially */
+                overflow: hidden; /* Hide overflow initially for smooth transition (max-height) */
                 box-sizing: border-box; /* Include padding in the element's total width/height */
 
                 /* Default hidden state for mobile, using visibility/opacity/max-height for smooth transition */
@@ -140,17 +136,19 @@
                     background-color: #1f2937; /* dark-gray-800 */
                 }
             }
-            .navbar-links.active {
+            #navbar-links.active {
                 opacity: 1;
-                max-height: 500px; /* Max height for the menu when active (adjust as needed) */
+                max-height: calc(100vh - 80px); /* Fill remaining viewport height */
                 visibility: visible;
                 pointer-events: auto;
+                overflow-y: auto; /* Allow scrolling of the main menu content if it overflows */
+                -webkit-overflow-scrolling: touch; /* For smoother iOS scrolling */
             }
-            .navbar-links li {
+            #navbar-links li {
                 width: 100%;
                 text-align: center;
             }
-            .navbar-links a {
+            #navbar-links a {
                 display: block;
                 padding: 0.75rem 1rem; /* Consistent padding for links */
                 color: #4b5563; /* Default light mode text color */
@@ -159,7 +157,97 @@
                     color: #d1d5db; /* dark-gray-300 */
                 }
             }
+
+            /* Mobile dropdown specific adjustments (applies only when main menu is active on mobile) */
+            .navbar-links .dropdown-menu {
+                position: static; /* No longer absolute positioning */
+                transform: none; /* Remove translation */
+                box-shadow: none;
+                border-radius: 0;
+                min-width: unset;
+                width: 100%;
+                padding: 0;
+                max-height: 0; /* Control visibility with max-height */
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-in-out;
+                background-color: #f9fafb; /* Light mode default for sub-menu bg */
+                overflow: hidden; /* Keep hidden for smooth transition */
+            }
+            .dark .navbar-links .dropdown-menu {
+                background-color: #2a3443; /* Darker grey for sub-menu in dark mode */
+            }
+
+            .navbar-links .dropdown.active .dropdown-menu {
+                max-height: 1000px; /* A very large height to accommodate all items without cutoff */
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                overflow-y: auto; /* Fallback for exceptionally long sub-menus */
+                -webkit-overflow-scrolling: touch; /* For smoother iOS scrolling */
+            }
+
+            .navbar-links .dropdown-menu a {
+                padding: 0.75rem 1rem; /* Consistent padding for links */
+                padding-left: 2.5rem; /* Indent dropdown items */
+                text-align: left; /* Align left for mobile dropdown items to respect padding */
+            }
         }
+        /* --- END Mobile Specific Nav Styles --- */
+
+        /* --- START Desktop Nav Styles (These are general and take effect on desktop where mobile styles are not applied) --- */
+        /* Dropdown specific styles for Navbar (These apply generally, effectively for desktop as they are more specific than Tailwind defaults, but are correctly overridden by mobile media queries) */
+        .dropdown-menu {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none; /* Prevent clicks when hidden */
+            position: absolute; /* KEY: Absolute position for desktop dropdowns */
+            background-color: white; /* Default light mode */
+            min-width: 180px; /* Slightly wider */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 70;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            top: calc(100% + 0.75rem);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
+
+            .dark & {
+                background-color: #1f2937;
+            }
+        }
+
+        /* Only activate dropdown on 'active' class (controlled by JS click) */
+        .dropdown.active .dropdown-menu {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            color: #4b5563; /* Default light mode */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f3f4f6; /* Light gray hover */
+        }
+
+        /* Dark mode for dropdown links */
+        .dark .dropdown-menu a {
+            color: #d1d5db;
+        }
+        .dark .dropdown-menu a:hover {
+            background-color: #374151; /* Darker gray hover */
+        }
+        /* --- END Desktop Nav Styles --- */
 
         /* Accordion styles */
         .accordion-item {
@@ -343,92 +431,6 @@
             display: block;
         }
 
-        /* Dropdown specific styles for Navbar */
-        .dropdown-menu {
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none; /* Prevent clicks when hidden */
-            position: absolute;
-            background-color: white; /* Default light mode */
-            min-width: 180px; /* Slightly wider */
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 70;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            top: calc(100% + 0.75rem);
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
-
-            .dark & {
-                background-color: #1f2937;
-            }
-        }
-
-        /* Only activate dropdown on 'active' class (controlled by JS click) */
-        .dropdown.active .dropdown-menu {
-            visibility: visible;
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-menu a {
-            color: #4b5563; /* Default light mode */
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f3f4f6; /* Light gray hover */
-        }
-
-        /* Dark mode for dropdown links */
-        .dark .dropdown-menu a {
-            color: #d1d5db;
-        }
-        .dark .dropdown-menu a:hover {
-            background-color: #374151; /* Darker gray hover */
-        }
-
-        /* Mobile dropdown specific adjustments */
-        @media (max-width: 767px) {
-            .navbar-links .dropdown-menu {
-                position: static; /* No longer absolute positioning */
-                transform: none; /* Remove translation */
-                box-shadow: none;
-                border-radius: 0;
-                min-width: unset;
-                width: 100%;
-                padding: 0;
-                max-height: 0; /* Control visibility with max-height */
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-in-out;
-                background-color: #f9fafb; /* Light mode default for sub-menu bg */
-            }
-            .dark .navbar-links .dropdown-menu {
-                background-color: #2a3443; /* Darker grey for sub-menu in dark mode */
-            }
-
-            .navbar-links .dropdown.active .dropdown-menu {
-                max-height: 300px; /* Adjust as needed for mobile sub-menu */
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-            }
-
-            .navbar-links .dropdown-menu a {
-                padding: 0.75rem 1rem; /* Consistent padding for links */
-                padding-left: 2.5rem; /* Indent dropdown items */
-                text-align: left; /* Align left for mobile dropdown items to respect padding */
-            }
-        }
-
         /* Blog Detail Modal specific styles */
         #blog-detail-modal .modal-content {
             max-width: 800px; /* Larger for blog content */
@@ -539,6 +541,7 @@
                 </button>
             </div>
             <!-- Adjusted space-x for better fit -->
+            <!-- CORRECTED: Added md:flex back to the ul class list. This is key for desktop layout. -->
             <ul id="navbar-links" class="md:flex space-x-2 md:space-x-6 text-lg font-medium">
                 <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Home</a></li>
                 <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">About Us</a></li>
@@ -1891,8 +1894,30 @@
                     if (isDropdownToggle) {
                         e.preventDefault();
                         if (parentDropdown) {
+                            // Close other open dropdowns first, but only if on mobile
+                            if (window.innerWidth < 768) {
+                                document.querySelectorAll('#navbar-links > li.dropdown.active').forEach(otherDropdown => {
+                                    if (otherDropdown !== parentDropdown) { // Don't close the one just clicked
+                                        otherDropdown.classList.remove('active');
+                                        const otherToggle = otherDropdown.querySelector('a[aria-haspopup="true"]');
+                                        const otherArrow = otherDropdown.querySelector('.dropdown-arrow');
+                                        if (otherToggle) otherToggle.setAttribute('aria-expanded', false);
+                                        if (otherArrow) otherArrow.classList.remove('rotate-180');
+                                        // Also collapse its nested dropdown menu for a clean state
+                                        const otherDropdownMenu = otherDropdown.querySelector('.dropdown-menu');
+                                        if (otherDropdownMenu) {
+                                             otherDropdownMenu.style.maxHeight = '0';
+                                             otherDropdownMenu.style.opacity = '0';
+                                             otherDropdownMenu.style.visibility = 'hidden';
+                                             otherDropdownMenu.style.pointerEvents = 'none';
+                                        }
+                                    }
+                                });
+                            }
+
+                            // Then toggle the clicked one
                             const dropdownToggle = parentDropdown.querySelector('a[aria-haspopup="true"]');
-                            const dropdownArrow = parentDropdown.querySelector('.dropdown-arrow'); // Get the arrow SVG
+                            const dropdownArrow = parentDropdown.querySelector('.dropdown-arrow');
 
                             parentDropdown.classList.toggle('active');
                             const isActive = parentDropdown.classList.contains('active');
@@ -1901,20 +1926,7 @@
                                 dropdownToggle.setAttribute('aria-expanded', isActive);
                             }
                             if (dropdownArrow) {
-                                dropdownArrow.classList.toggle('rotate-180', isActive); // Rotate arrow for visual feedback
-                            }
-
-                            // For mobile, close other open dropdowns in the same main menu
-                            if (window.innerWidth < 768) {
-                                document.querySelectorAll('#navbar-links > li.dropdown.active').forEach(otherDropdown => {
-                                    if (otherDropdown !== parentDropdown) {
-                                        otherDropdown.classList.remove('active');
-                                        const otherToggle = otherDropdown.querySelector('a[aria-haspopup="true"]');
-                                        const otherArrow = otherDropdown.querySelector('.dropdown-arrow');
-                                        if (otherToggle) otherToggle.setAttribute('aria-expanded', false);
-                                        if (otherArrow) otherArrow.classList.remove('rotate-180'); // Reset arrow
-                                    }
-                                });
+                                dropdownArrow.classList.toggle('rotate-180', isActive);
                             }
                         }
                     } else if (isInternalNavLink) {
@@ -1945,15 +1957,31 @@
                                 const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
                                 if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
                                 if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
+                                // Also collapse its nested dropdown menu for a clean state
+                                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                                if (dropdownMenu) {
+                                    dropdownMenu.style.maxHeight = '0';
+                                    dropdownMenu.style.opacity = '0';
+                                    dropdownMenu.style.visibility = 'hidden';
+                                    dropdownMenu.style.pointerEvents = 'none';
+                                }
                             });
                         }
-                        // Ensure all dropdowns are closed for both desktop and mobile when navigating
+                        // Ensure all dropdowns are closed for both desktop and mobile when navigating (redundant for desktop, but safe)
                         document.querySelectorAll('.navbar-links .dropdown.active').forEach(dropdown => {
                             dropdown.classList.remove('active');
                             const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
                             const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
                             if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
                             if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
+                            // Also collapse its nested dropdown menu for a clean state
+                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                            if (dropdownMenu) {
+                                dropdownMenu.style.maxHeight = '0';
+                                dropdownMenu.style.opacity = '0';
+                                dropdownMenu.style.visibility = 'hidden';
+                                dropdownMenu.style.pointerEvents = 'none';
+                            }
                         });
                     }
                     // For external links, do nothing; let them behave normally
@@ -2766,6 +2794,12 @@
             const categories = ["Geometry", "Inequality", "Number Theory", "Calculus", "Algebra"];
             const problemsByCategory = {};
             categories.forEach(cat => problemsByCategory[cat] = []);
+
+            problems.forEach(problem => {
+                if (problem.category && categories.includes(problem.category)) {
+                    problemsByCategory[problem.category].push(problem);
+                }
+            });
 
             if (problems.length === 0) {
                 problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems added yet.</p>';
