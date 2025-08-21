@@ -1427,17 +1427,21 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+        // Removed: import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // Global Firebase variables, initialized to null
         let app = null;
         let db = null;
         let auth = null;
-        let storage = null; // Initialize storage
+        // let storage = null; // Removed Firebase Storage variable
         let userId = 'anonymous'; // Default to anonymous
         let isAdmin = false; // Global flag for admin status
         let appId = null; // Declare appId globally
         let allBlogPosts = []; // Store all blog posts for modal display
+
+        // Cloudinary Configuration (REPLACE THESE WITH YOUR ACTUAL VALUES)
+        const CLOUDINARY_CLOUD_NAME = "dddje9n3g"; // e.g., "my-awesome-cloud"
+        const CLOUDINARY_UPLOAD_PRESET = "mathematico-website"; // e.g., "mathematico_unsigned_upload"
 
         // Admin Auth Elements - Moved to global scope
         const adminEmailInput = document.getElementById('admin-email');
@@ -1474,7 +1478,7 @@
                 apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
                 authDomain: "mathematico-website.firebaseapp.com",
                 projectId: "mathematico-website",
-                storageBucket: "mathematico-website.appspot.com", // Corrected storageBucket
+                // storageBucket: "mathematico-website.appspot.com", // Removed Firebase Storage bucket config
                 messagingSenderId: "186709981685",
                 appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
                 measurementId: "G-5Z24Z4Q97Q"
@@ -1493,7 +1497,7 @@
                     app = initializeApp(firebaseConfig);
                     db = getFirestore(app);
                     auth = getAuth(app);
-                    storage = getStorage(app); // Initialize Firebase Storage
+                    // storage = getStorage(app); // Removed Firebase Storage initialization
                     console.log("Firebase initialized successfully.");
 
                     // Authenticate user with custom token if provided by Canvas, otherwise anonymously
@@ -1999,7 +2003,7 @@
                                 const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
                                 const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
                                 if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
-                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180'); // Reset arrow
+                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
                             }
                         }
                     });
@@ -2397,7 +2401,7 @@
                 cancelEditProblemBtn.classList.add('hidden');
             });
 
-            // --- Image Upload Functions ---
+            // --- Image Upload Functions (Now using Cloudinary) ---
 
             /**
              * Compresses an image using HTML Canvas.
@@ -2446,10 +2450,16 @@
                 });
             }
 
-            // Function to upload file to Firebase Storage
-            async function uploadFile(file, folderPath, spinnerElement, previewElement) {
+            // Function to upload file to Cloudinary
+            async function uploadFile(file, folderName, spinnerElement, previewElement) {
                 if (!file) {
                     console.warn("No file provided for upload.");
+                    return null;
+                }
+
+                if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+                    showMessageBox("Cloudinary Error", "Cloudinary credentials (CLOUD_NAME or UPLOAD_PRESET) are not configured. Please check your script.");
+                    console.error("Cloudinary credentials missing.");
                     return null;
                 }
 
@@ -2457,57 +2467,46 @@
                 if (previewElement) previewElement.classList.add('hidden'); // Hide preview during upload
 
                 try {
-                    // Step 1: Compress the image
+                    // Step 1: Compress the image (optional but recommended for bandwidth)
                     const compressedBlob = await compressImage(file);
                     console.log(`Original size: ${file.size} bytes, Compressed size: ${compressedBlob.size} bytes`);
 
-                    // Step 2: Upload the compressed image
-                    const storageRef = ref(storage, `${folderPath}/${file.name}_${Date.now()}`); // Unique filename
-                    const uploadTask = uploadBytesResumable(storageRef, compressedBlob);
+                    // Step 2: Prepare FormData for Cloudinary upload
+                    const formData = new FormData();
+                    formData.append('file', compressedBlob);
+                    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+                    // Optionally specify a folder in Cloudinary
+                    if (folderName) {
+                        formData.append('folder', folderName);
+                    }
+                    // Add filename to metadata if desired, Cloudinary automatically handles public_id if not specified.
+                    // formData.append('public_id', file.name.split('.')[0] + '_' + Date.now()); // Custom public ID
 
-                    return new Promise((resolve, reject) => {
-                        uploadTask.on('state_changed',
-                            (snapshot) => {
-                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                console.log('Upload is ' + progress.toFixed(2) + '% done');
-                                // You could update a progress bar here
-                            },
-                            (error) => {
-                                spinnerElement.classList.add('hidden');
-                                console.error("Firebase Upload Failed:", error);
-                                let userMessage = "Image upload failed.";
-                                if (error.code === 'storage/unauthorized') {
-                                    userMessage += " Permission denied. Ensure you are logged in as an admin and your Firebase Storage rules are correct.";
-                                } else if (error.code === 'storage/quota-exceeded') {
-                                    userMessage += " Storage quota exceeded. Please upgrade your Firebase plan.";
-                                } else {
-                                    userMessage += ` Error: ${error.message}`;
-                                }
-                                showMessageBox("Upload Error", userMessage);
-                                reject(error);
-                            },
-                            () => {
-                                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                                    spinnerElement.classList.add('hidden');
-                                    if (previewElement) {
-                                        previewElement.src = downloadURL;
-                                        previewElement.classList.remove('hidden');
-                                    }
-                                    resolve(downloadURL);
-                                }).catch(error => {
-                                    spinnerElement.classList.add('hidden');
-                                    console.error("Error getting download URL:", error);
-                                    showMessageBox("Error", "Failed to get image download URL after upload.");
-                                    reject(error);
-                                });
-                            }
-                        );
+                    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+                        method: 'POST',
+                        body: formData
                     });
-                } catch (compressionError) {
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Cloudinary upload failed: ${errorData.error.message || response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    const downloadURL = data.secure_url; // Use secure_url for HTTPS
+
                     spinnerElement.classList.add('hidden');
-                    console.error("Image Compression Failed:", compressionError);
-                    showMessageBox("Image Error", `Image processing failed before upload: ${compressionError.message}`);
-                    return null; // Resolve with null if compression fails
+                    if (previewElement) {
+                        previewElement.src = downloadURL;
+                        previewElement.classList.remove('hidden');
+                    }
+                    return downloadURL;
+
+                } catch (error) {
+                    spinnerElement.classList.add('hidden');
+                    console.error("Image Upload Failed:", error);
+                    showMessageBox("Upload Error", `Image upload failed: ${error.message}. Please check your Cloudinary configuration and network.`);
+                    return null;
                 }
             }
 
@@ -2561,8 +2560,8 @@
 
                 try {
                     if (imageFile) {
-                        // Upload new image if selected
-                        imageUrl = await uploadFile(imageFile, 'gallery_images', galleryUploadSpinner, galleryImagePreview);
+                        // Upload new image if selected. Passing 'mathematico_gallery' as folder name.
+                        imageUrl = await uploadFile(imageFile, 'mathematico_gallery', galleryUploadSpinner, galleryImagePreview);
                     } else if (!postId && !imageUrl) {
                         // If it's a new post and no image is uploaded
                         showMessageBox("Error", "Please upload an image for the gallery post.");
@@ -2618,8 +2617,8 @@
 
                 try {
                     if (imageFile) {
-                        // Upload new image if selected
-                        imageUrl = await uploadFile(imageFile, 'blog_images', blogUploadSpinner, blogImagePreview);
+                        // Upload new image if selected. Passing 'mathematico_blog' as folder name.
+                        imageUrl = await uploadFile(imageFile, 'mathematico_blog', blogUploadSpinner, blogImagePreview);
                     }
                     // No error if no image is uploaded for blog, as it's optional
 
