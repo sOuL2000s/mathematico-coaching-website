@@ -69,8 +69,8 @@
             opacity: 0.08; /* Slightly less opaque */
             /* More complex radial gradients for a dynamic feel */
             background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 100%),
-                              radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 100%),
-                              radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 70%, rgba(255,255,255,0.03) 100%); /* Added a third gradient */
+                            radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 100%),
+                            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.03) 70%, rgba(255,255,255,0.03) 100%); /* Added a third gradient */
             animation: movePattern 20s linear infinite alternate, fadeZoomPattern 15s ease-in-out infinite alternate; /* Combined animations */
         }
 
@@ -105,20 +105,34 @@
             scroll-margin-top: 80px; /* Adjust this value based on your header's height */
         }
 
+        /* Hamburger Icon Animation for Mobile */
+        .hamburger-icon .line {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform-origin: center;
+        }
+
+        #navbar-links.active + #hamburger-button .hamburger-icon .top {
+            transform: translateY(6px) rotate(45deg);
+        }
+        #navbar-links.active + #hamburger-button .hamburger-icon .middle {
+            opacity: 0;
+        }
+        #navbar-links.active + #hamburger-button .hamburger-icon .bottom {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
         /* --- START Mobile Specific Nav Styles (ONLY applies on screens <= 767px) --- */
         @media (max-width: 767px) {
-            /* Hamburger menu button is implicitly handled by Tailwind's md:hidden class on the button itself */
-
             #navbar-links { /* This targets the <ul> element itself */
                 flex-direction: column;
                 background-color: white; /* Default light mode background */
                 position: absolute;
-                top: 80px; /* Position directly below the header, assuming header height is 80px */
+                top: 64px; /* Position directly below the header, assuming header height is 80px */
                 left: 0; /* Align to the left edge of the viewport */
                 width: 100vw; /* Span the full viewport width */
-                padding: 1rem 0; /* Vertical padding */
-                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-                border-radius: 0 0 0.5rem 0.5rem;
+                padding: 0; /* Removed vertical padding here, padding will be applied to li items */
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Enhanced shadow */
+                border-radius: 0 0 0.5rem 0.5rem; /* Smoother bottom corners */
                 z-index: 60; /* Higher than sticky header */
                 overflow: hidden; /* Hide overflow initially for smooth transition (max-height) */
                 box-sizing: border-box; /* Include padding in the element's total width/height */
@@ -129,16 +143,17 @@
                 max-height: 0;
                 visibility: hidden;
                 pointer-events: none; /* Prevent clicks when hidden - IMPORTANT FOR TRANSITION */
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+                transition: max-height 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out; /* Smoother transition */
 
                 /* Dark mode styles for the mobile menu */
                 .dark & {
                     background-color: #1f2937; /* dark-gray-800 */
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Darker shadow for dark mode */
                 }
             }
             #navbar-links.active {
                 opacity: 1;
-                max-height: calc(100vh - 80px); /* Fill remaining viewport height */
+                max-height: calc(100vh - 64px); /* Fill remaining viewport height */
                 visibility: visible;
                 pointer-events: auto;
                 overflow-y: auto; /* Allow scrolling of the main menu content if it overflows */
@@ -146,17 +161,53 @@
             }
             #navbar-links li {
                 width: 100%;
-                text-align: center;
+                text-align: left; /* Align menu items left for better readability */
+                border-bottom: 1px solid rgba(200, 200, 200, 0.2); /* Subtle separator */
+            }
+            #navbar-links li:last-child {
+                border-bottom: none; /* No border for the last item */
             }
             #navbar-links a {
-                display: block;
-                padding: 0.75rem 1rem; /* Consistent padding for links */
-                color: #4b5563; /* Default light mode text color */
-                /* Dark mode styles for menu links */
-                .dark & {
-                    color: #d1d5db; /* dark-gray-300 */
-                }
+                display: flex; /* Use flex for internal links for icon alignment */
+                align-items: center;
+                justify-content: space-between; /* Space between text and arrow if present */
+                padding: 1.25rem 1.5rem; /* Increased padding for better touch targets */
+                color: #4b5563;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Added transform for subtle feedback */
+                border-radius: 0; /* No rounded corners here */
+                font-weight: 500; /* Slightly bolder */
             }
+            #navbar-links a:hover {
+                background-color: #f3f4f6; /* Light hover background */
+                color: #1f2937; /* Darker text on hover */
+                transform: translateX(5px); /* Subtle slide on hover */
+            }
+            .dark #navbar-links a {
+                color: #d1d5db;
+            }
+            .dark #navbar-links a:hover {
+                background-color: #374151; /* Darker hover background */
+                color: #e5e7eb;
+                transform: translateX(5px);
+            }
+
+            /* Adjust dropdown toggle appearance */
+            #navbar-links .dropdown > a {
+                font-weight: 600; /* Make dropdown headers slightly bolder */
+                color: #1f2937; /* More prominent color for dropdown headers */
+                background-color: #f9fafb; /* Light background for dropdown headers */
+            }
+            #navbar-links .dropdown.active > a { /* Active dropdown header has different background */
+                background-color: #e0e7ff; /* Light indigo */
+            }
+            .dark #navbar-links .dropdown > a {
+                color: #e5e7eb;
+                background-color: #2a3443; /* Darker grey for dropdown headers */
+            }
+            .dark #navbar-links .dropdown.active > a {
+                background-color: #4f46e540; /* Indigo-600 with transparency */
+            }
+
 
             /* Mobile dropdown specific adjustments (applies only when main menu is active on mobile) */
             .navbar-links .dropdown-menu {
@@ -190,8 +241,24 @@
 
             .navbar-links .dropdown-menu a {
                 padding: 0.75rem 1rem; /* Consistent padding for links */
-                padding-left: 2.5rem; /* Indent dropdown items */
+                padding-left: 3rem; /* Further indent dropdown items */
                 text-align: left; /* Align left for mobile dropdown items to respect padding */
+                font-size: 0.95rem; /* Slightly smaller font for sub-items */
+                justify-content: flex-start; /* Align sub-items to start (prevents arrow for sub-items) */
+                font-weight: 400; /* Normal weight for sub-items */
+                color: #555; /* Slightly muted for sub-items */
+            }
+            .dark .navbar-links .dropdown-menu a {
+                 color: #c0c0c0; /* Slightly muted for sub-items in dark mode */
+            }
+            .navbar-links .dropdown-menu a:hover {
+                background-color: #e0e7ff; /* Lighter indigo for sub-menu hover */
+                color: #4f46e5; /* Indigo text on hover */
+                transform: translateX(0); /* Remove slide for sub-items */
+            }
+            .dark .navbar-links .dropdown-menu a:hover {
+                background-color: #4f46e540; /* Indigo-600 with transparency for dark sub-menu hover */
+                color: #a78bfa; /* Lighter indigo text on hover */
             }
         }
         /* --- END Mobile Specific Nav Styles --- */
@@ -302,8 +369,8 @@
             display: none; /* Hidden by default */
             position: fixed;
             bottom: 1.5rem;
-            right: 6rem; /* Adjusted right position to prevent overlap with WhatsApp CTA */
-            z-index: 90; /* Lower z-index than WhatsApp CTA */
+            right: 1.5rem; /* Adjusted right position to prevent overlap with WhatsApp CTA */
+            z-index: 90;
             background-color: #4f46e5; /* Indigo-600 */
             color: white;
             padding: 0.75rem;
@@ -349,7 +416,10 @@
             transform: translateY(30px); /* Deeper initial transform */
             transition: transform 0.3s ease-in-out;
             position: relative;
-            overflow: hidden; /* Hide overflow for the modal content itself */
+            overflow-y: auto; /* CHANGE THIS LINE: Allow vertical scrolling */
+            overflow-x: hidden; /* ADD THIS LINE: Prevent horizontal scrolling */
+            display: flex; /* Make it a flex container */
+            flex-direction: column; /* Stack children vertically */
         }
         .modal.active .modal-content {
             transform: translateY(0);
@@ -378,13 +448,21 @@
         .dark .modal-close-button:hover {
             color: #f87171; /* Lighter red on hover for dark mode */
         }
-        /* Crucial fix for iframe height within modal */
+        /* Crucial fix for iframe height within modal (if still used, e.g., for Contact Form) */
         .modal-content iframe {
             width: 100%;
-            height: 100%; /* Make iframe fill parent, which is controlled by flex/modal-content height */
+            flex-grow: 1; /* Allow iframe to take available height */
             min-height: 400px; /* Ensure iframe has minimum height */
             border: none;
         }
+        /* For custom forms inside modals, ensure inputs/textareas grow */
+        .modal-content form input,
+        .modal-content form textarea,
+        .modal-content form select {
+            width: 100%; /* Ensure full width */
+            margin-bottom: 1rem; /* Add spacing */
+        }
+
 
         /* WhatsApp CTA Z-index */
         .whatsapp-cta {
@@ -470,7 +548,7 @@
             -webkit-backdrop-filter: blur(5px);
         }
         .dark #gallery-image-modal .modal-content {
-             background-color: rgba(31, 41, 55, 0.95); /* Slightly translucent dark (gray-800) */
+            background-color: rgba(31, 41, 55, 0.95); /* Slightly translucent dark (gray-800) */
         }
         #gallery-image-modal img {
             max-width: 100%;
@@ -522,79 +600,103 @@
     </div>
 
     <header class="bg-white shadow-lg py-4 sticky top-0 z-50 rounded-b-lg
-                   dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center relative px-6 md:px-12">
-            <div class="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
-                <!-- Added ID to the logo link for easier targeting -->
-                <a href="#home" id="mathematico-logo" class="text-4xl lg:text-5xl font-extrabold text-indigo-700 flex items-center group" aria-label="MATHEMATICO Home">
-                   <!-- Updated SVG for MATHEMATICO logo (Mathematical Sigma Summation Symbol) -->
-                   <svg class="w-10 h-10 mr-2 text-indigo-600 group-hover:text-purple-600 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                       <path d="M18 16V14H10V12H18V10H10V8H18V6H6V18H18V16Z"/>
-                   </svg>
-                   MATHEMATICO
+                    dark:bg-gray-900 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+        <div class="container mx-auto flex justify-between items-center relative px-4 md:px-12">
+            <!-- Logo (Left side) -->
+            <div class="flex items-center">
+                <a href="#home" id="mathematico-logo" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-indigo-700 flex items-center group" aria-label="MATHEMATICO Home">
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 mr-1 sm:mr-2 text-indigo-600 group-hover:text-purple-600 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 16V14H10V12H18V10H10V8H18V6H6V18H18V16Z"/>
+                    </svg>
+                    <!-- MODIFIED: Text is visible on all screens. -->
+                    <!-- On mobile (default), it will be text-xl. -->
+                    <!-- From 'sm' breakpoint and up, it will be text-4xl (matching the parent <a> tag's scale for 'sm'). -->
+                    <span class="text-xl sm:text-4xl">MATHEMATICO</span>
                 </a>
-                <!-- Hamburger Menu Button -->
+            </div>
+
+            <!-- Right side: Hamburger (Mobile) and Navigation Links (Desktop) -->
+            <div class="flex items-center"> <!-- New flex container for right-aligned items -->
+                <!-- Hamburger Menu Button - ONLY visible on mobile (md:hidden) -->
                 <button id="hamburger-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle navigation menu">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <svg class="w-7 h-7 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="4" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" class="line top"></line>
+                        <line x1="4" y1="12" x2="20" y2="12" stroke-width="2" stroke-linecap="round" class="line middle"></line>
+                        <line x1="4" y1="18" x2="20" y2="18" stroke-width="2" stroke-linecap="round" class="line bottom"></line>
                     </svg>
                 </button>
-            </div>
-            <!-- Adjusted space-x for better fit -->
-            <!-- CORRECTED: Added md:flex back to the ul class list. This is key for desktop layout. -->
-            <ul id="navbar-links" class="md:flex space-x-2 md:space-x-6 text-lg font-medium">
-                <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Home</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">About Us</a></li>
-                <!-- Courses Dropdown -->
-                <li class="relative dropdown">
-                    <!-- Changed href to javascript:void(0) for dropdown toggle on desktop to prevent page jump -->
-                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
-                        Courses
-                        <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
-                        <li><a href="#courses" data-course-filter="IIT Foundation & Olympiad" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">IIT Foundation & Olympiad</a></li>
-                        <li><a href="#courses" data-course-filter="Competitive Entrance Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Competitive Entrance Exams</a></li>
-                        <li><a href="#courses" data-course-filter="B.Sc (Hons/Pass) All Universities" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Sc (Hons/Pass) All Universities</a></li>
-                        <li><a href="#courses" data-course-filter="B.Tech, GATE & Other Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Tech, GATE & Other Exams</a></li>
-                        <li><a href="#courses" data-course-filter="General Math Support" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">General Math Support</a></li>
-                    </ul>
-                </li>
-                <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Features</a></li>
 
-                <!-- New "More" Dropdown -->
-                <li class="relative dropdown">
-                    <!-- Changed href to javascript:void(0) to prevent page jump on click -->
-                    <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
-                        More
-                        <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#book-list-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Book List</a></li>
-                        <li><a href="#problems-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Problems</a></li>
-                        <li><a href="#gallery-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Gallery</a></li>
-                        <li><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
-                        <li><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
-                        <li><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
-                        <li><a href="#blog-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Blog</a></li>
-                        <li><a href="#contact" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Contact</a></li>
-                        <li><a href="#links" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Links</a></li>
-                        <li><a href="#admin-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Admin</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
-                                         dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
-                        <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
-                        </svg>
-                        <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 118.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </button>
-                </li>
-            </ul>
+                <!-- Navigation Links - hidden on mobile, flex on desktop -->
+                <!-- The 'hidden' class will make it disappear on mobile by default. -->
+                <!-- The 'md:flex' will make it display as flex from medium screens upwards. -->
+                <!-- The custom CSS for #navbar-links.active will override 'hidden' when the hamburger is clicked on mobile. -->
+                <ul id="navbar-links" class="hidden md:flex space-x-2 md:space-x-6 text-lg font-medium items-center">
+                    <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Home</a></li>
+                    <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">About Us</a></li>
+                    <!-- Courses Dropdown (content remains the same) -->
+                    <li class="relative dropdown">
+                        <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
+                            Courses
+                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
+                            <li><a href="#courses" data-course-filter="IIT Foundation & Olympiad" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">IIT Foundation & Olympiad</a></li>
+                            <li><a href="#courses" data-course-filter="Competitive Entrance Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Competitive Entrance Exams</a></li>
+                            <li><a href="#courses" data-course-filter="B.Sc (Hons/Pass) All Universities" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Sc (Hons/Pass) All Universities</a></li>
+                            <li><a href="#courses" data-course-filter="B.Tech, GATE & Other Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Tech, GATE & Other Exams</a></li>
+                            <li><a href="#courses" data-course-filter="General Math Support" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">General Math Support</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Features</a></li>
+
+                    <!-- START NEW: Desktop "More" Dropdown - Hidden on mobile, flex on desktop -->
+                    <li class="relative dropdown hidden md:flex">
+                        <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
+                            More
+                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#book-list-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Book List</a></li>
+                            <li><a href="#problems-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Problems</a></li>
+                            <li><a href="#gallery-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Gallery</a></li>
+                            <li><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
+                            <li><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
+                            <li><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
+                            <li><a href="#blog-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Blog</a></li>
+                            <li><a href="#contact" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Contact</a></li>
+                            <li><a href="#links" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Links</a></li>
+                            <li><a href="#admin-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Admin</a></li>
+                        </ul>
+                    </li>
+                    <!-- END NEW: Desktop "More" Dropdown -->
+
+                    <!-- START NEW: Mobile "More" Options - Flex on mobile, hidden on desktop -->
+                    <li class="flex md:hidden"><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Book List</a></li>
+                    <li class="flex md:hidden"><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Problems</a></li>
+                    <li class="flex md:hidden"><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Gallery</a></li>
+                    <li class="flex md:hidden"><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Testimonials</a></li>
+                    <li class="flex md:hidden"><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Success Stories</a></li>
+                    <li class="flex md:hidden"><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">FAQ</a></li>
+                    <li class="flex md:hidden"><a href="#blog-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Blog</a></li>
+                    <li class="flex md:hidden"><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Contact</a></li>
+                    <li class="flex md:hidden"><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Links</a></li>
+                    <li class="flex md:hidden"><a href="#admin-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Admin</a></li>
+                    <!-- END NEW: Mobile "More" Options -->
+
+                    <li>
+                        <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
+                                            dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
+                            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
+                            </svg>
+                            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 118.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 
@@ -933,57 +1035,82 @@
                                 dark:bg-gray-700 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out flex flex-col justify-between">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: User (Instructor) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
-                                <strong>Instructor:</strong> Dipanjan Chatterjee, M.Sc in Pure Maths
+                            <!-- Instructor -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Instructor:</strong>
+                                    <span class="text-base text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Dipanjan Chatterjee, M.Sc in Pure Maths</span>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Phone -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
-                                <strong>Phone:</strong> <a href="tel:+919051089673" class="text-indigo-600 hover:underline dark:text-indigo-400">+91 9051089673</a>
+                            <!-- Phone -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Phone:</strong>
+                                    <a href="tel:+919051089673" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">+91 9051089673</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Phone (Landline) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
-                                <strong>Landline:</strong> <a href="tel:+913331712372" class="text-indigo-600 hover:underline dark:text-indigo-400">+91-3331712372</a>
+                            <!-- Landline -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Landline:</strong>
+                                    <a href="tel:+913331712372" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">+91-3331712372</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <img src="https://img.icons8.com/color/30/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-7 h-7 mr-3">
-                                <strong>WhatsApp:</strong> <a href="https://wa.link/80qjr2" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Chat with us on WhatsApp">+91 9748559613</a>
+                            <!-- WhatsApp -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <img src="https://img.icons8.com/color/30/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-7 h-7 mr-3 flex-shrink-0 mt-1">
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>WhatsApp:</strong>
+                                    <a href="https://wa.link/80qjr2" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere" aria-label="Chat with us on WhatsApp">+91 9748559613</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Envelope (Email) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.624 5.275a3 3 0 01-3.352 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.91a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
-                                <strong>Email:</strong> <a href="mailto:dipanjanchatterjee23@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400">dipanjanchatterjee23@gmail.com</a>
+                            <!-- Email -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.624 5.275a3 3 0 01-3.352 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.91a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Email:</strong>
+                                    <a href="mailto:dipanjanchatterjee23@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">dipanjanchatterjee23@gmail.com</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Map Pin (Locations) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>
-                                <strong>Locations:</strong> Madhyamgram & Barasat, Kolkata
+                            <!-- Locations -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Locations:</strong>
+                                    <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Madhyamgram & Barasat, Kolkata</span>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Original Telegram Logo SVG Icon -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Telegram -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 0C5.372 0 0 5.372 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12C24 5.372 18.628 0 12 0zm5.176 8.358c-.378-.052-.777-.07-.94-.07-.373 0-.66.082-.86.233-.2.152-.36.386-.48.704-.12.318-.2.687-.24 1.107-.04.42-.057.776-.057 1.066 0 .39.014.733.042 1.03.028.297.086.602.176.914.09.312.215.62.373.92.16.3.363.59.61.87.246.282.52.535.823.76-.32.008-.642.016-.96.016-1.516 0-2.822-.442-3.92-1.326-1.102-.885-1.92-2.128-2.45-3.72-2.73-1.63-2.92-4.04-1.17-7.238.487-.93 1.157-1.62 2-2.072.843-.453 1.79-.68 2.84-.68.647 0 1.25.045 1.8.136.55.09 1.05.228 1.5.412.45.183.846.425 1.19.724.343.3.616.634.823.992.207.358.337.74.39 1.144-.35.034-.69.103-1.02.208-.33.104-.64.24-.93.407-.29.167-.55.36-.78.58-.23.22-.4.47-.51.748-.035.1-.06.205-.08.315-.02.11-.03.225-.03.345 0 .17.002.343.007.518.005.175.013.35.025.526.01.18.02.35.03.518.01.17.01.343.01.518s-.01.348-.02.523c-.01.175-.02.34-.03.495-.008.155-.013.3-.013.435 0 .12.015.23.045.33.03.1.07.2.118.29.048.09.096.167.144.232.048.065.095.12.14.165.047.045.088.077.12.095.03.018.05.027.06.027.03-.005.08-.01.15-.015.07-.006.14-.01.2-.01l-.22.25c.3.35.7.63 1.2.85s1.04.38 1.63.45c.44-.24.87-.5 1.28-.78.41-.28.78-.59 1.11-.92.33-.33.6-.68.81-1.05.21-.37.33-.76.36-1.17 1.09-2.31 1.77-4.23 2.04-5.77.27-1.54.27-2.73-.02-3.56-.29-.83-.75-1.55-1.37-2.16-.62-.62-1.32-1.08-2.12-1.39-1.2-1.07-2.82-1.6-4.88-1.6z"/>
                                 </svg>
-                                <strong>Telegram:</strong> <a href="https://t.me/dipanjan9271" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Join our Telegram group">Join our Telegram Group</a>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Telegram:</strong>
+                                    <a href="https://t.me/dipanjan9271" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere" aria-label="Join our Telegram group">Join our Telegram Group</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Desktop Computer (Classes Available) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5.25a3 3 0 013-3h12a3 3 0 013 3V15.75c0 1.168-.56 2.228-1.47 2.911l-3.322 2.656A2.25 2.25 0 0113.5 21v-3.75h-3V21a2.25 2.25 0 01-2.708-1.595L4.47 18.161A3 3 0 013 15.75V5.25z" clip-rule="evenodd" /></svg>
-                                <strong>Classes Available:</strong> Offline & Online
+                            <!-- Classes Available -->
+                            <p class="text-lg text-gray-700 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5.25a3 3 0 013-3h12a3 3 0 013 3V15.75c0 1.168-.56 2.228-1.47 2.911l-3.322 2.656A2.25 2.25 0 0113.5 21v-3.75h-3V21a2.25 2.25 0 01-2.708-1.595L4.47 18.161A3 3 0 013 15.75V5.25z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Classes Available:</strong>
+                                    <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Offline & Online</span>
+                                </span>
                             </p>
                         </div>
                         <div class="mt-8">
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Connect with Us</h3>
-                            <div class="flex flex-wrap gap-6 justify-center md:justify-start">
-                                <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-lg font-medium" aria-label="Facebook Page">
-                                    <svg class="w-9 h-9 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
+                            <div class="flex flex-wrap gap-4 justify-center md:justify-start"> <!-- Adjusted gap for better fit -->
+                                <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-base font-medium" aria-label="Facebook Page"> <!-- Reduced text-lg to text-base -->
+                                    <svg class="w-7 h-7 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
                                     Facebook (Page)
                                 </a>
-                                <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-lg font-medium" aria-label="Facebook Group">
-                                    <svg class="w-9 h-9 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
+                                <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-base font-medium" aria-label="Facebook Group"> <!-- Reduced text-lg to text-base -->
+                                    <svg class="w-7 h-7 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
                                     Facebook (Group)
                                 </a>
                             </div>
@@ -1369,11 +1496,13 @@
 
     <!-- Floating WhatsApp CTA Button -->
     <a href="https://wa.me/919748559613" class="fixed bottom-6 right-6 z-50 bg-green-500 p-3 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
-        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-10 h-10 group-hover:animate-bounce"> <!-- Added slight bounce animation -->
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-10 h-10 group-hover:animate-bounce">
     </a>
 
     <!-- Scroll-to-top Button -->
-    <button id="scroll-to-top" aria-label="Scroll to top">
+    <!-- START CHANGE: Adjust right position for scroll-to-top button -->
+    <button id="scroll-to-top" class="fixed bottom-6 right-20 z-90 md:right-32 lg:right-40 xl:right-48" aria-label="Scroll to top">
+    <!-- END CHANGE -->
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
@@ -1383,9 +1512,40 @@
     <div id="enrollment-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="enrollment-modal-title">
         <div class="modal-content">
             <button class="modal-close-button" aria-label="Close enrollment form">&times;</button>
+            <!-- START CHANGE: Integrated Enrollment Form -->
             <h3 id="enrollment-modal-title" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Enroll in <span id="modal-course-name" class="text-indigo-600 dark:text-indigo-400"></span></h3>
-            <!-- Google Form embedded via iframe -->
-            <iframe id="enrollment-google-form-iframe" src="" frameborder="0" marginheight="0" marginwidth="0" title="Enrollment Form">Loading...</iframe>
+            <form id="enrollment-form" action="" method="POST" target="google-form-submission-iframe" class="space-y-5 flex flex-col flex-grow">
+                <div>
+                    <label for="enroll-course" class="sr-only">Course Name</label>
+                    <input type="text" id="enroll-course" name="entry.1828229222" placeholder="Course Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" readonly required>
+                </div>
+                <div>
+                    <label for="enroll-student-name" class="sr-only">Your Name</label>
+                    <input type="text" id="enroll-student-name" name="entry.40854499" placeholder="Your Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
+                </div>
+                <div>
+                    <label for="enroll-parent-name" class="sr-only">Parent's Name</label>
+                    <input type="text" id="enroll-parent-name" name="entry.1504263384" placeholder="Parent's Name (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="enroll-contact-number" class="sr-only">Contact Number</label>
+                    <input type="tel" id="enroll-contact-number" name="entry.605564464" placeholder="Contact Number" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
+                </div>
+                <div>
+                    <label for="enroll-email" class="sr-only">Email Address</label>
+                    <input type="email" id="enroll-email" name="entry.352430613" placeholder="Email Address (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="enroll-message" class="sr-only">Message</label>
+                    <textarea id="enroll-message" rows="3" name="entry.341859473" placeholder="Any specific questions or message?" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                    Submit Enrollment
+                </button>
+            </form>
+            <!-- Hidden iframe to submit to Google Form without leaving the page -->
+            <iframe name="google-form-submission-iframe" style="display:none;"></iframe>
+            <!-- END CHANGE: Integrated Enrollment Form -->
         </div>
     </div>
 
@@ -1573,14 +1733,22 @@
         }
 
         // Function to update UI based on admin status
+        // START CHANGE: Refined updateAdminUI for clarity and consistency
         function updateAdminUI() {
             const adminPanels = document.querySelectorAll('.admin-panel');
             const adminIndicator = document.getElementById('admin-mode-indicator');
-            const authSection = document.getElementById('auth-section'); // This is already global
+            const authSection = document.getElementById('auth-section');
+
+            // Hide all admin panels by default
+            adminPanels.forEach(panel => panel.classList.add('hidden'));
 
             if (isAdmin) {
-                adminPanels.forEach(panel => panel.classList.remove('hidden'));
                 adminIndicator.classList.add('active');
+                // Only show admin panels if on the admin page
+                if (document.getElementById('admin-page').classList.contains('active') || document.getElementById('admin-page').classList.contains('visible')) {
+                    adminPanels.forEach(panel => panel.classList.remove('hidden'));
+                }
+
                 if (auth.currentUser) {
                     authHeading.textContent = "Admin Dashboard";
                     loginFormContainer.classList.add('hidden');
@@ -1589,10 +1757,10 @@
                     userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
                     userIdDisplay.textContent = auth.currentUser.uid;
                 }
-            } else {
-                adminPanels.forEach(panel => panel.classList.add('hidden'));
+            } else { // Not an admin
                 adminIndicator.classList.remove('active');
-                if (auth.currentUser && !auth.currentUser.isAnonymous) { // Logged in but not admin
+
+                if (auth.currentUser && !auth.currentUser.isAnonymous) { // Logged in as a regular user
                     authHeading.textContent = "User Profile";
                     loginFormContainer.classList.add('hidden');
                     registerFormContainer.classList.add('hidden');
@@ -1606,7 +1774,15 @@
                     adminDashboard.classList.add('hidden');
                 }
             }
+
+            // Ensure the main auth section is visible/hidden appropriately
+            if (document.getElementById('admin-page').classList.contains('hidden')) {
+                 authSection.classList.remove('hidden'); // Make sure it's visible if the admin panel needs to be shown for login
+            } else {
+                 authSection.classList.remove('hidden'); // Always visible if admin page itself is visible
+            }
         }
+        // END CHANGE: Refined updateAdminUI
 
 
         // --- DOM Elements ---
@@ -1617,11 +1793,19 @@
         const hamburgerButton = document.getElementById('hamburger-button');
         const navbarLinks = document.getElementById('navbar-links');
         const scrollToTopButton = document.getElementById('scroll-to-top');
+        // START CHANGE: Updated Enrollment Form Variables
         const enrollmentModal = document.getElementById('enrollment-modal');
         const modalCloseButton = document.querySelector('#enrollment-modal .modal-close-button');
         const enrollButtons = document.querySelectorAll('.enroll-button');
         const modalCourseName = document.getElementById('modal-course-name');
-        const enrollmentGoogleFormIframe = document.getElementById('enrollment-google-form-iframe');
+        const enrollmentForm = document.getElementById('enrollment-form'); // New: Reference to the actual form
+        const enrollCourseInput = document.getElementById('enroll-course'); // New: Course input field
+        const enrollStudentNameInput = document.getElementById('enroll-student-name');
+        const enrollParentNameInput = document.getElementById('enroll-parent-name');
+        const enrollContactNumberInput = document.getElementById('enroll-contact-number');
+        const enrollEmailInput = document.getElementById('enroll-email');
+        const enrollMessageInput = document.getElementById('enroll-message');
+        // END CHANGE: Updated Enrollment Form Variables
 
         const mainContentContainer = document.getElementById('main-content-container');
         const pageSections = document.querySelectorAll('.page-section');
@@ -1702,20 +1886,20 @@
         // Get the Mathematico logo element
         const mathematicoLogo = document.getElementById('mathematico-logo');
 
-        // IMPORTANT: Replace with your actual Google Form embed URL and field IDs
+        // START CHANGE: Updated Google Form URLs and Field IDs for seamless submission
+        // IMPORTANT: These are the *formResponse* URLs, not the embedded viewform URL.
         // To get these:
         // 1. Go to your Google Form.
-        // 2. Click "Send" -> "Embed HTML" tab. Copy the 'src' URL from the iframe.
-        // 3. For field IDs, click "Send" -> "Get pre-filled link". Fill out a test entry, then copy the link.
-        //    The field IDs will be in the URL (e.g., entry.123456789).
-        const GOOGLE_FORM_ENROLLMENT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/viewform?embedded=true"; // <--- REPLACE THIS
-        const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = {
-            course: "entry.1828229222",
-            studentName: "entry.40854499",
-            parentName: "entry.1504263384",
-            contactNumber: "entry.605564464",
-            email: "entry.352430613",
-            message: "entry.341859473"
+        // 2. Click "Send" -> "Get pre-filled link". Fill out a test entry for all fields, then click "Get link".
+        // 3. Copy this link. The base URL (before ?) is your action URL. The parameters (entry.XXXXX=...) are your field IDs.
+        const GOOGLE_FORM_ENROLLMENT_ACTION_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/formResponse"; // <--- REPLACE THIS WITH YOUR FORM'S ACTION URL
+        const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = { // These are already used in HTML `name` attributes
+            course: "entry.1828229222", // Replace with your Course Name field ID
+            studentName: "entry.40854499", // Replace with your Student Name field ID
+            parentName: "entry.1504263384", // Replace with your Parent Name field ID
+            contactNumber: "entry.605564464", // Replace with your Contact Number field ID
+            email: "entry.352430613", // Replace with your Email field ID
+            message: "entry.341859473" // Replace with your Message field ID
         };
         const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // <--- REPLACE THIS
         const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // <--- REPLACE THIS
@@ -1723,6 +1907,7 @@
         const YOUR_EMAIL_FIELD_ID = "196734286";
         const YOUR_MESSAGE_FIELD_ID = "1567514947";
         const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "1002277897";
+        // END CHANGE: Updated Google Form URLs and Field IDs
 
         // --- General Functions ---
 
@@ -1749,7 +1934,7 @@
             }
         }
 
-        // SPA Navigation Function
+        // START CHANGE: Enhanced SPA Navigation Function for Admin Panel Visibility
         function renderPage(pageId) {
             pageSections.forEach(section => {
                 section.classList.add('hidden');
@@ -1757,6 +1942,27 @@
             const targetSection = document.getElementById(pageId);
             if (targetSection) {
                 targetSection.classList.remove('hidden');
+
+                // Special handling for admin-related panels/sections
+                document.querySelectorAll('.admin-panel').forEach(panel => panel.classList.add('hidden')); // Hide all admin panels by default
+                document.getElementById('auth-section').classList.add('hidden'); // Hide auth section by default
+
+                if (pageId === 'admin-page') {
+                    document.getElementById('auth-section').classList.remove('hidden'); // Always show auth section on admin page
+                    if (isAdmin) { // If user is an admin, show specific admin panels
+                        document.getElementById('book-list-admin-panel').classList.add('hidden'); // Ensure these are hidden first, then potentially revealed by their own page's logic
+                        document.getElementById('problems-admin-panel').classList.add('hidden');
+                        document.getElementById('gallery-admin-panel').classList.add('hidden');
+                        document.getElementById('blog-admin-panel').classList.add('hidden');
+                        // No specific admin panels displayed here, but the auth section (dashboard) will be
+                    }
+                    updateAdminUI(); // Re-evaluate admin UI state on rendering admin page
+                } else {
+                    // For other pages, ensure admin-specific UI is correctly hidden
+                    // (This is redundant due to the general hiding above, but safe)
+                    document.getElementById('admin-mode-indicator').classList.remove('active');
+                }
+
                 // If the contact page is rendered, also ensure the map container is visible
                 if (pageId === 'contact') {
                     const googleMapsContainer = document.getElementById('google-maps-container');
@@ -1764,10 +1970,19 @@
                         googleMapsContainer.classList.remove('hidden');
                     }
                 }
+                // Show admin panels when their respective pages are loaded AND user is admin
+                if (isAdmin) {
+                    if (pageId === 'book-list-page' && bookListAdminPanel) bookListAdminPanel.classList.remove('hidden');
+                    if (pageId === 'problems-page' && problemsAdminPanel) problemsAdminPanel.classList.remove('hidden');
+                    if (pageId === 'gallery-page' && galleryAdminPanel) galleryAdminPanel.classList.remove('hidden');
+                    if (pageId === 'blog-page' && blogAdminPanel) blogAdminPanel.classList.remove('hidden');
+                }
+
                 // Scroll to top of the new page
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
+        // END CHANGE: Enhanced SPA Navigation Function
 
         // Global variable to hold the current confirm callback
         let currentConfirmCallback = null;
@@ -1877,19 +2092,38 @@
                 });
             });
 
-            // Handle initial page load based on URL hash
             const initialHash = window.location.hash.substring(1);
-            if (initialHash && document.getElementById(initialHash)) {
-                renderPage(initialHash);
+
+            // Prioritize 'home' page if no hash, if the hash is specifically 'about',
+            // or if the hash refers to a non-existent section.
+            if (!initialHash || initialHash === 'about' || !document.getElementById(initialHash)) {
+                renderPage('home');
+                // If the URL originally contained '#about' (or any other hash we want to clear),
+                // replace the state to remove it from the browser's URL bar.
+                if (window.location.hash) { // Checks if any hash exists
+                    history.replaceState(null, null, ' '); // Clears the hash (e.g., from #about to just /)
+                }
             } else {
-                renderPage('home'); // Default to home page
+                renderPage(initialHash); // Render the page specified by a valid and non-'about' hash
             }
 
-            // Refined Navigation and Dropdown Logic
-            // Attach click listeners to all relevant links within the header navigation
-            const navLinksAndDropdownToggles = document.querySelectorAll('#navbar-links a');
+            // START CHANGE: Extend SPA Navigation to include footer quick links and refined dropdown logic
+            const closeAllDropdowns = (excludeDropdown = null) => {
+                document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+                    if (dropdown !== excludeDropdown) {
+                        dropdown.classList.remove('active');
+                        const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
+                        const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
+                        if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
+                        if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
+                    }
+                });
+            };
 
-            navLinksAndDropdownToggles.forEach(link => {
+            // Select all relevant navigation links, including header nav and footer quick links
+            const allNavLinks = document.querySelectorAll('#navbar-links a, footer ul a'); // MODIFIED: Added footer ul a
+
+            allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     const parentDropdown = link.closest('.dropdown');
                     const isDropdownToggle = link.getAttribute('href') === 'javascript:void(0)';
@@ -1898,117 +2132,56 @@
                     if (isDropdownToggle) {
                         e.preventDefault();
                         if (parentDropdown) {
-                            // Close other open dropdowns first, but only if on mobile
-                            if (window.innerWidth < 768) {
-                                document.querySelectorAll('#navbar-links > li.dropdown.active').forEach(otherDropdown => {
-                                    if (otherDropdown !== parentDropdown) { // Don't close the one just clicked
-                                        otherDropdown.classList.remove('active');
-                                        const otherToggle = otherDropdown.querySelector('a[aria-haspopup="true"]');
-                                        const otherArrow = otherDropdown.querySelector('.dropdown-arrow');
-                                        if (otherToggle) otherToggle.setAttribute('aria-expanded', false);
-                                        if (otherArrow) otherArrow.classList.remove('rotate-180');
-                                        // Also collapse its nested dropdown menu for a clean state
-                                        const otherDropdownMenu = otherDropdown.querySelector('.dropdown-menu');
-                                        if (otherDropdownMenu) {
-                                             otherDropdownMenu.style.maxHeight = '0';
-                                             otherDropdownMenu.style.opacity = '0';
-                                             otherDropdownMenu.style.visibility = 'hidden';
-                                             otherDropdownMenu.style.pointerEvents = 'none';
-                                        }
-                                    }
-                                });
-                            }
-
-                            // Then toggle the clicked one
-                            const dropdownToggle = parentDropdown.querySelector('a[aria-haspopup="true"]');
-                            const dropdownArrow = parentDropdown.querySelector('.dropdown-arrow');
-
+                            closeAllDropdowns(parentDropdown); // Close other dropdowns
                             parentDropdown.classList.toggle('active');
                             const isActive = parentDropdown.classList.contains('active');
-
-                            if (dropdownToggle) {
-                                dropdownToggle.setAttribute('aria-expanded', isActive);
-                            }
-                            if (dropdownArrow) {
-                                dropdownArrow.classList.toggle('rotate-180', isActive);
-                            }
+                            const dropdownToggle = parentDropdown.querySelector('a[aria-haspopup="true"]');
+                            const dropdownArrow = parentDropdown.querySelector('.dropdown-arrow');
+                            if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', isActive);
+                            if (dropdownArrow) dropdownArrow.classList.toggle('rotate-180', isActive);
                         }
                     } else if (isInternalNavLink) {
-                        e.preventDefault(); // Prevent default anchor link behavior
+                        e.preventDefault();
                         const pageId = link.getAttribute('href').substring(1);
                         const courseFilter = link.dataset.courseFilter;
 
                         if (courseFilter) {
-                            renderPage('courses'); // Navigate to courses page first
+                            renderPage('courses');
+                            // Small delay to allow page render before scrolling to target card
                             setTimeout(() => {
                                 const targetCourseCard = document.querySelector(`[data-course-category="${courseFilter}"]`);
                                 if (targetCourseCard) {
                                     targetCourseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                 }
-                            }, 100); // Small delay to allow page render
+                            }, 100);
                         } else {
                             renderPage(pageId);
                         }
 
-                        // Always close the main hamburger menu after a successful navigation to a page
-                        // This handles both direct nav links and links within dropdowns
+                        // Close hamburger menu and all dropdowns after navigation
+                        // Only close hamburger if it's currently open
                         if (navbarLinks.classList.contains('active')) {
                             navbarLinks.classList.remove('active');
-                            // Reset all dropdowns within the mobile menu when main menu is closed
-                            document.querySelectorAll('#navbar-links .dropdown.active').forEach(dropdown => {
-                                dropdown.classList.remove('active');
-                                const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
-                                const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
-                                if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
-                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
-                                // Also collapse its nested dropdown menu for a clean state
-                                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                                if (dropdownMenu) {
-                                    dropdownMenu.style.maxHeight = '0';
-                                    dropdownMenu.style.opacity = '0';
-                                    dropdownMenu.style.visibility = 'hidden';
-                                    dropdownMenu.style.pointerEvents = 'none';
-                                }
-                            });
                         }
-                        // Ensure all dropdowns are closed for both desktop and mobile when navigating (redundant for desktop, but safe)
-                        document.querySelectorAll('.navbar-links .dropdown.active').forEach(dropdown => {
-                            dropdown.classList.remove('active');
-                            const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
-                            const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
-                            if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
-                            if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
-                            // Also collapse its nested dropdown menu for a clean state
-                            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-                            if (dropdownMenu) {
-                                dropdownMenu.style.maxHeight = '0';
-                                dropdownMenu.style.opacity = '0';
-                                dropdownMenu.style.visibility = 'hidden';
-                                dropdownMenu.style.pointerEvents = 'none';
-                            }
-                        });
+                        closeAllDropdowns();
                     }
                     // For external links, do nothing; let them behave normally
                 });
             });
 
-            // Close desktop dropdowns when clicking anywhere else on the document (only applies to desktop)
+            // Close all dropdowns when clicking anywhere else on the document (applies to both desktop & mobile dropdowns)
             document.addEventListener('click', (e) => {
-                if (window.innerWidth >= 768) { // Only for desktop dropdowns
-                    document.querySelectorAll('.navbar-links .dropdown').forEach(dropdown => {
-                        // Check if the click was outside the current dropdown
-                        if (!dropdown.contains(e.target)) {
-                            if (dropdown.classList.contains('active')) {
-                                dropdown.classList.remove('active');
-                                const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
-                                const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
-                                if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
-                                if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
-                            }
-                        }
-                    });
+                // Check if the click was outside any dropdown or the hamburger button
+                // This ensures clicks on the hamburger button or inside an open dropdown don't immediately close it
+                if (!e.target.closest('.dropdown') && !e.target.closest('#hamburger-button')) {
+                    closeAllDropdowns();
+                    // If the click is outside the navbar area and the hamburger menu is open, close it
+                    if (window.innerWidth < 768 && navbarLinks.classList.contains('active') && !e.target.closest('#navbar-links')) {
+                        navbarLinks.classList.remove('active');
+                    }
                 }
             });
+            // END CHANGE: Extend SPA Navigation to include footer quick links and refined dropdown logic
 
 
             // Add specific event listeners for the hero section buttons
@@ -2070,22 +2243,15 @@
             }
         });
 
-        // Toggle hamburger menu on click
+        // START CHANGE: Hamburger button logic with closeAllDropdowns
         hamburgerButton.addEventListener('click', () => {
             console.log("Hamburger button clicked!");
             navbarLinks.classList.toggle('active');
-
-            // If the navbar is being closed, ensure all dropdowns within it are also closed
             if (!navbarLinks.classList.contains('active')) {
-                document.querySelectorAll('#navbar-links .dropdown.active').forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                    const dropdownToggle = dropdown.querySelector('a[aria-haspopup="true"]');
-                    const dropdownArrow = dropdown.querySelector('.dropdown-arrow');
-                    if (dropdownToggle) dropdownToggle.setAttribute('aria-expanded', false);
-                    if (dropdownArrow) dropdownArrow.classList.remove('rotate-180');
-                });
+                closeAllDropdowns(); // Close all dropdowns when closing the main menu
             }
         });
+        // END CHANGE: Hamburger button logic
 
         // Scroll-to-top button functionality
         window.addEventListener('scroll', () => {
@@ -2103,31 +2269,49 @@
             });
         });
 
-        // Enrollment modal functionality
+        // START CHANGE: Updated Enrollment Modal Functionality for Integrated Form
         enrollButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const courseName = button.dataset.course;
                 modalCourseName.textContent = courseName;
-                // Construct the Google Form URL with pre-filled course name
-                const formUrl = `${GOOGLE_FORM_ENROLLMENT_BASE_URL}&${GOOGLE_FORM_ENROLLMENT_FIELD_IDS.course}=${encodeURIComponent(courseName)}`;
-                enrollmentGoogleFormIframe.src = formUrl;
+                enrollCourseInput.value = courseName; // Pre-fill the hidden course input
+                enrollmentForm.action = GOOGLE_FORM_ENROLLMENT_ACTION_URL; // Set form action
                 enrollmentModal.classList.add('active');
                 console.log(`Attempting to open enrollment modal for course: ${courseName}`);
-                console.log(`Setting iframe src to: ${formUrl}`);
+                // Clear previous form data when opening
+                enrollmentForm.reset();
+                enrollCourseInput.value = courseName; // Ensure course name remains after reset
             });
         });
 
         modalCloseButton.addEventListener('click', () => {
             enrollmentModal.classList.remove('active');
-            enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
+            // Clear form fields and action when closing
+            enrollmentForm.reset();
+            enrollmentForm.action = '';
         });
 
         enrollmentModal.addEventListener('click', (e) => {
             if (e.target === enrollmentModal) {
                 enrollmentModal.classList.remove('active');
-                enrollmentGoogleFormIframe.src = ""; // Clear iframe src when closing
+                // Clear form fields and action when closing by clicking outside
+                enrollmentForm.reset();
+                enrollmentForm.action = '';
             }
         });
+
+        // Handle form submission
+        enrollmentForm.addEventListener('submit', (e) => {
+            // No e.preventDefault() here so the form submits to the hidden iframe
+            showMessageBox("Enrollment Submitted", "Thank you for your interest! Your enrollment request has been submitted. We will contact you shortly.", false, () => {
+                enrollmentModal.classList.remove('active');
+                enrollmentForm.reset();
+                enrollmentForm.action = '';
+            });
+            // Ensure the form actually submits to the target iframe
+            // The iframe target ensures the page does not reload
+        });
+        // END CHANGE: Updated Enrollment Modal Functionality
 
         // Message Box Event Listeners (only for close button and modal background)
         messageBoxCloseButton.addEventListener('click', hideMessageBox);
