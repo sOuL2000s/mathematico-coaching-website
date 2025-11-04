@@ -105,18 +105,34 @@
             scroll-margin-top: 80px; /* Adjust this value based on your header's height */
         }
 
+        /* Hamburger Icon Animation for Mobile */
+        .hamburger-icon .line {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform-origin: center;
+        }
+
+        #navbar-links.active + #hamburger-button .hamburger-icon .top {
+            transform: translateY(6px) rotate(45deg);
+        }
+        #navbar-links.active + #hamburger-button .hamburger-icon .middle {
+            opacity: 0;
+        }
+        #navbar-links.active + #hamburger-button .hamburger-icon .bottom {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
         /* --- START Mobile Specific Nav Styles (ONLY applies on screens <= 767px) --- */
         @media (max-width: 767px) {
             #navbar-links { /* This targets the <ul> element itself */
                 flex-direction: column;
                 background-color: white; /* Default light mode background */
                 position: absolute;
-                top: 80px; /* Position directly below the header, assuming header height is 80px */
+                top: 64px; /* Position directly below the header, assuming header height is 80px */
                 left: 0; /* Align to the left edge of the viewport */
                 width: 100vw; /* Span the full viewport width */
-                padding: 0; /* START CHANGE: Removed vertical padding here, padding will be applied to li items */
-                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-                border-radius: 0 0 0.5rem 0.5rem;
+                padding: 0; /* Removed vertical padding here, padding will be applied to li items */
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Enhanced shadow */
+                border-radius: 0 0 0.5rem 0.5rem; /* Smoother bottom corners */
                 z-index: 60; /* Higher than sticky header */
                 overflow: hidden; /* Hide overflow initially for smooth transition (max-height) */
                 box-sizing: border-box; /* Include padding in the element's total width/height */
@@ -127,16 +143,17 @@
                 max-height: 0;
                 visibility: hidden;
                 pointer-events: none; /* Prevent clicks when hidden - IMPORTANT FOR TRANSITION */
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+                transition: max-height 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out; /* Smoother transition */
 
                 /* Dark mode styles for the mobile menu */
                 .dark & {
                     background-color: #1f2937; /* dark-gray-800 */
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Darker shadow for dark mode */
                 }
             }
             #navbar-links.active {
                 opacity: 1;
-                max-height: calc(100vh - 80px); /* Fill remaining viewport height */
+                max-height: calc(100vh - 64px); /* Fill remaining viewport height */
                 visibility: visible;
                 pointer-events: auto;
                 overflow-y: auto; /* Allow scrolling of the main menu content if it overflows */
@@ -144,24 +161,26 @@
             }
             #navbar-links li {
                 width: 100%;
-                text-align: left; /* START CHANGE: Align menu items left for better readability */
+                text-align: left; /* Align menu items left for better readability */
                 border-bottom: 1px solid rgba(200, 200, 200, 0.2); /* Subtle separator */
             }
             #navbar-links li:last-child {
                 border-bottom: none; /* No border for the last item */
             }
             #navbar-links a {
-                display: flex; /* START CHANGE: Use flex for internal links for icon alignment */
+                display: flex; /* Use flex for internal links for icon alignment */
                 align-items: center;
                 justify-content: space-between; /* Space between text and arrow if present */
-                padding: 1rem 1.5rem; /* Increased padding for better touch targets */
+                padding: 1.25rem 1.5rem; /* Increased padding for better touch targets */
                 color: #4b5563;
-                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Added transform for subtle feedback */
                 border-radius: 0; /* No rounded corners here */
+                font-weight: 500; /* Slightly bolder */
             }
             #navbar-links a:hover {
                 background-color: #f3f4f6; /* Light hover background */
                 color: #1f2937; /* Darker text on hover */
+                transform: translateX(5px); /* Subtle slide on hover */
             }
             .dark #navbar-links a {
                 color: #d1d5db;
@@ -169,16 +188,26 @@
             .dark #navbar-links a:hover {
                 background-color: #374151; /* Darker hover background */
                 color: #e5e7eb;
+                transform: translateX(5px);
             }
 
             /* Adjust dropdown toggle appearance */
             #navbar-links .dropdown > a {
                 font-weight: 600; /* Make dropdown headers slightly bolder */
                 color: #1f2937; /* More prominent color for dropdown headers */
+                background-color: #f9fafb; /* Light background for dropdown headers */
+            }
+            #navbar-links .dropdown.active > a { /* Active dropdown header has different background */
+                background-color: #e0e7ff; /* Light indigo */
             }
             .dark #navbar-links .dropdown > a {
                 color: #e5e7eb;
+                background-color: #2a3443; /* Darker grey for dropdown headers */
             }
+            .dark #navbar-links .dropdown.active > a {
+                background-color: #4f46e540; /* Indigo-600 with transparency */
+            }
+
 
             /* Mobile dropdown specific adjustments (applies only when main menu is active on mobile) */
             .navbar-links .dropdown-menu {
@@ -212,16 +241,24 @@
 
             .navbar-links .dropdown-menu a {
                 padding: 0.75rem 1rem; /* Consistent padding for links */
-                padding-left: 3rem; /* START CHANGE: Further indent dropdown items */
+                padding-left: 3rem; /* Further indent dropdown items */
                 text-align: left; /* Align left for mobile dropdown items to respect padding */
-                font-size: 0.95rem; /* START CHANGE: Slightly smaller font for sub-items */
-                justify-content: flex-start; /* START CHANGE: Align sub-items to start (prevents arrow for sub-items) */
+                font-size: 0.95rem; /* Slightly smaller font for sub-items */
+                justify-content: flex-start; /* Align sub-items to start (prevents arrow for sub-items) */
+                font-weight: 400; /* Normal weight for sub-items */
+                color: #555; /* Slightly muted for sub-items */
+            }
+            .dark .navbar-links .dropdown-menu a {
+                 color: #c0c0c0; /* Slightly muted for sub-items in dark mode */
             }
             .navbar-links .dropdown-menu a:hover {
-                background-color: #e0e7ff; /* START CHANGE: Lighter indigo for sub-menu hover */
+                background-color: #e0e7ff; /* Lighter indigo for sub-menu hover */
+                color: #4f46e5; /* Indigo text on hover */
+                transform: translateX(0); /* Remove slide for sub-items */
             }
             .dark .navbar-links .dropdown-menu a:hover {
-                background-color: #4f46e540; /* START CHANGE: Indigo-600 with transparency for dark sub-menu hover */
+                background-color: #4f46e540; /* Indigo-600 with transparency for dark sub-menu hover */
+                color: #a78bfa; /* Lighter indigo text on hover */
             }
         }
         /* --- END Mobile Specific Nav Styles --- */
@@ -582,8 +619,10 @@
             <div class="flex items-center"> <!-- New flex container for right-aligned items -->
                 <!-- Hamburger Menu Button - ONLY visible on mobile (md:hidden) -->
                 <button id="hamburger-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle navigation menu">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <svg class="w-7 h-7 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="4" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" class="line top"></line>
+                        <line x1="4" y1="12" x2="20" y2="12" stroke-width="2" stroke-linecap="round" class="line middle"></line>
+                        <line x1="4" y1="18" x2="20" y2="18" stroke-width="2" stroke-linecap="round" class="line bottom"></line>
                     </svg>
                 </button>
 
@@ -611,8 +650,8 @@
                     </li>
                     <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Features</a></li>
 
-                    <!-- More Dropdown (content remains the same) -->
-                    <li class="relative dropdown">
+                    <!-- START NEW: Desktop "More" Dropdown - Hidden on mobile, flex on desktop -->
+                    <li class="relative dropdown hidden md:flex">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                             More
                             <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -630,6 +669,21 @@
                             <li><a href="#admin-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Admin</a></li>
                         </ul>
                     </li>
+                    <!-- END NEW: Desktop "More" Dropdown -->
+
+                    <!-- START NEW: Mobile "More" Options - Flex on mobile, hidden on desktop -->
+                    <li class="flex md:hidden"><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Book List</a></li>
+                    <li class="flex md:hidden"><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Problems</a></li>
+                    <li class="flex md:hidden"><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Gallery</a></li>
+                    <li class="flex md:hidden"><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Testimonials</a></li>
+                    <li class="flex md:hidden"><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Success Stories</a></li>
+                    <li class="flex md:hidden"><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">FAQ</a></li>
+                    <li class="flex md:hidden"><a href="#blog-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Blog</a></li>
+                    <li class="flex md:hidden"><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Contact</a></li>
+                    <li class="flex md:hidden"><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Links</a></li>
+                    <li class="flex md:hidden"><a href="#admin-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Admin</a></li>
+                    <!-- END NEW: Mobile "More" Options -->
+
                     <li>
                         <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                             dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
@@ -981,57 +1035,82 @@
                                 dark:bg-gray-700 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out flex flex-col justify-between">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: User (Instructor) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
-                                <strong>Instructor:</strong> Dipanjan Chatterjee, M.Sc in Pure Maths
+                            <!-- Instructor -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Instructor:</strong>
+                                    <span class="text-base text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Dipanjan Chatterjee, M.Sc in Pure Maths</span>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Phone -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
-                                <strong>Phone:</strong> <a href="tel:+919051089673" class="text-indigo-600 hover:underline dark:text-indigo-400">+91 9051089673</a>
+                            <!-- Phone -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Phone:</strong>
+                                    <a href="tel:+919051089673" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">+91 9051089673</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Phone (Landline) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
-                                <strong>Landline:</strong> <a href="tel:+913331712372" class="text-indigo-600 hover:underline dark:text-indigo-400">+91-3331712372</a>
+                            <!-- Landline -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Landline:</strong>
+                                    <a href="tel:+913331712372" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">+91-3331712372</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <img src="https://img.icons8.com/color/30/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-7 h-7 mr-3">
-                                <strong>WhatsApp:</strong> <a href="https://wa.link/80qjr2" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Chat with us on WhatsApp">+91 9748559613</a>
+                            <!-- WhatsApp -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <img src="https://img.icons8.com/color/30/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-7 h-7 mr-3 flex-shrink-0 mt-1">
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>WhatsApp:</strong>
+                                    <a href="https://wa.link/80qjr2" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere" aria-label="Chat with us on WhatsApp">+91 9748559613</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Envelope (Email) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.624 5.275a3 3 0 01-3.352 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.91a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
-                                <strong>Email:</strong> <a href="mailto:dipanjanchatterjee23@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400">dipanjanchatterjee23@gmail.com</a>
+                            <!-- Email -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.624 5.275a3 3 0 01-3.352 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.91a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Email:</strong>
+                                    <a href="mailto:dipanjanchatterjee23@gmail.com" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere">dipanjanchatterjee23@gmail.com</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 mb-4 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Map Pin (Locations) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>
-                                <strong>Locations:</strong> Madhyamgram & Barasat, Kolkata
+                            <!-- Locations -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Locations:</strong>
+                                    <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Madhyamgram & Barasat, Kolkata</span>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Original Telegram Logo SVG Icon -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Telegram -->
+                            <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 0C5.372 0 0 5.372 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12C24 5.372 18.628 0 12 0zm5.176 8.358c-.378-.052-.777-.07-.94-.07-.373 0-.66.082-.86.233-.2.152-.36.386-.48.704-.12.318-.2.687-.24 1.107-.04.42-.057.776-.057 1.066 0 .39.014.733.042 1.03.028.297.086.602.176.914.09.312.215.62.373.92.16.3.363.59.61.87.246.282.52.535.823.76-.32.008-.642.016-.96.016-1.516 0-2.822-.442-3.92-1.326-1.102-.885-1.92-2.128-2.45-3.72-2.73-1.63-2.92-4.04-1.17-7.238.487-.93 1.157-1.62 2-2.072.843-.453 1.79-.68 2.84-.68.647 0 1.25.045 1.8.136.55.09 1.05.228 1.5.412.45.183.846.425 1.19.724.343.3.616.634.823.992.207.358.337.74.39 1.144-.35.034-.69.103-1.02.208-.33.104-.64.24-.93.407-.29.167-.55.36-.78.58-.23.22-.4.47-.51.748-.035.1-.06.205-.08.315-.02.11-.03.225-.03.345 0 .17.002.343.007.518.005.175.013.35.025.526.01.18.02.35.03.518.01.17.01.343.01.518s-.01.348-.02.523c-.01.175-.02.34-.03.495-.008.155-.013.3-.013.435 0 .12.015.23.045.33.03.1.07.2.118.29.048.09.096.167.144.232.048.065.095.12.14.165.047.045.088.077.12.095.03.018.05.027.06.027.03-.005.08-.01.15-.015.07-.006.14-.01.2-.01l-.22.25c.3.35.7.63 1.2.85s1.04.38 1.63.45c.44-.24.87-.5 1.28-.78.41-.28.78-.59 1.11-.92.33-.33.6-.68.81-1.05.21-.37.33-.76.36-1.17 1.09-2.31 1.77-4.23 2.04-5.77.27-1.54.27-2.73-.02-3.56-.29-.83-.75-1.55-1.37-2.16-.62-.62-1.32-1.08-2.12-1.39-1.2-1.07-2.82-1.6-4.88-1.6z"/>
                                 </svg>
-                                <strong>Telegram:</strong> <a href="https://t.me/dipanjan9271" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400" aria-label="Join our Telegram group">Join our Telegram Group</a>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Telegram:</strong>
+                                    <a href="https://t.me/dipanjan9271" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 block overflow-wrap-anywhere" aria-label="Join our Telegram group">Join our Telegram Group</a>
+                                </span>
                             </p>
-                            <p class="text-lg text-gray-700 flex items-center dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <!-- Icon: Desktop Computer (Classes Available) -->
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5.25a3 3 0 013-3h12a3 3 0 013 3V15.75c0 1.168-.56 2.228-1.47 2.911l-3.322 2.656A2.25 2.25 0 0113.5 21v-3.75h-3V21a2.25 2.25 0 01-2.708-1.595L4.47 18.161A3 3 0 013 15.75V5.25z" clip-rule="evenodd" /></svg>
-                                <strong>Classes Available:</strong> Offline & Online
+                            <!-- Classes Available -->
+                            <p class="text-lg text-gray-700 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5.25a3 3 0 013-3h12a3 3 0 013 3V15.75c0 1.168-.56 2.228-1.47 2.911l-3.322 2.656A2.25 2.25 0 0113.5 21v-3.75h-3V21a2.25 2.25 0 01-2.708-1.595L4.47 18.161A3 3 0 013 15.75V5.25z" clip-rule="evenodd" /></svg>
+                                <span class="flex flex-col flex-1 min-w-0">
+                                    <strong>Classes Available:</strong>
+                                    <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Offline & Online</span>
+                                </span>
                             </p>
                         </div>
                         <div class="mt-8">
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Connect with Us</h3>
-                            <div class="flex flex-wrap gap-6 justify-center md:justify-start">
-                                <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-lg font-medium" aria-label="Facebook Page">
-                                    <svg class="w-9 h-9 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
+                            <div class="flex flex-wrap gap-4 justify-center md:justify-start"> <!-- Adjusted gap for better fit -->
+                                <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-base font-medium" aria-label="Facebook Page"> <!-- Reduced text-lg to text-base -->
+                                    <svg class="w-7 h-7 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
                                     Facebook (Page)
                                 </a>
-                                <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-lg font-medium" aria-label="Facebook Group">
-                                    <svg class="w-9 h-9 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
+                                <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out flex items-center text-base font-medium" aria-label="Facebook Group"> <!-- Reduced text-lg to text-base -->
+                                    <svg class="w-7 h-7 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.262c-1.225 0-1.624.767-1.624 1.569V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z"></path></svg>
                                     Facebook (Group)
                                 </a>
                             </div>
@@ -3306,7 +3385,15 @@
 </body>
 </html>
 
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 
-send me the code changes for making the hamburger menu and everything inside it look attractive and fit well.
+Send me only the code changes for the following :
+
+The Mathematico logo in the footer and the Mathematico branding in the footer is not sending me home upon clicking it. And please add a new quick link called Home, which will take me to home, obviously.
+
+Add more quicklinks. Add all the possible quicklinks that there could be for this website under the Quicklinks section.
+
+I have a concern regarding the Google Forms and it looks complicated to me so what I want you to do is remove all the use of Google Forms from this website instead use those exact forms to forward all those information in a beautifully well-written email to the provided email address so the email could be well readable and understandable yeah in a sense I want to keep the forms as it is plus what I want you to do is remove the Google Forms and instead add a mechanism which will forward all the information inside those forms inside each form as a email to the admin or the provided email address that I will give that's it I want the form info to go as an email to the owner that's it.
+
+email : dipanjanchatterjee23@gmail.com
 

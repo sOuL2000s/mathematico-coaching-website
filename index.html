@@ -1119,22 +1119,27 @@
                     <div class="md:w-1/2 bg-gray-50 p-8 rounded-2xl shadow-xl border border-indigo-100
                                 dark:bg-gray-700 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Send Us a Message</h3>
-                        <!-- Google Form for Contact Us -->
-                        <form action="YOUR_CONTACT_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="space-y-5">
+                                                <!-- Contact Us Form (Now using Web3Forms) -->
+                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
+                            <!-- Web3Forms Hidden Fields -->
+                            <input type="hidden" name="access_key" id="contact-access-key" value=""> <!-- Populated by JS -->
+                            <input type="hidden" name="subject" value="New Contact Message from MATHEMATICO Website">
+                            <input type="hidden" name="from_name" value="MATHEMATICO Website - Contact">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success"> <!-- Default Web3Forms success page -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <div>
                                 <label for="contact-name" class="sr-only">Your Name</label>
-                                <input type="text" id="contact-name" name="entry.YOUR_NAME_FIELD_ID" placeholder="Your Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
+                                <input type="text" id="contact-name" name="name" placeholder="Your Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
                                                                  dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true">
                             </div>
                             <div>
                                 <label for="contact-email" class="sr-only">Your Email</label>
-                                <input type="email" id="contact-email" name="entry.YOUR_EMAIL_FIELD_ID" placeholder="Your Email" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
-                                                                  dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true">
+                                <input type="email" id="contact-email" name="email" placeholder="Your Email" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true">
                             </div>
                             <div>
                                 <label for="contact-message" class="sr-only">Your Message</label>
-                                <textarea id="contact-message" rows="6" name="entry.YOUR_MESSAGE_FIELD_ID" placeholder="Your Message" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
-                                                                   dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true"></textarea>
+                                <textarea id="contact-message" rows="6" name="message" placeholder="Your Message" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true"></textarea>
                             </div>
                             <button type="submit" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300" aria-label="Send your message">
                                 Send Message
@@ -1197,10 +1202,17 @@
                                 Subscribe to our newsletter for exclusive tips, study resources, and updates directly to your inbox.
                             </p>
                         </div>
-                        <!-- Google Form for Newsletter -->
-                        <form action="YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL" method="POST" target="_blank" class="flex flex-col gap-4 w-full">
+                        <!-- Newsletter Form (Now using Web3Forms) -->
+                        <form id="newsletter-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-4 w-full">
+                            <!-- Web3Forms Hidden Fields -->
+                            <input type="hidden" name="access_key" id="newsletter-access-key" value=""> <!-- Populated by JS -->
+                            <input type="hidden" name="subject" value="New Newsletter Subscription for MATHEMATICO">
+                            <input type="hidden" name="from_name" value="MATHEMATICO Website - Newsletter">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success"> <!-- Default Web3Forms success page -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <label for="newsletter-email" class="sr-only">Email address</label>
-                            <input type="email" id="newsletter-email" name="entry.YOUR_NEWSLETTER_EMAIL_FIELD_ID" placeholder="Your email address" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
+                            <input type="email" id="newsletter-email" name="email" placeholder="Your email address" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 transition-all duration-200
                                                                    dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required aria-required="true">
                             <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Subscribe to newsletter">Subscribe</button>
                         </form>
@@ -1441,7 +1453,7 @@
     <!-- Footer Section -->
     <footer class="bg-gray-900 text-gray-300 py-12 dark:bg-gray-950 transition-colors duration-300 ease-in-out">
         <div class="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <!-- Logo & Description -->
+            <!-- Logo & Description - MODIFIED: Logo now links to home -->
             <div class="flex flex-col items-center md:items-start">
                 <a href="#home" class="text-3xl font-extrabold text-indigo-500 flex items-center group mb-4" aria-label="MATHEMATICO Home">
                     <svg class="w-8 h-8 mr-2 text-indigo-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1454,15 +1466,24 @@
                 </p>
             </div>
 
-            <!-- Quick Links -->
+            <!-- Quick Links - MODIFIED: Added more links -->
             <div class="md:col-span-1">
                 <h3 class="text-xl font-bold text-white mb-6">Quick Links</h3>
                 <ul class="space-y-3">
+                    <li><a href="#home" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Home</a></li>
                     <li><a href="#about" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">About Us</a></li>
                     <li><a href="#courses" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Courses</a></li>
                     <li><a href="#features" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Features</a></li>
                     <li><a href="#testimonials" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Testimonials</a></li>
+                    <li><a href="#success-stories" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Success Stories</a></li>
+                    <li><a href="#faq" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">FAQ</a></li>
                     <li><a href="#contact" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Contact Us</a></li>
+                    <li><a href="#book-list-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Book List</a></li>
+                    <li><a href="#problems-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Problems</a></li>
+                    <li><a href="#gallery-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Gallery</a></li>
+                    <li><a href="#blog-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Blog</a></li>
+                    <li><a href="#links" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Links</a></li>
+                    <li><a href="#admin-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200">Admin</a></li>
                 </ul>
             </div>
 
@@ -1492,7 +1513,7 @@
         <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
             &copy; <span id="current-year"></span> MATHEMATICO. All rights reserved. Designed with <span class="text-red-500">&hearts;</span> by Dipanjan Chatterjee.
         </div>
-    </footer>
+    </footer> <!-- End Footer Section -->
 
     <!-- Floating WhatsApp CTA Button -->
     <a href="https://wa.me/919748559613" class="fixed bottom-6 right-6 z-50 bg-green-500 p-3 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
@@ -1511,41 +1532,45 @@
     <!-- Enrollment Modal Structure -->
     <div id="enrollment-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="enrollment-modal-title">
         <div class="modal-content">
-            <button class="modal-close-button" aria-label="Close enrollment form">&times;</button>
-            <!-- START CHANGE: Integrated Enrollment Form -->
+            <button class="modal-close-button" aria-label="Close enrollment form" id="enrollment-modal-close-button">&times;</button>
+            <!-- Enrollment Form (Now using Web3Forms) -->
             <h3 id="enrollment-modal-title" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Enroll in <span id="modal-course-name" class="text-indigo-600 dark:text-indigo-400"></span></h3>
-            <form id="enrollment-form" action="" method="POST" target="google-form-submission-iframe" class="space-y-5 flex flex-col flex-grow">
+            <form id="enrollment-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5 flex flex-col flex-grow">
+                <!-- Web3Forms Hidden Fields -->
+                <input type="hidden" name="access_key" id="enrollment-access-key" value=""> <!-- Populated by JS -->
+                <input type="hidden" name="subject" value="New Enrollment Request for MATHEMATICO">
+                <input type="hidden" name="from_name" value="MATHEMATICO Website - Enrollment">
+                <input type="hidden" name="redirect" value="https://web3forms.com/success"> <!-- Default Web3Forms success page -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                 <div>
                     <label for="enroll-course" class="sr-only">Course Name</label>
-                    <input type="text" id="enroll-course" name="entry.1828229222" placeholder="Course Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" readonly required>
+                    <input type="text" id="enroll-course" name="course_name" placeholder="Course Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" readonly required>
                 </div>
                 <div>
                     <label for="enroll-student-name" class="sr-only">Your Name</label>
-                    <input type="text" id="enroll-student-name" name="entry.40854499" placeholder="Your Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
+                    <input type="text" id="enroll-student-name" name="student_name" placeholder="Your Name" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
                 </div>
                 <div>
                     <label for="enroll-parent-name" class="sr-only">Parent's Name</label>
-                    <input type="text" id="enroll-parent-name" name="entry.1504263384" placeholder="Parent's Name (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                    <input type="text" id="enroll-parent-name" name="parent_name" placeholder="Parent's Name (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
                 </div>
                 <div>
                     <label for="enroll-contact-number" class="sr-only">Contact Number</label>
-                    <input type="tel" id="enroll-contact-number" name="entry.605564464" placeholder="Contact Number" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
+                    <input type="tel" id="enroll-contact-number" name="contact_number" placeholder="Contact Number" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600" required>
                 </div>
                 <div>
                     <label for="enroll-email" class="sr-only">Email Address</label>
-                    <input type="email" id="enroll-email" name="entry.352430613" placeholder="Email Address (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                    <input type="email" id="enroll-email" name="student_email" placeholder="Email Address (Optional)" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
                 </div>
                 <div>
                     <label for="enroll-message" class="sr-only">Message</label>
-                    <textarea id="enroll-message" rows="3" name="entry.341859473" placeholder="Any specific questions or message?" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"></textarea>
+                    <textarea id="enroll-message" rows="3" name="message" placeholder="Any specific questions or message?" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"></textarea>
                 </div>
                 <button type="submit" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
                     Submit Enrollment
                 </button>
             </form>
-            <!-- Hidden iframe to submit to Google Form without leaving the page -->
-            <iframe name="google-form-submission-iframe" style="display:none;"></iframe>
-            <!-- END CHANGE: Integrated Enrollment Form -->
         </div>
     </div>
 
@@ -1581,7 +1606,6 @@
         </div>
     </div>
 
-
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -1602,6 +1626,9 @@
         // Cloudinary Configuration (REPLACE THESE WITH YOUR ACTUAL VALUES)
         const CLOUDINARY_CLOUD_NAME = "dddje9n3g"; // e.g., "my-awesome-cloud"
         const CLOUDINARY_UPLOAD_PRESET = "mathematico-website"; // e.g., "mathematico_unsigned_upload"
+
+        // Web3Forms Access Key (REPLACE THIS WITH YOUR ACTUAL KEY from web3forms.com)
+        const WEB3FORMS_ACCESS_KEY = '94f94b03-6930-4fff-bd72-94063d7a66bf'; // Example: '1234abcd-efgh-ijkl-mnop-qrstuvwxyza1'
 
         // Admin Auth Elements - Moved to global scope
         const adminEmailInput = document.getElementById('admin-email');
@@ -1795,7 +1822,7 @@
         const scrollToTopButton = document.getElementById('scroll-to-top');
         // START CHANGE: Updated Enrollment Form Variables
         const enrollmentModal = document.getElementById('enrollment-modal');
-        const modalCloseButton = document.querySelector('#enrollment-modal .modal-close-button');
+        const modalCloseButton = document.getElementById('enrollment-modal-close-button');
         const enrollButtons = document.querySelectorAll('.enroll-button');
         const modalCourseName = document.getElementById('modal-course-name');
         const enrollmentForm = document.getElementById('enrollment-form'); // New: Reference to the actual form
@@ -1886,28 +1913,17 @@
         // Get the Mathematico logo element
         const mathematicoLogo = document.getElementById('mathematico-logo');
 
-        // START CHANGE: Updated Google Form URLs and Field IDs for seamless submission
-        // IMPORTANT: These are the *formResponse* URLs, not the embedded viewform URL.
-        // To get these:
-        // 1. Go to your Google Form.
-        // 2. Click "Send" -> "Get pre-filled link". Fill out a test entry for all fields, then click "Get link".
-        // 3. Copy this link. The base URL (before ?) is your action URL. The parameters (entry.XXXXX=...) are your field IDs.
-        const GOOGLE_FORM_ENROLLMENT_ACTION_URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdPNf9oCLYIa3rEbVCoNCGBgEh4DGRdy0XxYxAM5JUWQEWOXA/formResponse"; // <--- REPLACE THIS WITH YOUR FORM'S ACTION URL
-        const GOOGLE_FORM_ENROLLMENT_FIELD_IDS = { // These are already used in HTML `name` attributes
-            course: "entry.1828229222", // Replace with your Course Name field ID
-            studentName: "entry.40854499", // Replace with your Student Name field ID
-            parentName: "entry.1504263384", // Replace with your Parent Name field ID
-            contactNumber: "entry.605564464", // Replace with your Contact Number field ID
-            email: "entry.352430613", // Replace with your Email field ID
-            message: "entry.341859473" // Replace with your Message field ID
-        };
-        const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/17FUuG9CCOmfUcsNLVilnCRjT938wU-V8GxIJdhJrKrM/formResponse"; // <--- REPLACE THIS
-        const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/u/0/d/1X2Blec-M2Ve1qj3AtDndgzcEQOEErAEaF6Loyw_NTLg/formResponse"; // <--- REPLACE THIS
-        const YOUR_NAME_FIELD_ID = "320465823";
-        const YOUR_EMAIL_FIELD_ID = "196734286";
-        const YOUR_MESSAGE_FIELD_ID = "1567514947";
-        const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "1002277897";
-        // END CHANGE: Updated Google Form URLs and Field IDs
+        // The following Google Form related variables are no longer needed
+        // and have been removed as per the request to replace Google Forms.
+        // If you were using any of these field IDs for other non-form purposes,
+        // you might need to adapt your data storage.
+        // const GOOGLE_FORM_ENROLLMENT_ACTION_URL = "...";
+        // const YOUR_CONTACT_GOOGLE_FORM_ACTION_URL = "...";
+        // const YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL = "...";
+        // const YOUR_NAME_FIELD_ID = "...";
+        // const YOUR_EMAIL_FIELD_ID = "...";
+        // const YOUR_MESSAGE_FIELD_ID = "...";
+        // const YOUR_NEWSLETTER_EMAIL_FIELD_ID = "...";
 
         // --- General Functions ---
 
@@ -2203,7 +2219,9 @@
             }
 
             // Fix for Mathematico logo not taking back to home
-            if (mathematicoLogo) {
+            // MODIFIED: Also include footer logo/branding
+            const footerLogo = document.querySelector('footer a[href="#home"]');
+            if (mathematicoLogo || footerLogo) {
                 mathematicoLogo.addEventListener('click', (e) => {
                     e.preventDefault(); // Prevent default anchor behavior
                     renderPage('home'); // Navigate to the home section
@@ -2211,26 +2229,20 @@
                     if (navbarLinks.classList.contains('active')) {
                         navbarLinks.classList.remove('active');
                     }
+                    closeAllDropdowns(); // Ensure all dropdowns are closed
                 });
-            }
+                if (footerLogo) { // Only attach if footer logo exists
+                    footerLogo.addEventListener('click', (e) => mathematicoLogo.click()); // Delegate to the header logo's logic
+                }
+            } // End of Mathematico logo click handling
 
-
-            // Update form actions for Google Forms (these don't depend on Firebase directly)
-            const contactForm = document.querySelector('#contact form');
-            if (contactForm) {
-                contactForm.action = YOUR_CONTACT_GOOGLE_FORM_ACTION_URL;
-                contactForm.querySelector('#contact-name').name = `entry.${YOUR_NAME_FIELD_ID}`;
-                contactForm.querySelector('#contact-email').name = `entry.${YOUR_EMAIL_FIELD_ID}`;
-                contactForm.querySelector('#contact-message').name = `entry.${YOUR_MESSAGE_FIELD_ID}`;
-            }
-
-            const newsletterForm = document.querySelector('#links form');
-            if (newsletterForm) {
-                newsletterForm.action = YOUR_NEWSLETTER_GOOGLE_FORM_ACTION_URL;
-                newsletterForm.querySelector('#newsletter-email').name = `entry.${YOUR_NEWSLETTER_EMAIL_FIELD_ID}`;
-            }
 
             // Call Firebase initialization and listener attachment function
+            // Populate Web3Forms access keys for all forms
+            const allAccessKeyInputs = document.querySelectorAll('input[name="access_key"]');
+            allAccessKeyInputs.forEach(input => {
+                input.value = WEB3FORMS_ACCESS_KEY;
+            });
             initializeFirebaseAndListeners();
         });
 
@@ -2269,49 +2281,29 @@
             });
         });
 
-        // START CHANGE: Updated Enrollment Modal Functionality for Integrated Form
+        // START CHANGE: Mailto-based Form Functionality
         enrollButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const courseName = button.dataset.course;
                 modalCourseName.textContent = courseName;
-                enrollCourseInput.value = courseName; // Pre-fill the hidden course input
-                enrollmentForm.action = GOOGLE_FORM_ENROLLMENT_ACTION_URL; // Set form action
+                enrollCourseInput.value = courseName; // Pre-fill the course input
                 enrollmentModal.classList.add('active');
-                console.log(`Attempting to open enrollment modal for course: ${courseName}`);
-                // Clear previous form data when opening
-                enrollmentForm.reset();
+                enrollmentForm.reset(); // Clear previous data
                 enrollCourseInput.value = courseName; // Ensure course name remains after reset
             });
         });
 
         modalCloseButton.addEventListener('click', () => {
             enrollmentModal.classList.remove('active');
-            // Clear form fields and action when closing
-            enrollmentForm.reset();
-            enrollmentForm.action = '';
+            enrollmentForm.reset(); // Reset the form fields
         });
 
         enrollmentModal.addEventListener('click', (e) => {
             if (e.target === enrollmentModal) {
                 enrollmentModal.classList.remove('active');
-                // Clear form fields and action when closing by clicking outside
-                enrollmentForm.reset();
-                enrollmentForm.action = '';
+                enrollmentForm.reset(); // Reset the form fields
             }
         });
-
-        // Handle form submission
-        enrollmentForm.addEventListener('submit', (e) => {
-            // No e.preventDefault() here so the form submits to the hidden iframe
-            showMessageBox("Enrollment Submitted", "Thank you for your interest! Your enrollment request has been submitted. We will contact you shortly.", false, () => {
-                enrollmentModal.classList.remove('active');
-                enrollmentForm.reset();
-                enrollmentForm.action = '';
-            });
-            // Ensure the form actually submits to the target iframe
-            // The iframe target ensures the page does not reload
-        });
-        // END CHANGE: Updated Enrollment Modal Functionality
 
         // Message Box Event Listeners (only for close button and modal background)
         messageBoxCloseButton.addEventListener('click', hideMessageBox);
@@ -2594,6 +2586,8 @@
              * @param {number} maxHeight Maximum height for the compressed image.
              * @param {number} quality JPEG quality (0 to 1).
              * @returns {Promise<Blob>} A promise that resolves with the compressed image as a Blob.
+             *
+             * Note: This function remains as it is not related to email sending but image upload.
              */
             function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.8) {
                 return new Promise((resolve, reject) => {
