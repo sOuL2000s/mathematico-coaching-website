@@ -1284,15 +1284,20 @@
                         </div>
                         <div>
                             <label for="problem-category" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Category:</label>
-                            <select id="problem-category" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
-                                <option value="">Select Category</option>
-                                <option value="Geometry">Geometry</option>
-                                <option value="Inequality">Inequality</option>
-                                <option value="Number Theory">Number Theory</option>
-                                <option value="Calculus">Calculus</option>
-                                <option value="Algebra">Algebra</option>
-                            </select>
+                            <!-- MODIFIED: Changed from <select> to <input type="text"> -->
+                            <input type="text" id="problem-category" placeholder="e.g., Olympiad, JEE, Algebra" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                            <!-- END MODIFIED -->
                         </div>
+                        <!-- START ADDITION: Image Upload for Problems -->
+                        <div>
+                            <label for="problem-image-upload" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload Image (Optional):</label>
+                            <input type="file" id="problem-image-upload" accept="image/png, image/jpeg, image/webp" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <div id="problem-image-preview-container" class="mt-4 flex items-center space-x-4">
+                                <img id="problem-image-preview" src="#" alt="Image Preview" class="max-w-[150px] max-h-[150px] rounded-md object-cover hidden border border-gray-300">
+                                <span id="problem-upload-spinner" class="spinner hidden"></span>
+                            </div>
+                        </div>
+                        <!-- END ADDITION: Image Upload for Problems -->
                         <div>
                             <label for="problem-description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Description:</label>
                             <textarea id="problem-description" rows="6" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
@@ -1855,7 +1860,13 @@
         const addProblemForm = document.getElementById('add-problem-form');
         const problemIdInput = document.getElementById('problem-id');
         const problemTitleInput = document.getElementById('problem-title');
-        const problemCategorySelect = document.getElementById('problem-category');
+        // MODIFIED: Renamed the element reference
+        const problemCategoryInput = document.getElementById('problem-category'); 
+        // End ADDED for image upload
+        const problemImageUploadInput = document.getElementById('problem-image-upload');
+        const problemImagePreview = document.getElementById('problem-image-preview');
+        const problemUploadSpinner = document.getElementById('problem-upload-spinner');
+        // End ADDED for image upload
         const problemDescriptionInput = document.getElementById('problem-description');
         const problemSolutionUrlInput = document.getElementById('problem-solution-url');
         const cancelEditProblemBtn = document.getElementById('cancel-edit-problem-btn');
@@ -2546,15 +2557,30 @@
                     return;
                 }
                 const problemId = problemIdInput.value;
-                const problemData = {
-                    title: problemTitleInput.value,
-                    category: problemCategorySelect.value,
-                    description: problemDescriptionInput.value,
-                    solution_url: problemSolutionUrlInput.value || null,
-                    date_posted: serverTimestamp()
-                };
+                
+                // START MODIFICATION: Handle Image Upload
+                const imageFile = problemImageUploadInput.files[0];
+                let imageUrl = problemImagePreview.src !== '#' && problemImagePreview.src !== window.location.href ? problemImagePreview.src : null; // Keep existing if no new file
 
                 try {
+                    if (imageFile) {
+                        // Upload new image if selected. Passing 'mathematico_problems' as folder name.
+                        imageUrl = await uploadFile(imageFile, 'mathematico_problems', problemUploadSpinner, problemImagePreview);
+                        if (!imageUrl) return; // Stop if upload fails
+                    }
+                    // END MODIFICATION: Handle Image Upload
+
+                    const problemData = {
+                        title: problemTitleInput.value,
+                        // MODIFIED: Read value from Input field instead of Select
+                        category: problemCategoryInput.value, 
+                        // ADDED: Store the image URL
+                        imageUrl: imageUrl, 
+                        description: problemDescriptionInput.value,
+                        solution_url: problemSolutionUrlInput.value || null,
+                        date_posted: serverTimestamp()
+                    };
+
                     if (problemId) {
                         await updateDoc(doc(getCollectionRef("problems"), problemId), problemData);
                         showMessageBox("Success", "Problem updated successfully!");
@@ -2565,6 +2591,10 @@
                     addProblemForm.reset();
                     problemIdInput.value = '';
                     cancelEditProblemBtn.classList.add('hidden');
+                    // ADDED: Clear image preview after submission
+                    problemImagePreview.classList.add('hidden');
+                    problemImagePreview.src = '#';
+                    problemImageUploadInput.value = '';
                 } catch (e) {
                     console.error("Error saving problem: ", e);
                     showMessageBox("Error", "Error saving problem. Please try again.");
@@ -2575,6 +2605,10 @@
                 addProblemForm.reset();
                 problemIdInput.value = '';
                 cancelEditProblemBtn.classList.add('hidden');
+                // ADDED: Clear image preview
+                problemImagePreview.classList.add('hidden');
+                problemImagePreview.src = '#';
+                problemImageUploadInput.value = '';
             });
 
             // --- Image Upload Functions (Now using Cloudinary) ---
@@ -2723,6 +2757,22 @@
                 }
             });
 
+            // Event listener for Problem image upload input
+            problemImageUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    // Display immediate preview using FileReader
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        problemImagePreview.src = e.target.result;
+                        problemImagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    problemImagePreview.classList.add('hidden');
+                    problemImagePreview.src = '#';
+                }
+            });
 
             addGalleryForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -2968,23 +3018,30 @@
                 return dateB - dateA;
             });
 
-            const categories = ["Geometry", "Inequality", "Number Theory", "Calculus", "Algebra"];
+            // MODIFIED: Dynamically collect categories and group problems
             const problemsByCategory = {};
-            categories.forEach(cat => problemsByCategory[cat] = []);
-
+            const dynamicCategories = new Set();
+            
             problems.forEach(problem => {
-                if (problem.category && categories.includes(problem.category)) {
-                    problemsByCategory[problem.category].push(problem);
+                const category = problem.category || 'Uncategorized'; // Default if category is missing
+                dynamicCategories.add(category);
+                if (!problemsByCategory[category]) {
+                    problemsByCategory[category] = [];
                 }
+                problemsByCategory[category].push(problem);
             });
+
+            const sortedCategories = Array.from(dynamicCategories).sort(); // Sort categories alphabetically
 
             if (problems.length === 0) {
                 problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems added yet.</p>';
             } else {
-                categories.forEach(category => {
+                // MODIFIED: Iterate through dynamically collected and sorted categories
+                sortedCategories.forEach(category => {
                     if (problemsByCategory[category].length > 0) {
                         const categorySection = document.createElement('div');
                         categorySection.className = 'mb-12';
+                        // Use the dynamic category name in the heading
                         categorySection.innerHTML = `
                             <h3 class="text-3xl font-bold text-gray-900 mb-8 dark:text-gray-100 text-center pb-2 border-b-2 border-indigo-200 dark:border-indigo-700">${category} Problems</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="problems-${category.replace(/\s/g, '-')}-container"></div>
@@ -3000,6 +3057,12 @@
                                     <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
                                     <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100">${problem.title}</h4>
                                 </div>
+                                <!-- MODIFIED: Wrapped the image in a clickable div to open the modal -->
+                                ${problem.imageUrl ? `
+                                    <div class="problem-image-wrapper cursor-pointer mb-4" data-image-url="${problem.imageUrl}" data-caption="${problem.title}">
+                                        <img src="${problem.imageUrl}" alt="Problem Image" class="w-full h-auto max-h-48 object-contain rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Problem+Image';">
+                                    </div>
+                                ` : ''}
                                 <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${problem.description}</p>
                                 ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Solution &rarr;</a>` : ''}
                                 ${isAdmin ? `
@@ -3012,6 +3075,15 @@
                             container.appendChild(problemElement);
                         });
                     }
+                });
+
+                // ADDED: Listener to make the problem images clickable, reusing the gallery function
+                document.querySelectorAll('.problem-image-wrapper').forEach(imageWrapper => {
+                    imageWrapper.addEventListener('click', () => {
+                        const url = imageWrapper.dataset.imageUrl;
+                        const caption = imageWrapper.dataset.caption;
+                        showGalleryImageDetail(url, caption); // Reuse the existing modal function
+                    });
                 });
 
                 if (isAdmin) {
@@ -3038,7 +3110,18 @@
                     const problem = docSnap.data();
                     problemIdInput.value = id;
                     problemTitleInput.value = problem.title;
-                    problemCategorySelect.value = problem.category;
+                    // MODIFIED: Use problemCategoryInput instead of problemCategorySelect
+                    problemCategoryInput.value = problem.category; 
+                    // START ADDITION: Load existing image URL for preview
+                    if (problem.imageUrl) {
+                        problemImagePreview.src = problem.imageUrl;
+                        problemImagePreview.classList.remove('hidden');
+                    } else {
+                        problemImagePreview.classList.add('hidden');
+                        problemImagePreview.src = '#';
+                    }
+                    problemImageUploadInput.value = ''; // Clear file input so user has to re-select
+                    // END ADDITION: Load existing image URL for preview
                     problemDescriptionInput.value = problem.description;
                     problemSolutionUrlInput.value = problem.solution_url || '';
                     cancelEditProblemBtn.classList.remove('hidden');
