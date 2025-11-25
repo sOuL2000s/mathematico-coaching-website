@@ -3057,8 +3057,12 @@
                                     <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
                                     <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100">${problem.title}</h4>
                                 </div>
-                                <!-- ADDED: Display Problem Image -->
-                                ${problem.imageUrl ? `<img src="${problem.imageUrl}" alt="Problem Image" class="w-full h-auto max-h-48 object-contain rounded-xl mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Problem+Image';">` : ''}
+                                <!-- MODIFIED: Wrapped the image in a clickable div to open the modal -->
+                                ${problem.imageUrl ? `
+                                    <div class="problem-image-wrapper cursor-pointer mb-4" data-image-url="${problem.imageUrl}" data-caption="${problem.title}">
+                                        <img src="${problem.imageUrl}" alt="Problem Image" class="w-full h-auto max-h-48 object-contain rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Problem+Image';">
+                                    </div>
+                                ` : ''}
                                 <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${problem.description}</p>
                                 ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Solution &rarr;</a>` : ''}
                                 ${isAdmin ? `
@@ -3071,6 +3075,15 @@
                             container.appendChild(problemElement);
                         });
                     }
+                });
+
+                // ADDED: Listener to make the problem images clickable, reusing the gallery function
+                document.querySelectorAll('.problem-image-wrapper').forEach(imageWrapper => {
+                    imageWrapper.addEventListener('click', () => {
+                        const url = imageWrapper.dataset.imageUrl;
+                        const caption = imageWrapper.dataset.caption;
+                        showGalleryImageDetail(url, caption); // Reuse the existing modal function
+                    });
                 });
 
                 if (isAdmin) {
@@ -3448,5 +3461,5 @@
     </script>
 </body>
 </html>
---------------------------------------------------------
-In the Problems section, the images that are being uploaded must be able to be viewed on their own, just like the gallery images can be viewed on their own.
+----------------------------------------------------
+Make the problem section in the website searchable, sortable, so that the user doesn't have to infinitely scroll through all the problems. They can just filter and sort or search by the category or search by the problem statement or anything they can do. I need all kinds of features for searching, shorting, filtering in that problems section and all the other sections as well. I mean by all the other sections, I mean blogs and gallery and Booklist, etc. And there is another problem that I want you to fix, is that... After the admin logs in, or... If the page is refreshed, the login is lost, the admin has to log in again. So... Why is that happening? Find out the root reason of that. Because the website's current state is not being saved on the browser. So, why is it not being saved on the browser? So, try to implement that feature. I mean, wherever the user was, they can just continue there. While that session. That's what I mean. I mean... Until the browser is closed entirely... I mean, no browser data will be erased. The only thing is, when the browser is closed... The user will lose all the states. All the states, by that I mean... The user will be... There will be no worry about saving the state that the user logged in, and only has to log out to get out of the website. Yeah. I want that feature. So, if a user logs in... I want him to... Log out. To get out of that website. If he hasn't logged out, then it stays logged in, okay? The entirety of the time. So, yeah, I want this feature to be implemented. So that the admin login persistence is there. I hope you understand my request about admin login persistence. So, please implement that. After doing everything, send me the lines of code that need to be changed. So that I can copy-paste the lines from here to the code, and replace the unnecessary lines. Yeah, that's it. Send me the lines of code that need to change.

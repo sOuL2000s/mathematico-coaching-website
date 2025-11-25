@@ -1224,11 +1224,29 @@
         <!-- Book List Page -->
         <section id="book-list-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12
                        dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-            <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Recommended Books</h2>
+                <div class="container mx-auto px-6 md:px-12 text-center">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Recommended Books</h2>
 
-                <!-- Admin Add/Edit Book Form (visible only to admin) -->
-                <div id="book-list-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                    <!-- START ADDITION: Filter and Sort Controls for Book List -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-8 max-w-4xl mx-auto">
+                        <input type="text" id="book-search" placeholder="Search by Title or Author..."
+                            class="flex-grow px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                        <select id="book-filter-category"
+                                class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                            <option value="">Filter by Category</option>
+                            <!-- Categories populated by JS -->
+                        </select>
+                        <select id="book-sort-order"
+                                class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                            <option value="date_desc">Newest First</option>
+                            <option value="title_asc">Title (A-Z)</option>
+                            <option value="author_asc">Author (A-Z)</option>
+                        </select>
+                    </div>
+                    <!-- END ADDITION: Filter and Sort Controls for Book List -->
+
+                    <!-- Admin Add/Edit Book Form (visible only to admin) -->
+                    <div id="book-list-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Add/Edit Book</h3>
                     <form id="add-edit-book-form" class="text-left space-y-5">
                         <input type="hidden" id="book-id">
@@ -1244,6 +1262,16 @@
                             <label for="book-category" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Category:</label>
                             <input type="text" id="book-category" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
                         </div>
+                        <!-- START ADDITION: Book Image Upload Field -->
+                        <div>
+                            <label for="book-image-upload" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload Image (Optional):</label>
+                            <input type="file" id="book-image-upload" accept="image/png, image/jpeg, image/webp" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            <div id="book-image-preview-container" class="mt-4 flex items-center space-x-4">
+                                <img id="book-image-preview" src="#" alt="Image Preview" class="max-w-[150px] max-h-[150px] rounded-md object-cover hidden border border-gray-300">
+                                <span id="book-upload-spinner" class="spinner hidden"></span>
+                            </div>
+                        </div>
+                        <!-- END ADDITION: Book Image Upload Field -->
                         <div>
                             <label for="book-description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Description:</label>
                             <textarea id="book-description" rows="4" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
@@ -1270,11 +1298,28 @@
         <!-- Problems Page -->
         <section id="problems-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12
                        dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
-            <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Practice Problems</h2>
+                <div class="container mx-auto px-6 md:px-12 text-center">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Practice Problems</h2>
 
-                <!-- Admin Add Problem Form (visible only to admin) -->
-                <div id="problems-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                    <!-- START ADDITION: Filter and Sort Controls for Problems -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-8 max-w-4xl mx-auto">
+                        <input type="text" id="problem-search" placeholder="Search by Title or Description..."
+                            class="flex-grow px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                        <select id="problem-filter-category"
+                                class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                            <option value="">Filter by Category</option>
+                            <!-- Categories populated by JS -->
+                        </select>
+                        <select id="problem-sort-order"
+                                class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                            <option value="date_desc">Newest First</option>
+                            <option value="title_asc">Title (A-Z)</option>
+                        </select>
+                    </div>
+                    <!-- END ADDITION: Filter and Sort Controls for Problems -->
+
+                    <!-- Admin Add Problem Form (visible only to admin) -->
+                    <div id="problems-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Add New Problem</h3>
                     <form id="add-problem-form" class="text-left space-y-5">
                         <input type="hidden" id="problem-id">
@@ -1327,6 +1372,18 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Our Gallery</h2>
 
+                <!-- START ADDITION: Filter and Sort Controls for Gallery -->
+                <div class="flex flex-col md:flex-row gap-4 mb-8 max-w-xl mx-auto">
+                    <input type="text" id="gallery-search" placeholder="Search by Caption..."
+                        class="flex-grow px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                    <select id="gallery-sort-order"
+                            class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                        <option value="date_desc">Newest First</option>
+                        <option value="date_asc">Oldest First</option>
+                    </select>
+                </div>
+                <!-- END ADDITION: Filter and Sort Controls for Gallery -->
+
                 <!-- Admin Add Gallery Post Form (visible only to admin) -->
                 <div id="gallery-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
                     <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Add New Gallery Post</h3>
@@ -1364,6 +1421,18 @@
                        dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Our Blog & Articles</h2>
+
+                <!-- START ADDITION: Filter and Sort Controls for Blog -->
+                <div class="flex flex-col md:flex-row gap-4 mb-8 max-w-xl mx-auto">
+                    <input type="text" id="blog-search" placeholder="Search by Title or Content..."
+                        class="flex-grow px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600">
+                    <select id="blog-sort-order"
+                            class="w-full md:w-1/3 px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                        <option value="date_desc">Newest First</option>
+                        <option value="date_asc">Oldest First</option>
+                    </select>
+                </div>
+                <!-- END ADDITION: Filter and Sort Controls for Blog -->
 
                 <!-- Admin Add Blog Post Form (visible only to admin) -->
                 <div id="blog-admin-panel" class="admin-panel hidden bg-white p-8 rounded-2xl shadow-xl mb-10 dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
@@ -1689,38 +1758,46 @@
                     app = initializeApp(firebaseConfig);
                     db = getFirestore(app);
                     auth = getAuth(app);
-                    // storage = getStorage(app); // Removed Firebase Storage initialization
                     console.log("Firebase initialized successfully.");
 
-                    // Authenticate user with custom token if provided by Canvas, otherwise anonymously
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
-                        userId = userCredential.user.uid;
-                        console.log("Firebase signed in with custom token:", userId);
-                    } else {
-                        const userCredential = await signInAnonymously(auth);
-                        userId = userCredential.user.uid;
-                        console.log("Firebase signed in anonymously:", userId);
-                    }
-
-                    // After initial sign-in, set up auth state listener and attach Firebase-dependent event listeners
+                    // *** START PERSISTENCE FIX: Rely solely on onAuthStateChanged ***
                     onAuthStateChanged(auth, (user) => {
                         if (user) {
                             userId = user.uid;
-                            console.log("Auth state changed: User is logged in.", userId);
+                            console.log("Auth state changed: User is logged in.", user.email || userId);
                             checkAdminStatus(user);
                         } else {
                             userId = 'anonymous';
                             isAdmin = false;
-                            console.log("Auth state changed: User is logged out.");
+                            console.log("Auth state changed: User is logged out. Attempting anonymous fallback.");
+                            
+                            // 1. If a custom token is provided (e.g., from Canvas), sign in with it immediately.
+                            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                                signInWithCustomToken(auth, __initial_auth_token).then(userCredential => {
+                                    userId = userCredential.user.uid;
+                                    console.log("Signed in with custom token:", userId);
+                                }).catch(e => {
+                                    console.error("Failed to sign in with custom token:", e);
+                                });
+                            } 
+                            // 2. Otherwise, sign in anonymously for public data access if user is truly logged out.
+                            else if (!auth.currentUser) {
+                                signInAnonymously(auth).then(anonUserCredential => {
+                                    userId = anonUserCredential.user.uid;
+                                    console.log("Signed in anonymously for public data access:", userId);
+                                }).catch(e => {
+                                    console.error("Failed to sign in anonymously:", e);
+                                });
+                            }
                             updateAdminUI(); // Update UI for logged out state
                         }
                     });
-                    // Initial check after sign-in
-                    checkAdminStatus(auth.currentUser);
-
-                    // Attach Firebase-dependent event listeners here
-                    attachFirebaseEventListeners();
+                    // *** END PERSISTENCE FIX ***
+                    
+                    // Attach Firebase-dependent event listeners here.
+                    // This is safe because the listeners primarily deal with button clicks/form submissions,
+                    // which happen after initialization, and the real-time data listeners are wrapped in initializeFirestoreListeners().
+                    attachFirebaseEventListeners(); 
 
                 } catch (error) {
                     console.error("Error during Firebase initialization or initial authentication:", error);
@@ -1849,6 +1926,11 @@
         const bookTitleInput = document.getElementById('book-title');
         const bookAuthorInput = document.getElementById('book-author');
         const bookCategoryInput = document.getElementById('book-category');
+        // START ADDITION: Book Image Upload Elements
+        const bookImageUploadInput = document.getElementById('book-image-upload');
+        const bookImagePreview = document.getElementById('book-image-preview');
+        const bookUploadSpinner = document.getElementById('book-upload-spinner');
+        // END ADDITION
         const bookDescriptionInput = document.getElementById('book-description');
         const bookUrlInput = document.getElementById('book-url');
         const cancelEditBookBtn = document.getElementById('cancel-edit-book-btn');
@@ -2080,6 +2162,37 @@
 
 
         // --- Event Listeners and Initial Setup ---
+        // --- NEW GLOBAL FILTER STATE VARIABLES (Insert before DOM Elements section) ---
+        let allBooksData = [];
+        let currentBookFilters = { search: '', category: '', sort: 'date_desc' };
+        
+        let allProblemsData = [];
+        let currentProblemFilters = { search: '', category: '', sort: 'date_desc' };
+        
+        let allGalleryData = [];
+        let currentGalleryFilters = { search: '', sort: 'date_desc' };
+
+        let currentBlogFilters = { search: '', sort: 'date_desc' };
+        // --- END NEW GLOBAL FILTER STATE VARIABLES ---
+
+        // --- DOM Elements (Insert new filter elements here, around line 1600) ---
+        // Book List Elements (NEW)
+        const bookSearchInput = document.getElementById('book-search');
+        const bookFilterCategorySelect = document.getElementById('book-filter-category');
+        const bookSortOrderSelect = document.getElementById('book-sort-order');
+        // Problems Elements (NEW)
+        const problemSearchInput = document.getElementById('problem-search');
+        const problemFilterCategorySelect = document.getElementById('problem-filter-category');
+        const problemSortOrderSelect = document.getElementById('problem-sort-order');
+        // Gallery Elements (NEW)
+        const gallerySearchInput = document.getElementById('gallery-search');
+        const gallerySortOrderSelect = document.getElementById('gallery-sort-order');
+        // Blog Elements (NEW)
+        const blogSearchInput = document.getElementById('blog-search');
+        const blogSortOrderSelect = document.getElementById('blog-sort-order');
+        // --- End New DOM Elements ---
+
+        // Replace the entire document.addEventListener('DOMContentLoaded', ...) section with this:
         document.addEventListener('DOMContentLoaded', () => {
             // Set current year in footer
             document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -2119,22 +2232,28 @@
                 });
             });
 
+            // START SPA PERSISTENCE FIX: Read hash on load and render that page.
             const initialHash = window.location.hash.substring(1);
-
-            // Prioritize 'home' page if no hash, if the hash is specifically 'about',
-            // or if the hash refers to a non-existent section.
-            if (!initialHash || initialHash === 'about' || !document.getElementById(initialHash)) {
-                renderPage('home');
-                // If the URL originally contained '#about' (or any other hash we want to clear),
-                // replace the state to remove it from the browser's URL bar.
-                if (window.location.hash) { // Checks if any hash exists
-                    history.replaceState(null, null, ' '); // Clears the hash (e.g., from #about to just /)
-                }
-            } else {
-                renderPage(initialHash); // Render the page specified by a valid and non-'about' hash
+            let pageToRender = 'home';
+            
+            if (initialHash && document.getElementById(initialHash)) {
+                pageToRender = initialHash;
             }
+            
+            renderPage(pageToRender);
 
-            // START CHANGE: Extend SPA Navigation to include footer quick links and refined dropdown logic
+            // Add hashchange listener for browser back/forward buttons
+            window.addEventListener('hashchange', () => {
+                const newHash = window.location.hash.substring(1);
+                if (newHash && document.getElementById(newHash)) {
+                    renderPage(newHash);
+                } else {
+                    renderPage('home');
+                }
+            });
+            // END SPA PERSISTENCE FIX
+
+            // START SPA Navigation Logic Update
             const closeAllDropdowns = (excludeDropdown = null) => {
                 document.querySelectorAll('.dropdown.active').forEach(dropdown => {
                     if (dropdown !== excludeDropdown) {
@@ -2148,7 +2267,7 @@
             };
 
             // Select all relevant navigation links, including header nav and footer quick links
-            const allNavLinks = document.querySelectorAll('#navbar-links a, footer ul a'); // MODIFIED: Added footer ul a
+            const allNavLinks = document.querySelectorAll('#navbar-links a, footer ul a'); 
 
             allNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -2168,38 +2287,52 @@
                             if (dropdownArrow) dropdownArrow.classList.toggle('rotate-180', isActive);
                         }
                     } else if (isInternalNavLink) {
-                        e.preventDefault();
                         const pageId = link.getAttribute('href').substring(1);
                         const courseFilter = link.dataset.courseFilter;
 
-                        if (courseFilter) {
-                            renderPage('courses');
-                            // Small delay to allow page render before scrolling to target card
-                            setTimeout(() => {
-                                const targetCourseCard = document.querySelector(`[data-course-category="${courseFilter}"]`);
-                                if (targetCourseCard) {
-                                    targetCourseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                }
-                            }, 100);
-                        } else {
-                            renderPage(pageId);
-                        }
+                        // Check if it's a valid SPA page to prevent default behavior
+                        if (document.getElementById(pageId) || pageId === 'courses') {
+                            e.preventDefault();
+                            
+                            // Update the URL hash manually for SPA persistence
+                            history.pushState(null, null, `#${pageId}`);
 
-                        // Close hamburger menu and all dropdowns after navigation
-                        // Only close hamburger if it's currently open
-                        if (navbarLinks.classList.contains('active')) {
-                            navbarLinks.classList.remove('active');
+                            if (courseFilter) {
+                                renderPage('courses');
+                                // Small delay to allow page render before scrolling to target card
+                                setTimeout(() => {
+                                    const targetCourseCard = document.querySelector(`[data-course-category="${courseFilter}"]`);
+                                    if (targetCourseCard) {
+                                        targetCourseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    }
+                                }, 100);
+                            } else {
+                                renderPage(pageId);
+                            }
+
+                            // Close hamburger menu and all dropdowns after navigation
+                            if (navbarLinks.classList.contains('active')) {
+                                navbarLinks.classList.remove('active');
+                            }
+                            closeAllDropdowns();
                         }
-                        closeAllDropdowns();
+                        // If it's a regular hash link (like #about or #contact) that's not a SPA section, 
+                        // let default behavior (scroll) happen, but still run renderPage 
+                        // to ensure admin panels update.
+                        if (document.getElementById(pageId) && !e.defaultPrevented) {
+                             renderPage(pageId);
+                        }
+                        
                     }
                     // For external links, do nothing; let them behave normally
                 });
             });
+            // END SPA Navigation Logic Update
+
 
             // Close all dropdowns when clicking anywhere else on the document (applies to both desktop & mobile dropdowns)
             document.addEventListener('click', (e) => {
                 // Check if the click was outside any dropdown or the hamburger button
-                // This ensures clicks on the hamburger button or inside an open dropdown don't immediately close it
                 if (!e.target.closest('.dropdown') && !e.target.closest('#hamburger-button')) {
                     closeAllDropdowns();
                     // If the click is outside the navbar area and the hamburger menu is open, close it
@@ -2208,33 +2341,33 @@
                     }
                 }
             });
-            // END CHANGE: Extend SPA Navigation to include footer quick links and refined dropdown logic
-
 
             // Add specific event listeners for the hero section buttons
             const startLearningBtn = document.querySelector('#home a[href="#courses"]');
-            const enrollTodayBtn = document.querySelector('#home a[href="#contact"]'); // Changed from See Student Results
+            const enrollTodayBtn = document.querySelector('#home a[href="#contact"]'); 
 
             if (startLearningBtn) {
                 startLearningBtn.addEventListener('click', (e) => {
                     e.preventDefault();
+                    history.pushState(null, null, `#courses`);
                     renderPage('courses');
                 });
             }
 
-            if (enrollTodayBtn) { // Changed button reference
+            if (enrollTodayBtn) { 
                 enrollTodayBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    renderPage('contact'); // Navigate to contact
+                    history.pushState(null, null, `#contact`);
+                    renderPage('contact'); 
                 });
             }
 
             // Fix for Mathematico logo not taking back to home
-            // MODIFIED: Also include footer logo/branding
             const footerLogo = document.querySelector('footer a[href="#home"]');
             if (mathematicoLogo || footerLogo) {
                 mathematicoLogo.addEventListener('click', (e) => {
                     e.preventDefault(); // Prevent default anchor behavior
+                    history.pushState(null, null, `#home`); // Set hash to home
                     renderPage('home'); // Navigate to the home section
                     // Close hamburger menu if open
                     if (navbarLinks.classList.contains('active')) {
@@ -2242,10 +2375,10 @@
                     }
                     closeAllDropdowns(); // Ensure all dropdowns are closed
                 });
-                if (footerLogo) { // Only attach if footer logo exists
-                    footerLogo.addEventListener('click', (e) => mathematicoLogo.click()); // Delegate to the header logo's logic
+                if (footerLogo) { 
+                    footerLogo.addEventListener('click', (e) => mathematicoLogo.click()); 
                 }
-            } // End of Mathematico logo click handling
+            } 
 
 
             // Call Firebase initialization and listener attachment function
@@ -2518,16 +2651,30 @@
                     return;
                 }
                 const bookId = bookIdInput.value;
-                const bookData = {
-                    title: bookTitleInput.value,
-                    author: bookAuthorInput.value,
-                    category: bookCategoryInput.value,
-                    description: bookDescriptionInput.value,
-                    url: bookUrlInput.value || null,
-                    date_posted: serverTimestamp() // Use server timestamp for consistency
-                };
+                
+                // START MODIFICATION: Handle Image Upload
+                const imageFile = bookImageUploadInput.files[0];
+                let imageUrl = bookImagePreview.src !== '#' && bookImagePreview.src !== window.location.href ? bookImagePreview.src : null; // Keep existing if no new file
 
                 try {
+                    if (imageFile) {
+                        // Upload new image if selected. Passing 'mathematico_books' as folder name.
+                        imageUrl = await uploadFile(imageFile, 'mathematico_books', bookUploadSpinner, bookImagePreview);
+                        if (!imageUrl) return; // Stop if upload fails
+                    }
+                    // END MODIFICATION: Handle Image Upload
+                    
+                    const bookData = {
+                        title: bookTitleInput.value,
+                        author: bookAuthorInput.value,
+                        category: bookCategoryInput.value,
+                        description: bookDescriptionInput.value,
+                        url: bookUrlInput.value || null,
+                        // ADDED: Store the image URL
+                        imageUrl: imageUrl,
+                        date_posted: serverTimestamp() // Use server timestamp for consistency
+                    };
+
                     if (bookId) {
                         await updateDoc(doc(getCollectionRef("books"), bookId), bookData);
                         showMessageBox("Success", "Book updated successfully!");
@@ -2538,6 +2685,10 @@
                     addEditBookForm.reset();
                     bookIdInput.value = ''; // Clear book ID
                     cancelEditBookBtn.classList.add('hidden');
+                    // ADDED: Clear image preview after submission
+                    bookImagePreview.classList.add('hidden');
+                    bookImagePreview.src = '#';
+                    bookImageUploadInput.value = '';
                 } catch (e) {
                     console.error("Error saving book: ", e);
                     showMessageBox("Error", "Error saving book. Please try again.");
@@ -2548,6 +2699,10 @@
                 addEditBookForm.reset();
                 bookIdInput.value = '';
                 cancelEditBookBtn.classList.add('hidden');
+                // ADDED: Clear image preview
+                bookImagePreview.classList.add('hidden');
+                bookImagePreview.src = '#';
+                bookImageUploadInput.value = '';
             });
 
             addProblemForm.addEventListener('submit', async (e) => {
@@ -2774,6 +2929,23 @@
                 }
             });
 
+            // Event listener for Book image upload input
+            bookImageUploadInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    // Display immediate preview using FileReader
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        bookImagePreview.src = e.target.result;
+                        bookImagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    bookImagePreview.classList.add('hidden');
+                    bookImagePreview.src = '#';
+                }
+            });
+
             addGalleryForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!isAdmin) {
@@ -2885,6 +3057,73 @@
                 blogImageUploadInput.value = ''; // Clear file input
             });
 
+            // Book List Filters
+            if (bookSearchInput) {
+                bookSearchInput.addEventListener('input', () => {
+                    currentBookFilters.search = bookSearchInput.value;
+                    applyBookFiltersAndRender();
+                });
+            }
+            if (bookFilterCategorySelect) {
+                bookFilterCategorySelect.addEventListener('change', () => {
+                    currentBookFilters.category = bookFilterCategorySelect.value;
+                    applyBookFiltersAndRender();
+                });
+            }
+            if (bookSortOrderSelect) {
+                bookSortOrderSelect.addEventListener('change', () => {
+                    currentBookFilters.sort = bookSortOrderSelect.value;
+                    applyBookFiltersAndRender();
+                });
+            }
+
+            // Problems Filters
+            if (problemSearchInput) {
+                problemSearchInput.addEventListener('input', () => {
+                    currentProblemFilters.search = problemSearchInput.value;
+                    applyProblemFiltersAndRender();
+                });
+            }
+            if (problemFilterCategorySelect) {
+                problemFilterCategorySelect.addEventListener('change', () => {
+                    currentProblemFilters.category = problemFilterCategorySelect.value;
+                    applyProblemFiltersAndRender();
+                });
+            }
+            if (problemSortOrderSelect) {
+                problemSortOrderSelect.addEventListener('change', () => {
+                    currentProblemFilters.sort = problemSortOrderSelect.value;
+                    applyProblemFiltersAndRender();
+                });
+            }
+
+            // Gallery Filters
+            if (gallerySearchInput) {
+                gallerySearchInput.addEventListener('input', () => {
+                    currentGalleryFilters.search = gallerySearchInput.value;
+                    applyGalleryFiltersAndRender();
+                });
+            }
+            if (gallerySortOrderSelect) {
+                gallerySortOrderSelect.addEventListener('change', () => {
+                    currentGalleryFilters.sort = gallerySortOrderSelect.value;
+                    applyGalleryFiltersAndRender();
+                });
+            }
+
+            // Blog Filters
+            if (blogSearchInput) {
+                blogSearchInput.addEventListener('input', () => {
+                    currentBlogFilters.search = blogSearchInput.value;
+                    applyBlogFiltersAndRender();
+                });
+            }
+            if (blogSortOrderSelect) {
+                blogSortOrderSelect.addEventListener('change', () => {
+                    currentBlogFilters.sort = blogSortOrderSelect.value;
+                    applyBlogFiltersAndRender();
+                });
+            }            
             // This function is called after Firebase is initialized and authenticated
             initializeFirestoreListeners();
         }
@@ -2907,52 +3146,128 @@
 
         // --- Book List Functions ---
         function renderBooks(snapshot) {
-            bookListDisplay.innerHTML = ''; // Clear previous content
+            bookListLoading.classList.add('hidden');
+            allBooksData = []; // Clear previous data
             const books = [];
+            const dynamicCategories = new Set();
+            
             snapshot.forEach((doc) => {
-                books.push({ id: doc.id, ...doc.data() });
+                const data = { id: doc.id, ...doc.data() };
+                books.push(data);
+                const category = data.category || 'Uncategorized';
+                dynamicCategories.add(category);
             });
 
-            // Client-side sorting by date_posted in descending order
-            books.sort((a, b) => {
-                const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
-                const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
-                return dateB - dateA;
-            });
+            allBooksData = books;
 
-            if (books.length === 0) {
-                bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No books added yet.</p>';
-            } else {
-                books.forEach((book) => {
-                    const bookElement = document.createElement('div');
-                    bookElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-purple-100 dark:border-gray-700';
-                    bookElement.innerHTML = `
-                        <div class="flex items-center mb-3">
-                            <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.75 6.75a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v11.25c0 .092.01.182.03.27a.75.75 0 01.593.639l1.536 6a.75.75 0 01-.708.961H3.57a.75.75 0 01-.708-.96l1.536-6a.75.75 0 01.03-.27v-1.5a.75.75 0 01.75-.75zM12 2.25a.75.75 0 01.75.75v12.75a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM18.75 6.75a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v11.25c0 .092.01.182.03.27a.75.75 0 01.593.639l1.536 6a.75.75 0 01-.708.961H18.32a.75.75 0 01-.708-.96l1.536-6a.75.75 0 01.03-.27v-1.5a.75.75 0 01.75-.75z" clip-rule="evenodd" /></svg>
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">${book.title}</h3>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Author:</strong> ${book.author}</p>
-                        <p class="text-gray-600 dark:text-gray-300 mb-2 text-sm"><strong>Category:</strong> ${book.category}</p>
-                        <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${book.description}</p>
-                        ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Book &rarr;</a>` : ''}
-                        ${isAdmin ? `
-                            <div class="mt-4 flex space-x-2 w-full justify-end">
-                                <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${book.id}">Edit</button>
-                                <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${book.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    bookListDisplay.appendChild(bookElement);
+            // Populate Category Filter dropdown
+            if (bookFilterCategorySelect) {
+                const categoriesArray = Array.from(dynamicCategories).sort();
+                const currentSelectedCategory = bookFilterCategorySelect.value;
+                bookFilterCategorySelect.innerHTML = '<option value="">Filter by Category</option>';
+                categoriesArray.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    if (cat === currentSelectedCategory) {
+                        option.selected = true;
+                    }
+                    bookFilterCategorySelect.appendChild(option);
                 });
+            }
 
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-book-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editBook(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-book-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteBook(e.target.dataset.id));
-                    });
+            applyBookFiltersAndRender();
+        }
+
+        // NEW: Function to apply filters and render the results
+        function applyBookFiltersAndRender() {
+            bookListDisplay.innerHTML = '';
+            if (allBooksData.length === 0) {
+                bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No books added yet.</p>';
+                return;
+            }
+
+            let filteredBooks = [...allBooksData];
+            const { search, category, sort } = currentBookFilters;
+            const normalizedSearch = search.toLowerCase();
+
+            // 1. Filtering
+            filteredBooks = filteredBooks.filter(book => {
+                const matchesSearch = book.title.toLowerCase().includes(normalizedSearch) || 
+                                      book.author.toLowerCase().includes(normalizedSearch) ||
+                                      book.description.toLowerCase().includes(normalizedSearch);
+                const matchesCategory = !category || book.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            // 2. Sorting
+            filteredBooks.sort((a, b) => {
+                if (sort === 'date_desc') {
+                    const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
+                    const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
+                    return dateB - dateA;
                 }
+                if (sort === 'title_asc') {
+                    return a.title.localeCompare(b.title);
+                }
+                if (sort === 'author_asc') {
+                    return a.author.localeCompare(b.author);
+                }
+                return 0;
+            });
+
+            if (filteredBooks.length === 0) {
+                 bookListDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No books match your current filter criteria.</p>';
+                 return;
+            }
+
+            // 3. Rendering
+            filteredBooks.forEach((book) => {
+                const bookElement = document.createElement('div');
+                bookElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-purple-100 dark:border-gray-700';
+                bookElement.innerHTML = `
+                    <div class="flex items-center mb-3">
+                        <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.75 6.75a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v11.25c0 .092.01.182.03.27a.75.75 0 01.593.639l1.536 6a.75.75 0 01-.708.961H3.57a.75.75 0 01-.708-.96l1.536-6a.75.75 0 01.03-.27v-1.5a.75.75 0 01.75-.75zM12 2.25a.75.75 0 01.75.75v12.75a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM18.75 6.75a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v11.25c0 .092.01.182.03.27a.75.75 0 01.593.639l1.536 6a.75.75 0 01-.708.961H18.32a.75.75 0 01-.708-.96l1.536-6a.75.75 0 01.03-.27v-1.5a.75.75 0 01.75-.75z" clip-rule="evenodd" /></svg>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">${book.title}</h3>
+                    </div>
+                    <!-- START ADDITION: Image Display with Click Wrapper -->
+                    ${book.imageUrl ? `
+                        <div class="book-image-wrapper cursor-pointer mb-4" data-image-url="${book.imageUrl}" data-caption="${book.title} by ${book.author}">
+                            <img src="${book.imageUrl}" alt="${book.title} cover" class="w-full h-48 object-contain rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Book+Image';">
+                        </div>
+                    ` : ''}
+                    <!-- END ADDITION -->
+                    <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Author:</strong> ${book.author}</p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2 text-sm"><strong>Category:</strong> ${book.category}</p>
+                    <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${book.description}</p>
+                    ${book.url ? `<a href="${book.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Book &rarr;</a>` : ''}
+                    ${isAdmin ? `
+                        <div class="mt-4 flex space-x-2 w-full justify-end">
+                            <button class="edit-book-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${book.id}">Edit</button>
+                            <button class="delete-book-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${book.id}">Delete</button>
+                        </div>
+                    ` : ''}
+                `;
+                bookListDisplay.appendChild(bookElement);
+            });
+
+            // START ADDITION: Listener to make the book images clickable
+            document.querySelectorAll('.book-image-wrapper').forEach(imageWrapper => {
+                imageWrapper.addEventListener('click', () => {
+                    const url = imageWrapper.dataset.imageUrl;
+                    const caption = imageWrapper.dataset.caption;
+                    showGalleryImageDetail(url, caption); 
+                });
+            });
+            // END ADDITION
+
+            if (isAdmin) {
+                document.querySelectorAll('.edit-book-btn').forEach(button => {
+                    button.addEventListener('click', (e) => editBook(e.target.dataset.id));
+                });
+                document.querySelectorAll('.delete-book-btn').forEach(button => {
+                    button.addEventListener('click', (e) => deleteBook(e.target.dataset.id));
+                });
             }
             bookListLoading.classList.add('hidden');
         }
@@ -2973,6 +3288,18 @@
                     bookCategoryInput.value = book.category;
                     bookDescriptionInput.value = book.description;
                     bookUrlInput.value = book.url || '';
+                    
+                    // START ADDITION: Load existing image URL for preview
+                    if (book.imageUrl) {
+                        bookImagePreview.src = book.imageUrl;
+                        bookImagePreview.classList.remove('hidden');
+                    } else {
+                        bookImagePreview.classList.add('hidden');
+                        bookImagePreview.src = '#';
+                    }
+                    bookImageUploadInput.value = ''; // Clear file input so user has to re-select
+                    // END ADDITION
+                    
                     cancelEditBookBtn.classList.remove('hidden');
                     window.scrollTo({ top: bookListAdminPanel.offsetTop, behavior: 'smooth' }); // Scroll to form
                 } else {
@@ -3005,95 +3332,146 @@
 
         // --- Problems Functions ---
         function renderProblems(snapshot) {
-            problemsDisplay.innerHTML = ''; // Clear previous content
+            problemsLoading.classList.add('hidden');
+            problemsDisplay.innerHTML = ''; 
+            allProblemsData = []; 
             const problems = [];
-            snapshot.forEach((doc) => {
-                problems.push({ id: doc.id, ...doc.data() });
-            });
-
-            // Client-side sorting by date_posted in descending order
-            problems.sort((a, b) => {
-                const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
-                const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
-                return dateB - dateA;
-            });
-
-            // MODIFIED: Dynamically collect categories and group problems
-            const problemsByCategory = {};
             const dynamicCategories = new Set();
             
-            problems.forEach(problem => {
-                const category = problem.category || 'Uncategorized'; // Default if category is missing
+            snapshot.forEach((doc) => {
+                const data = { id: doc.id, ...doc.data() };
+                problems.push(data);
+                const category = data.category || 'Uncategorized';
                 dynamicCategories.add(category);
-                if (!problemsByCategory[category]) {
-                    problemsByCategory[category] = [];
-                }
-                problemsByCategory[category].push(problem);
             });
 
-            const sortedCategories = Array.from(dynamicCategories).sort(); // Sort categories alphabetically
+            allProblemsData = problems;
 
-            if (problems.length === 0) {
-                problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems added yet.</p>';
-            } else {
-                // MODIFIED: Iterate through dynamically collected and sorted categories
-                sortedCategories.forEach(category => {
-                    if (problemsByCategory[category].length > 0) {
-                        const categorySection = document.createElement('div');
-                        categorySection.className = 'mb-12';
-                        // Use the dynamic category name in the heading
-                        categorySection.innerHTML = `
-                            <h3 class="text-3xl font-bold text-gray-900 mb-8 dark:text-gray-100 text-center pb-2 border-b-2 border-indigo-200 dark:border-indigo-700">${category} Problems</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="problems-${category.replace(/\s/g, '-')}-container"></div>
-                        `;
-                        problemsDisplay.appendChild(categorySection);
-
-                        const container = document.getElementById(`problems-${category.replace(/\s/g, '-')}-container`);
-                        problemsByCategory[category].forEach(problem => {
-                            const problemElement = document.createElement('div');
-                            problemElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-green-100 dark:border-gray-700';
-                            problemElement.innerHTML = `
-                                <div class="flex items-center mb-3">
-                                    <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
-                                    <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100">${problem.title}</h4>
-                                </div>
-                                <!-- MODIFIED: Wrapped the image in a clickable div to open the modal -->
-                                ${problem.imageUrl ? `
-                                    <div class="problem-image-wrapper cursor-pointer mb-4" data-image-url="${problem.imageUrl}" data-caption="${problem.title}">
-                                        <img src="${problem.imageUrl}" alt="Problem Image" class="w-full h-auto max-h-48 object-contain rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Problem+Image';">
-                                    </div>
-                                ` : ''}
-                                <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${problem.description}</p>
-                                ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Solution &rarr;</a>` : ''}
-                                ${isAdmin ? `
-                                    <div class="mt-4 flex space-x-2 w-full justify-end">
-                                        <button class="edit-problem-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${problem.id}">Edit</button>
-                                        <button class="delete-problem-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${problem.id}">Delete</button>
-                                    </div>
-                                ` : ''}
-                            `;
-                            container.appendChild(problemElement);
-                        });
+            // Populate Category Filter dropdown
+            if (problemFilterCategorySelect) {
+                const categoriesArray = Array.from(dynamicCategories).sort();
+                const currentSelectedCategory = problemFilterCategorySelect.value;
+                problemFilterCategorySelect.innerHTML = '<option value="">Filter by Category</option>';
+                categoriesArray.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    if (cat === currentSelectedCategory) {
+                        option.selected = true;
                     }
+                    problemFilterCategorySelect.appendChild(option);
                 });
+            }
+            
+            applyProblemFiltersAndRender();
+        }
+        
+        // NEW Function: Apply filters and render the results
+        function applyProblemFiltersAndRender() {
+            problemsDisplay.innerHTML = '';
+            if (allProblemsData.length === 0) {
+                problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems added yet.</p>';
+                return;
+            }
 
-                // ADDED: Listener to make the problem images clickable, reusing the gallery function
-                document.querySelectorAll('.problem-image-wrapper').forEach(imageWrapper => {
-                    imageWrapper.addEventListener('click', () => {
-                        const url = imageWrapper.dataset.imageUrl;
-                        const caption = imageWrapper.dataset.caption;
-                        showGalleryImageDetail(url, caption); // Reuse the existing modal function
-                    });
-                });
+            let filteredProblems = [...allProblemsData];
+            const { search, category, sort } = currentProblemFilters;
+            const normalizedSearch = search.toLowerCase();
 
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-problem-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editProblem(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-problem-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteProblem(e.target.dataset.id));
-                    });
+            // 1. Filtering
+            filteredProblems = filteredProblems.filter(problem => {
+                const matchesSearch = problem.title.toLowerCase().includes(normalizedSearch) || 
+                                      problem.description.toLowerCase().includes(normalizedSearch);
+                const matchesCategory = !category || problem.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            // 2. Sorting
+            filteredProblems.sort((a, b) => {
+                if (sort === 'date_desc') {
+                    const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
+                    const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
+                    return dateB - dateA;
                 }
+                if (sort === 'title_asc') {
+                    return a.title.localeCompare(b.title);
+                }
+                return 0;
+            });
+
+            // 3. Grouping by Category (for visual structure)
+            const problemsByCategory = {};
+            filteredProblems.forEach(problem => {
+                const cat = problem.category || 'Uncategorized';
+                if (!problemsByCategory[cat]) {
+                    problemsByCategory[cat] = [];
+                }
+                problemsByCategory[cat].push(problem);
+            });
+            
+            const sortedCategories = Object.keys(problemsByCategory).sort(); 
+
+            problemsDisplay.innerHTML = '';
+            
+            if (filteredProblems.length === 0) {
+                 problemsDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No problems match your current filter criteria.</p>';
+                 return;
+            }
+
+
+            // 4. Rendering
+            sortedCategories.forEach(cat => {
+                const categorySection = document.createElement('div');
+                categorySection.className = 'mb-12';
+                categorySection.innerHTML = `
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8 dark:text-gray-100 text-center pb-2 border-b-2 border-indigo-200 dark:border-indigo-700">${cat} Problems</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 problems-container"></div>
+                `;
+                problemsDisplay.appendChild(categorySection);
+
+                const container = categorySection.querySelector('.problems-container');
+                problemsByCategory[cat].forEach(problem => {
+                    const problemElement = document.createElement('div');
+                    problemElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-green-100 dark:border-gray-700';
+                    problemElement.innerHTML = `
+                            <div class="flex items-center mb-3">
+                                <svg class="w-8 h-8 mr-3 text-teal-500 dark:text-teal-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
+                                <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100">${problem.title}</h4>
+                            </div>
+                            ${problem.imageUrl ? `
+                                <div class="problem-image-wrapper cursor-pointer mb-4" data-image-url="${problem.imageUrl}" data-caption="${problem.title}">
+                                    <img src="${problem.imageUrl}" alt="Problem Image" class="w-full h-auto max-h-48 object-contain rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/FEE2E2/EF4444?text=Problem+Image';">
+                                </div>
+                            ` : ''}
+                            <p class="text-gray-700 dark:text-gray-300 text-base mb-4 flex-grow">${problem.description}</p>
+                            ${problem.solution_url ? `<a href="${problem.solution_url}" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium">View Solution &rarr;</a>` : ''}
+                            ${isAdmin ? `
+                                <div class="mt-4 flex space-x-2 w-full justify-end">
+                                    <button class="edit-problem-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${problem.id}">Edit</button>
+                                    <button class="delete-problem-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${problem.id}">Delete</button>
+                                </div>
+                            ` : ''}
+                        `;
+                    container.appendChild(problemElement);
+                });
+            });
+
+            // Re-attach listeners for the current results
+            document.querySelectorAll('.problem-image-wrapper').forEach(imageWrapper => {
+                imageWrapper.addEventListener('click', () => {
+                    const url = imageWrapper.dataset.imageUrl;
+                    const caption = imageWrapper.dataset.caption;
+                    showGalleryImageDetail(url, caption); 
+                });
+            });
+
+            if (isAdmin) {
+                document.querySelectorAll('.edit-problem-btn').forEach(button => {
+                    button.addEventListener('click', (e) => editProblem(e.target.dataset.id));
+                });
+                document.querySelectorAll('.delete-problem-btn').forEach(button => {
+                    button.addEventListener('click', (e) => deleteProblem(e.target.dataset.id));
+                });
             }
             problemsLoading.classList.add('hidden');
         }
@@ -3156,63 +3534,90 @@
 
         // --- Gallery Functions ---
         function renderGallery(snapshot) {
-            galleryDisplay.innerHTML = ''; // Clear previous content
-            const galleryPosts = [];
+            galleryLoading.classList.add('hidden');
+            galleryDisplay.innerHTML = '';
+            allGalleryData = []; 
+            
             snapshot.forEach((doc) => {
-                galleryPosts.push({ id: doc.id, ...doc.data() });
+                allGalleryData.push({ id: doc.id, ...doc.data() });
             });
 
-            // Client-side sorting by date_posted in descending order
-            galleryPosts.sort((a, b) => {
+            applyGalleryFiltersAndRender();
+        }
+
+        // NEW: Function to apply filters and render the results
+        function applyGalleryFiltersAndRender() {
+            galleryDisplay.innerHTML = '';
+            if (allGalleryData.length === 0) {
+                galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No gallery posts yet.</p>';
+                return;
+            }
+
+            let filteredPosts = [...allGalleryData];
+            const { search, sort } = currentGalleryFilters;
+            const normalizedSearch = search.toLowerCase();
+
+            // 1. Filtering
+            filteredPosts = filteredPosts.filter(post => {
+                return post.caption.toLowerCase().includes(normalizedSearch);
+            });
+
+            // 2. Sorting
+            filteredPosts.sort((a, b) => {
                 const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
                 const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
-                return dateB - dateA;
+                
+                if (sort === 'date_desc') return dateB - dateA;
+                if (sort === 'date_asc') return dateA - dateB;
+                return 0;
             });
 
-            if (galleryPosts.length === 0) {
-                galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No gallery posts yet.</p>';
-            } else {
-                galleryPosts.forEach((post) => {
-                    const postElement = document.createElement('div');
-                    postElement.className = 'relative overflow-hidden rounded-xl shadow-lg group bg-white dark:bg-gray-800 dark:shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border border-gray-100 dark:border-gray-700';
-                    postElement.setAttribute('data-image-url', post.imageUrl); // Add data attributes for modal
-                    postElement.setAttribute('data-caption', post.caption);
-                    postElement.innerHTML = `
-                        <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
-                        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-                            <p class="text-white text-lg font-semibold px-2 text-center">${post.caption}</p>
+            if (filteredPosts.length === 0) {
+                 galleryDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No gallery posts match your current filter criteria.</p>';
+                 return;
+            }
+
+            // 3. Rendering
+            filteredPosts.forEach((post) => {
+                const postElement = document.createElement('div');
+                postElement.className = 'relative overflow-hidden rounded-xl shadow-lg group bg-white dark:bg-gray-800 dark:shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border border-gray-100 dark:border-gray-700';
+                postElement.setAttribute('data-image-url', post.imageUrl);
+                postElement.setAttribute('data-caption', post.caption);
+                postElement.innerHTML = `
+                    <img src="${post.imageUrl}" alt="${post.caption}" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E7FF/4F46E5?text=Image+Not+Found';">
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+                        <p class="text-white text-lg font-semibold px-2 text-center">${post.caption}</p>
+                    </div>
+                    ${isAdmin ? `
+                        <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${post.id}">Edit</button>
+                            <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${post.id}">Delete</button>
                         </div>
-                        ${isAdmin ? `
-                            <div class="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button class="edit-gallery-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${post.id}">Edit</button>
-                                <button class="delete-gallery-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${post.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    galleryDisplay.appendChild(postElement);
-                });
+                    ` : ''}
+                `;
+                galleryDisplay.appendChild(postElement);
+            });
 
-                // Add event listeners for gallery image clicks to open modal
-                document.querySelectorAll('#gallery-display > div').forEach(galleryItem => {
-                    galleryItem.addEventListener('click', (e) => {
-                        // Prevent opening modal if edit/delete button was clicked
-                        if (e.target.classList.contains('edit-gallery-btn') || e.target.classList.contains('delete-gallery-btn')) {
-                            return;
-                        }
-                        const imageUrl = galleryItem.dataset.imageUrl;
-                        const caption = galleryItem.dataset.caption;
-                        showGalleryImageDetail(imageUrl, caption);
-                    });
+            // Add event listeners for gallery image clicks to open modal
+            document.querySelectorAll('#gallery-display > div').forEach(galleryItem => {
+                galleryItem.addEventListener('click', (e) => {
+                    // Prevent opening modal if edit/delete button was clicked
+                    if (e.target.classList.contains('edit-gallery-btn') || e.target.classList.contains('delete-gallery-btn')) {
+                        return;
+                    }
+                    const imageUrl = galleryItem.dataset.imageUrl;
+                    const caption = galleryItem.dataset.caption;
+                    showGalleryImageDetail(imageUrl, caption);
                 });
+            });
 
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-gallery-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-gallery-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteGalleryPost(e.target.dataset.id));
-                    });
-                }
+            if (isAdmin) {
+                document.querySelectorAll('.edit-gallery-btn').forEach(button => {
+                    button.addEventListener('click', (e) => editGalleryPost(e.target.dataset.id));
+                });
+                document.querySelectorAll('.delete-gallery-btn').forEach(button => {
+                    button.addEventListener('click', (e) => deleteGalleryPost(e.target.dataset.id));
+                });
             }
             galleryLoading.classList.add('hidden');
         }
@@ -3282,56 +3687,97 @@
 
         // --- Blog Functions ---
         function renderBlogs(snapshot) {
-            blogDisplay.innerHTML = ''; // Clear previous content
+            blogLoading.classList.add('hidden');
             allBlogPosts = []; // Clear previous posts and populate with new data
-            const blogPosts = [];
+            
             snapshot.forEach((doc) => {
-                blogPosts.push({ id: doc.id, ...doc.data() });
+                allBlogPosts.push({ id: doc.id, ...doc.data() });
             });
 
-            // Client-side sorting by date_posted in descending order
-            blogPosts.sort((a, b) => {
+            applyBlogFiltersAndRender();
+        }
+
+        // NEW: Function to apply filters and render the results
+        function applyBlogFiltersAndRender() {
+            blogDisplay.innerHTML = '';
+            if (allBlogPosts.length === 0) {
+                blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No blog posts yet.</p>';
+                return;
+            }
+
+            let filteredPosts = [...allBlogPosts];
+            const { search, sort } = currentBlogFilters;
+            const normalizedSearch = search.toLowerCase();
+
+            // 1. Filtering
+            filteredPosts = filteredPosts.filter(post => {
+                return post.title.toLowerCase().includes(normalizedSearch) || 
+                       post.content.toLowerCase().includes(normalizedSearch);
+            });
+
+            // 2. Sorting
+            filteredPosts.sort((a, b) => {
                 const dateA = a.date_posted && a.date_posted.seconds ? a.date_posted.seconds : 0;
                 const dateB = b.date_posted && b.date_posted.seconds ? b.date_posted.seconds : 0;
-                return dateB - dateA;
+                
+                if (sort === 'date_desc') return dateB - dateA;
+                if (sort === 'date_asc') return dateA - dateB;
+                return 0;
             });
-            allBlogPosts = blogPosts; // Store sorted posts
 
-            if (blogPosts.length === 0) {
-                blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No blog posts yet.</p>';
-            } else {
-                blogPosts.forEach((post) => {
-                    const postElement = document.createElement('article');
-                    postElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-yellow-100 dark:border-gray-700';
-                    postElement.innerHTML = `
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">${post.title}</h3>
-                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';">` : ''}
-                        <p class="text-gray-600 text-base mb-4 dark:text-gray-300 flex-grow">${post.content.substring(0, 180)}...</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Posted on: ${post.date_posted ? new Date(post.date_posted.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
-                        <button class="read-more-blog-btn text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" data-id="${post.id}" aria-label="Read more about ${post.title}">Read More &rarr;</button>
-                        ${isAdmin ? `
-                            <div class="mt-4 flex space-x-2 w-full justify-end">
-                                <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${post.id}">Edit</button>
-                                <button class="delete-blog-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${post.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    `;
-                    blogDisplay.appendChild(postElement);
+            if (filteredPosts.length === 0) {
+                 blogDisplay.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center col-span-full py-10">No blog posts match your current filter criteria.</p>';
+                 return;
+            }
+
+            // 3. Rendering
+            filteredPosts.forEach((post) => {
+                const postElement = document.createElement('article');
+                postElement.className = 'bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-start text-left dark:bg-gray-800 dark:shadow-2xl border border-yellow-100 dark:border-gray-700';
+                postElement.innerHTML = `
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3 dark:text-gray-100">${post.title}</h3>
+                    <!-- START MODIFICATION: Image Display with Click Wrapper -->
+                    ${post.imageUrl ? `
+                        <div class="blog-image-wrapper cursor-pointer w-full mb-4" data-image-url="${post.imageUrl}" data-caption="${post.title}">
+                            <img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 object-cover rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x200/E0E7FF/4F46E5?text=Blog+Image';">
+                        </div>
+                    ` : ''}
+                    <!-- END MODIFICATION -->
+                    <p class="text-gray-600 text-base mb-4 dark:text-gray-300 flex-grow">${post.content.substring(0, 180)}...</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Posted on: ${post.date_posted ? new Date(post.date_posted.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
+                    <button class="read-more-blog-btn text-indigo-600 hover:underline dark:text-indigo-400 mt-auto text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500" data-id="${post.id}" aria-label="Read more about ${post.title}">Read More &rarr;</button>
+                    ${isAdmin ? `
+                        <div class="mt-4 flex space-x-2 w-full justify-end">
+                            <button class="edit-blog-btn bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" data-id="${post.id}">Edit</button>
+                            <button class="delete-blog-btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" data-id="${post.id}">Delete</button>
+                        </div>
+                    ` : ''}
+                `;
+                blogDisplay.appendChild(postElement);
+            });
+
+            // Add event listeners for "Read More" buttons
+            document.querySelectorAll('.read-more-blog-btn').forEach(button => {
+                button.addEventListener('click', (e) => showBlogDetail(e.target.dataset.id));
+            });
+
+            // START ADDITION: Listener to make the blog images clickable
+            document.querySelectorAll('.blog-image-wrapper').forEach(imageWrapper => {
+                imageWrapper.addEventListener('click', () => {
+                    const url = imageWrapper.dataset.imageUrl;
+                    const caption = imageWrapper.dataset.caption;
+                    showGalleryImageDetail(url, caption); 
                 });
+            });
+            // END ADDITION
 
-                // Add event listeners for "Read More" buttons
-                document.querySelectorAll('.read-more-blog-btn').forEach(button => {
-                    button.addEventListener('click', (e) => showBlogDetail(e.target.dataset.id));
+            if (isAdmin) {
+                document.querySelectorAll('.edit-blog-btn').forEach(button => {
+                    button.addEventListener('click', (e) => editBlogPost(e.target.dataset.id));
                 });
-
-                if (isAdmin) {
-                    document.querySelectorAll('.edit-blog-btn').forEach(button => {
-                        button.addEventListener('click', (e) => editBlogPost(e.target.dataset.id));
-                    });
-                    document.querySelectorAll('.delete-blog-btn').forEach(button => {
-                        button.addEventListener('click', (e) => deleteBlogPost(e.target.dataset.id));
-                    });
-                }
+                document.querySelectorAll('.delete-blog-btn').forEach(button => {
+                    button.addEventListener('click', (e) => deleteBlogPost(e.target.dataset.id));
+                });
             }
             blogLoading.classList.add('hidden');
         }
