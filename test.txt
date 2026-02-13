@@ -368,7 +368,7 @@
         #scroll-to-top {
             display: none; /* Hidden by default */
             position: fixed;
-            bottom: 1.5rem;
+            bottom: 10rem;
             right: 1.5rem; /* Adjusted right position to prevent overlap with WhatsApp CTA */
             z-index: 90;
             background-color: #4f46e5; /* Indigo-600 */
@@ -473,6 +473,7 @@
         /* Chatbot CTA Z-index */
         .chatbot-cta {
             z-index: 95;
+            bottom: 5.5rem;
         }
 
         /* Chat Modal Styles */
@@ -732,7 +733,7 @@
             <div class="flex items-center"> <!-- New flex container for right-aligned items -->
                 <!-- Hamburger Menu Button - ONLY visible on mobile (md:hidden) -->
                 <button id="hamburger-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle navigation menu">
-                    <svg class="w-7 h-7 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-7 h-7 hamburger-icon lucide lucide-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" class="line top"></line>
                         <line x1="4" y1="12" x2="20" y2="12" stroke-width="2" stroke-linecap="round" class="line middle"></line>
                         <line x1="4" y1="18" x2="20" y2="18" stroke-width="2" stroke-linecap="round" class="line bottom"></line>
@@ -750,7 +751,7 @@
                     <li class="relative dropdown">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                             Courses
-                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300 lucide lucide-chevron-down" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
@@ -767,7 +768,7 @@
                     <li class="relative dropdown hidden md:flex">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                             More
-                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300 lucide lucide-chevron-down" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#book-list-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Book List</a></li>
@@ -810,11 +811,11 @@
                     <li>
                         <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                             dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
-                            <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M3 12H2m8.003-9.997l-.707.707M16.997 16.997l.707.707M3.707 3.707l-.707.707m16.586 16.586l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
+                            <svg id="sun-icon" class="w-6 h-6 lucide lucide-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M20 12h2"/><path d="M2 12h2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
                             </svg>
-                            <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 118.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            <svg id="moon-icon" class="w-6 h-6 hidden lucide lucide-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
                             </svg>
                         </button>
                     </li>
@@ -1200,7 +1201,7 @@
                             </p>
                             <!-- Locations -->
                             <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                 <span class="flex flex-col flex-1 min-w-0">
                                     <strong>Locations:</strong>
                                     <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Madhyamgram & Barasat, Kolkata</span>
@@ -1209,7 +1210,7 @@
                             <!-- Telegram -->
                             <p class="text-lg text-gray-700 mb-4 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
                                 <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 0C5.372 0 0 5.372 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12C24 5.372 18.628 0 12 0zm5.176 8.358c-.378-.052-.777-.07-.94-.07-.373 0-.66.082-.86.233-.2.152-.36.386-.48.704-.12.318-.2.687-.24 1.107-.04.42-.057.776-.057 1.066 0 .39.014.733.042 1.03.028.297.086.602.176.914.09.312.215.62.373.92.16.3.363.59.61.87.246.282.52.535.823.76-.32.008-.642.016-.96.016-1.516 0-2.822-.442-3.92-1.326-1.102-.885-1.92-2.128-2.45-3.72-2.73-1.63-2.92-4.04-1.17-7.238.487-.93 1.157-1.62 2-2.072.843-.453 1.79-.68 2.84-.68.647 0 1.25.045 1.8.136.55.09 1.05.228 1.5.412.45.183.846.425 1.19.724.343.3.616.634.823.992.207.358.337.74.39 1.144-.35.034-.69.103-1.02.208-.33.104-.64.24-.93.407-.29.167-.55.36-.78.58-.23.22-.4.47-.51.748-.035.1-.06.205-.08.315-.02.11-.03.225-.03.345 0 .17.002.343.007.518.005.175.013.35.025.526.01.18.02.35.03.518.01.17.01.343.01.518s-.01.348-.02.523c-.01.175-.02.34-.03.495-.008.155-.013.3-.013.435 0 .12.015.23.045.33.03.1.07.2.118.29.048.09.096.167.144.232.048.065.095.12.14.165.047.045.088.077.12.095.03.018.05.027.06.027.03-.005.08-.01.15-.015.07-.006.14-.01.2-.01l-.22.25c.3.35.7.63 1.2.85s1.04.38 1.63.45c.44-.24.87-.5 1.28-.78.41-.28.78-.59 1.11-.92.33-.33.6-.68.81-1.05.21-.37.33-.76.36-1.17 1.09-2.31 1.77-4.23 2.04-5.77.27-1.54.27-2.73-.02-3.56-.29-.83-.75-1.55-1.37-2.16-.62-.62-1.32-1.08-2.12-1.39-1.2-1.07-2.82-1.6-4.88-1.6z"/>
+                                    <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 15 9"/>
                                 </svg>
                                 <span class="flex flex-col flex-1 min-w-0">
                                     <strong>Telegram:</strong>
@@ -1218,7 +1219,7 @@
                             </p>
                             <!-- Classes Available -->
                             <p class="text-lg text-gray-700 flex items-start dark:text-gray-300 transition-colors duration-300 ease-in-out">
-                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5.25a3 3 0 013-3h12a3 3 0 013 3V15.75c0 1.168-.56 2.228-1.47 2.911l-3.322 2.656A2.25 2.25 0 0113.5 21v-3.75h-3V21a2.25 2.25 0 01-2.708-1.595L4.47 18.161A3 3 0 013 15.75V5.25z" clip-rule="evenodd" /></svg>
+                                <svg class="w-7 h-7 mr-3 text-teal-500 dark:text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                                 <span class="flex flex-col flex-1 min-w-0">
                                     <strong>Classes Available:</strong>
                                     <span class="text-lg text-gray-700 dark:text-gray-300 overflow-wrap-anywhere">Offline & Online</span>
@@ -1641,8 +1642,8 @@
                     <!-- Review Submission Form -->
                     <div class="lg:w-1/3 bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 dark:bg-gray-800 dark:border-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100">Submit Your Review</h3>
-                        <form id="review-submission-form" class="space-y-4 text-left">
-                            <input type="hidden" name="access_key" value="94f94b03-6930-4fff-bd72-94063d7a66bf"> 
+                        <form id="review-submission-form" class="space-y-4 text-left" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value=""> <!-- Populated by JS -->
                             <input type="hidden" name="subject" value="New Anonymous Review Submitted">
 
                             <div>
@@ -1888,7 +1889,7 @@
                 <ul class="space-y-3 mb-6">
                     <li><p class="flex items-center justify-center md:justify-start text-gray-400"><svg class="w-5 h-5 mr-2 text-indigo-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.838 1.405l.659 3.182c.11.536.054 1.082-.162 1.556l-1.587 1.588a11.54 11.54 0 006.11 6.11l1.588-1.587a2.25 2.25 0 011.556-.162l3.182.659c.819.228 1.392.978 1.405 1.838V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" /></svg><a href="tel:+919051089673" class="hover:underline">+91 9051089673</a></p></li>
                     <li><p class="flex items-center justify-center md:justify-start text-gray-400"><svg class="w-5 h-5 mr-2 text-indigo-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.624 5.275a3 3 0 01-3.352 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.91a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg><a href="mailto:dipanjanchatterjee23@gmail.com" class="hover:underline">dipanjanchatterjee23@gmail.com</a></p></li>
-                    <li><p class="flex items-center justify-center md:justify-start text-gray-400"><svg class="w-5 h-5 mr-2 text-indigo-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.54 22.351l.07.07.07-.07 7.128-7.128A8.962 8.962 0 0021 12c0-4.97-4.03-9-9-9S3 7.03 3 12a8.962 8.962 0 002.268 5.823l7.128 7.128zm.072-6.524a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" clip-rule="evenodd" /></svg>Madhyamgram & Barasat, Kolkata</p></li>
+                    <li><p class="flex items-center justify-center md:justify-start text-gray-400"><svg class="w-5 h-5 mr-2 text-indigo-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Madhyamgram & Barasat, Kolkata</p></li>
                 </ul>
                 <div class="flex justify-center md:justify-start space-x-4">
                     <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook Page">
@@ -1899,7 +1900,7 @@
                     </a>
                      <a href="https://t.me/dipanjan9271" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Telegram">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 0C5.372 0 0 5.372 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12C24 5.372 18.628 0 12 0zm5.176 8.358c-.378-.052-.777-.07-.94-.07-.373 0-.66.082-.86.233-.2.152-.36.386-.48.704-.12.318-.2.687-.24 1.107-.04.42-.057.776-.057 1.066 0 .39.014.733.042 1.03.028.297.086.602.176.914.09.312.215.62.373.92.16.3.363.59.61.87.246.282.52.535.823.76-.32.008-.642.016-.96.016-1.516 0-2.822-.442-3.92-1.326-1.102-.885-1.92-2.128-2.45-3.72-2.73-1.63-2.92-4.04-1.17-7.238.487-.93 1.157-1.62 2-2.072.843-.453 1.79-.68 2.84-.68.647 0 1.25.045 1.8.136.55.09 1.05.228 1.5.412.45.183.846.425 1.19.724.343.3.616.634.823.992.207.358.337.74.39 1.144-.35.034-.69.103-1.02.208-.33.104-.64.24-.93.407-.29.167-.55.36-.78.58-.23.22-.4.47-.51.748-.035.1-.06.205-.08.315-.02.11-.03.225-.03.345 0 .17.002.343.007.518.005.175.013.35.025.526.01.18.02.35.03.518.01.17.01.343.01.518s-.01.348-.02.523c-.01.175-.02.34-.03.495-.008.155-.013.3-.013.435 0 .12.015.23.045.33.03.1.07.2.118.29.048.09.096.167.144.232.048.065.095.12.14.165.047.045.088.077.12.095.03.018.05.027.06.027.03-.005.08-.01.15-.015.07-.006.14-.01.2-.01l-.22.25c.3.35.7.63 1.2.85s1.04.38 1.63.45c.44-.24.87-.5 1.28-.78.41-.28.78-.59 1.11-.92.33-.33.6-.68.81-1.05.21-.37.33-.76.36-1.17 1.09-2.31 1.77-4.23 2.04-5.77.27-1.54.27-2.73-.02-3.56-.29-.83-.75-1.55-1.37-2.16-.62-.62-1.32-1.08-2.12-1.39-1.2-1.07-2.82-1.6-4.88-1.6z"/>
+                            <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 15 9"/>
                         </svg>
                     </a>
                 </div>
@@ -1911,21 +1912,21 @@
     </footer> <!-- End Footer Section -->
 
     <!-- Floating WhatsApp CTA Button -->
-    <a href="https://wa.me/919748559613" class="fixed bottom-6 right-6 z-50 bg-green-500 p-3 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/919748559613" class="fixed bottom-8 right-6 z-50 bg-green-500 p-3 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
         <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-10 h-10 group-hover:animate-bounce">
     </a>
 
     <!-- Chatbot CTA Button (IMPROVED) -->
-    <button id="chatbot-cta-btn" class="fixed bottom-20 right-6 z-50 bg-indigo-600 p-3 rounded-full text-white shadow-xl hover:scale-110 transition-transform duration-300 chatbot-cta group focus:outline-none focus:ring-4 focus:ring-indigo-300" aria-label="Open AI Assistant Chat">
+    <button id="chatbot-cta-btn" class="fixed bottom-24 right-6 z-50 bg-indigo-600 p-3 rounded-full text-white shadow-xl hover:scale-110 transition-transform duration-300 chatbot-cta group focus:outline-none focus:ring-4 focus:ring-indigo-300" aria-label="Open AI Assistant Chat">
         <!-- New Math-themed AI Icon -->
         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 8.25a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v1.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zM12 18.75h.008v.008H12v-.008zM12 12h.008v.008H12v-.008zM12 5.25h.008v.008H12v-.008zM18.75 12h.008v.008h-.008v-.008zM5.25 12h.008v.008h-.008v-.008zM21.75 12a9.75 9.75 0 01-9.75 9.75c-4.248 0-7.89-2.934-9.155-7.072a.752.752 0 010-.356C4.11 5.165 7.752 2.25 12 2.25a9.75 9.75 0 019.75 9.75zm-1.5 0a8.25 8.25 0 10-16.5 0 8.25 8.25 0 0016.5 0z" />
+            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 13H7v-2h2v2zm3 0h-2v-2h2v2zm3 0h-2v-2h2v2z"/>
         </svg>
     </button>
 
     <!-- Scroll-to-top Button -->
     <!-- START CHANGE: Adjust right position for scroll-to-top button -->
-    <button id="scroll-to-top" class="fixed bottom-6 right-20 z-90 md:right-32 lg:right-40 xl:right-48" aria-label="Scroll to top">
+    <button id="scroll-to-top" class="fixed z-90" aria-label="Scroll to top">
     <!-- END CHANGE -->
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
@@ -2055,12 +2056,12 @@
         let appId = null; // Declare appId globally
         let allBlogPosts = []; // Store all blog posts for modal display
 
-        // Cloudinary Configuration (REPLACE THESE WITH YOUR ACTUAL VALUES)
-        const CLOUDINARY_CLOUD_NAME = "dddje9n3g"; // e.g., "my-awesome-cloud"
-        const CLOUDINARY_UPLOAD_PRESET = "mathematico-website"; // e.g., "mathematico_unsigned_upload"
-
-        // Web3Forms Access Key (REPLACE THIS WITH YOUR ACTUAL KEY from web3forms.com)
-        const WEB3FORMS_ACCESS_KEY = '94f94b03-6930-4fff-bd72-94063d7a66bf'; // Example: '1234abcd-efgh-ijkl-mnop-qrstuvwxyza1'
+        // Global constants will be loaded from the serverless function /api/get-config
+        let CLOUDINARY_CLOUD_NAME = null;
+        let CLOUDINARY_UPLOAD_PRESET = null;
+        let WEB3FORMS_ACCESS_KEY = null; 
+        
+        let firebaseConfig = {}; // Will be populated dynamically
 
         // --- NEW GLOBAL DATA/FILTER STATE VARIABLES ---
         let allBooksData = [];
@@ -2123,22 +2124,13 @@
 
         // Function to initialize Firebase and attach listeners
         async function initializeFirebaseAndListeners() {
-            // Firebase configuration and initialization
-            const firebaseConfig = {
-                apiKey: "AIzaSyCIKdwTmJxok8VodE3lUI-1UlH1WNadfpc",
-                authDomain: "mathematico-website.firebaseapp.com",
-                projectId: "mathematico-website",
-                messagingSenderId: "186709981685",
-                appId: "1:186709981685:web:b86177e07352cb5f1c48bc",
-                measurementId: "G-5Z24Z4Q97Q"
-            };
-
             // Log the provided Canvas variables for debugging
             console.log("Canvas __app_id:", typeof __app_id !== 'undefined' ? __app_id : 'undefined');
             console.log("Canvas __initial_auth_token:", typeof __initial_auth_token !== 'undefined' ? 'Token present' : 'Token not present');
 
             // Assign to the global appId variable
-            appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
+            // NOTE: firebaseConfig is now loaded from the server
+            appId = typeof __app_id !== 'undefined' ? __appId : firebaseConfig.projectId;
 
             // Check if essential Firebase config values are provided
             if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain && firebaseConfig.appId) {
@@ -2193,6 +2185,45 @@
                 document.getElementById('auth-section').classList.add('hidden');
             }
         }
+
+        // Function to load configuration from serverless function
+        async function loadAppConfiguration() {
+            try {
+                // Fetch configuration securely from Netlify Function
+                const response = await fetch('/.netlify/functions/get-config');
+                if (!response.ok) {
+                    throw new Error(`Failed to load configuration: ${response.statusText}`);
+                }
+                const config = await response.json();
+
+                // 1. Firebase Config
+                firebaseConfig = config.FIREBASE_CONFIG;
+                
+                // 2. Cloudinary Config
+                CLOUDINARY_CLOUD_NAME = config.CLOUDINARY_CLOUD_NAME;
+                CLOUDINARY_UPLOAD_PRESET = config.CLOUDINARY_UPLOAD_PRESET;
+                
+                // 3. Web3Forms Key
+                WEB3FORMS_ACCESS_KEY = config.WEB3FORMS_ACCESS_KEY;
+                
+                console.log("Application configuration loaded successfully.");
+
+            } catch (error) {
+                console.error("CRITICAL: Failed to load application configuration.", error);
+                showMessageBox("Configuration Error", "Could not load essential API settings. Please contact the administrator.");
+                // Set fallback values to prevent crashes, but disable features
+                firebaseConfig = { apiKey: null, projectId: 'fallback', authDomain: 'fallback.firebaseapp.com', appId: 'fallback' };
+                WEB3FORMS_ACCESS_KEY = '';
+            }
+            
+            // Now that config is loaded (or defaulted), proceed with Firebase initialization
+            const allAccessKeyInputs = document.querySelectorAll('input[name="access_key"]');
+            allAccessKeyInputs.forEach(input => {
+                input.value = WEB3FORMS_ACCESS_KEY;
+            });
+            initializeFirebaseAndListeners();
+        }
+
 
         // Function to check admin status
         async function checkAdminStatus(user) {
@@ -2790,11 +2821,14 @@
             } 
 
 
-            const allAccessKeyInputs = document.querySelectorAll('input[name="access_key"]');
-            allAccessKeyInputs.forEach(input => {
-                input.value = WEB3FORMS_ACCESS_KEY;
-            });
-            initializeFirebaseAndListeners();
+            // This line is now handled inside loadAppConfiguration()
+            // const allAccessKeyInputs = document.querySelectorAll('input[name="access_key"]');
+            // allAccessKeyInputs.forEach(input => {
+            //     input.value = WEB3FORMS_ACCESS_KEY;
+            // });
+
+            // Start the initialization sequence by loading configuration
+            loadAppConfiguration();
         });
 
         themeToggle.addEventListener('click', () => {
@@ -5079,5 +5113,42 @@
     </script>
 </body>
 </html>
----------------------------------
-i want the floating buttons to be not overlapping and separated distinctly, please send me the line of code changes.
+-----------------------
+// File: netlify/functions/get-config.js
+
+const FIREBASE_CONFIG = {
+    apiKey: process.env.VITE_FIREBASE_API_KEY,
+    authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.VITE_FIREBASE_APP_ID,
+    measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID
+};
+
+const CLOUDINARY_CLOUD_NAME = process.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = process.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const WEB3FORMS_ACCESS_KEY = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+
+exports.handler = async () => {
+    if (!FIREBASE_CONFIG.apiKey || !WEB3FORMS_ACCESS_KEY) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: "Configuration keys are missing from environment variables." }),
+        };
+    }
+    
+    return {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache, no-store, must-revalidate", // Prevent caching of config
+        },
+        body: JSON.stringify({
+            FIREBASE_CONFIG,
+            CLOUDINARY_CLOUD_NAME,
+            CLOUDINARY_UPLOAD_PRESET,
+            WEB3FORMS_ACCESS_KEY,
+        }),
+    };
+};

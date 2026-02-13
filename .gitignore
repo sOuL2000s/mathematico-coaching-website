@@ -1,1 +1,59 @@
-*.json
+# ------------------------------------
+# 1. DEPENDENCIES AND BUILD ARTIFACTS
+# ------------------------------------
+
+# Node dependencies (always ignore)
+/node_modules
+
+# If you use Yarn/pnpm, ignore their dependency files if applicable
+# /yarn.lock
+# /pnpm-lock.yaml
+
+# Compiled/Build output (if applicable, though Netlify handles the actual build)
+/dist
+/build
+/out
+
+# ------------------------------------
+# 2. CONFIGURATION AND SECRETS
+# ------------------------------------
+
+# Environment variables (contains secrets, must be ignored)
+.env
+.env.*
+!.env.example # Keep example files for tracking
+
+# ------------------------------------
+# 3. GENERATED/TEMPORARY FILES (Observed in your directory)
+# ------------------------------------
+
+# Generated image files (Based on the naming conventions observed)
+# This includes all files starting with 'Gemini_Generated_Image'
+Gemini_Generated_Image_*
+
+# Other temporary image output files
+babi_da_photo_removebg_preview*
+ChatGPT*Image*
+
+# ------------------------------------
+# 4. NETLIFY & VS CODE (Editor/Tooling)
+# ------------------------------------
+
+# Netlify cache and configuration (if .netlify contains only cache/build artifacts)
+# NOTE: If your source code is nested deep within .netlify, be careful. 
+# Usually, Netlify configuration is fine to track, but temporary cache should be ignored.
+.netlify/cache/
+
+# VS Code settings directory (optional, but common to ignore user-specific settings)
+.vscode/
+
+# ------------------------------------
+# 5. OS Generated Files
+# ------------------------------------
+
+# Mac OS files
+.DS_Store
+# Windows files
+Thumbs.db
+.netlify
+deno.lock
