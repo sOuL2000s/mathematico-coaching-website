@@ -691,6 +691,9 @@
     <meta name="keywords" content="mathematics coaching, JEE, Olympiad, Barasat, Madhyamgram, Dipanjan Chatterjee, math tutor, Pure Maths, IIT-JEE preparation, WBJEE, ISI B-Stat, B-Tech math, GATE math, advanced mathematics, conceptual clarity, problem solving">
     <meta name="author" content="Dipanjan Chatterjee">
 
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.yourwebsite.com/"> <!-- Replace with your actual URL -->
@@ -1782,17 +1785,149 @@
             </div>
         </section>
 
+        <!-- Admin Dashboard Page -->
+        <section id="admin-dashboard-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
+                       dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+            <div class="container mx-auto px-6 md:px-12 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight text-red-600">Admin Dashboard</h2>
+                
+                <div id="admin-dashboard-content" class="text-left space-y-12">
+                    
+                    <!-- 1. Course Management (CRUD) -->
+                    <div id="course-management-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Course Management (CRUD)</h3>
+                        
+                        <button id="show-add-course-form-btn" class="bg-teal-600 text-white px-6 py-2 rounded-full mb-6 hover:bg-teal-700 transition duration-300">Add New Course</button>
+                        
+                        <!-- Add/Edit Course Form -->
+                        <form id="add-edit-course-form" class="space-y-4 hidden">
+                            <input type="hidden" id="course-id">
+                            <div>
+                                <label for="course-title" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Title:</label>
+                                <input type="text" id="course-title" placeholder="e.g., JEE Advanced Mathematics" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                            </div>
+                            <div>
+                                <label for="course-description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Description:</label>
+                                <textarea id="course-description" rows="4" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
+                            </div>
+                            <div class="flex space-x-4">
+                                <div class="w-1/2">
+                                    <label for="course-price" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Price (INR):</label>
+                                    <input type="number" id="course-price" placeholder="5000" min="1" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                                </div>
+                                <div class="w-1/2">
+                                    <label for="course-duration-days" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Duration (Days):</label>
+                                    <input type="number" id="course-duration-days" placeholder="365" min="1" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700">Save Course</button>
+                                <button type="button" id="cancel-edit-course-btn" class="bg-gray-400 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-gray-500 hidden">Cancel</button>
+                            </div>
+                        </form>
+
+                        <div id="courses-list-admin" class="mt-8 space-y-4">
+                            <!-- Course list for CRUD operations will be rendered here -->
+                            <p class="text-center text-gray-500 dark:text-gray-400">Loading courses...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. Student Management & Subscriptions -->
+                    <div id="student-management-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Student & Subscription Management</h3>
+                        
+                        <div class="mb-4">
+                            <input type="text" id="student-search-admin" placeholder="Search students by name or email..." class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                        </div>
+
+                        <div id="students-table-container" class="overflow-x-auto">
+                            <!-- Student table rendered here -->
+                            <p class="text-center text-gray-500 dark:text-gray-400">Loading student data...</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Payment Logs (Placeholder for Razorpay integration) -->
+                    <div id="payment-logs-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Payment Logs (Razorpay)</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Detailed logs from Razorpay webhooks and payment verifications will appear here.</p>
+                        <div id="payment-logs-display" class="mt-4 space-y-2">
+                            <p class="text-center text-gray-500 dark:text-gray-400">Loading payment data...</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Student Dashboard Page -->
+        <section id="student-dashboard-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
+                       dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+            <div class="container mx-auto px-6 md:px-12 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Student Dashboard</h2>
+                
+                <div id="student-dashboard-content" class="text-left space-y-12 max-w-5xl mx-auto">
+                    
+                    <!-- Profile Setup -->
+                    <div id="student-profile-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Your Profile Setup</h3>
+                        <form id="student-profile-form" class="space-y-4">
+                            <p class="text-sm text-red-500 dark:text-red-400">Ensure the 'Email for Telegram Invite' is correct for access to private groups after purchase.</p>
+                            <div>
+                                <label for="student-profile-name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Full Name:</label>
+                                <input type="text" id="student-profile-name" required class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            </div>
+                            <div>
+                                <label for="student-profile-phone" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Contact Phone:</label>
+                                <input type="tel" id="student-profile-phone" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            </div>
+                            <div>
+                                <label for="student-profile-telegram-email" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email for Telegram Invite:</label>
+                                <input type="email" id="student-profile-telegram-email" required class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            </div>
+                            <button type="submit" class="bg-teal-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-teal-700">Save Profile</button>
+                        </form>
+                    </div>
+
+                    <!-- Purchased Courses/Subscriptions -->
+                    <div id="student-subscriptions-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Your Active Subscriptions</h3>
+                        <div id="subscriptions-list-student" class="space-y-4">
+                            <p class="text-center text-gray-500 dark:text-gray-400">No active subscriptions found.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Marketplace -->
+                    <div id="student-marketplace-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Browse & Buy Courses</h3>
+                        <div id="marketplace-courses-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <p class="text-center text-gray-500 dark:text-gray-400 col-span-full">Loading courses...</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
         <!-- Admin Page -->
         <section id="admin-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
                        dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
             <div class="container mx-auto px-6 md:px-12 text-center">
-                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Admin Panel</h2>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">User Login & Admin Tools</h2>
 
                 <!-- Admin Authentication Section -->
                 <div id="auth-section" class="bg-white p-8 rounded-2xl shadow-xl mb-8 dark:bg-gray-800 max-w-lg mx-auto border border-indigo-100 dark:border-gray-600">
                     <h3 id="auth-heading" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Admin Login</h3>
 
                     <div id="login-form-container" class="space-y-5">
+                        <div id="role-selection-container">
+                            <label for="login-as-role" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 text-left">Login As:</label>
+                            <select id="login-as-role" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 appearance-none">
+                                <option value="student">Student/User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
                         <div>
                             <label for="admin-email" class="sr-only">Email</label>
                             <input type="email" id="admin-email" placeholder="Email" class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-3 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
@@ -1946,6 +2081,29 @@
         </div>
     </div>
 
+    <!-- Buy Course Modal (Student Purchase) -->
+    <div id="buy-course-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="buy-course-modal-title">
+        <div class="modal-content max-w-lg">
+            <button class="modal-close-button" aria-label="Close course details" id="buy-course-modal-close-button">&times;</button>
+            <h3 id="buy-course-modal-title" class="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-100"></h3>
+            
+            <div id="buy-course-details" class="text-left space-y-4 mb-6 text-lg text-gray-700 dark:text-gray-300">
+                <p><strong>Description:</strong> <span id="buy-course-desc"></span></p>
+                <p><strong>Duration:</strong> <span id="buy-course-duration"></span> days</p>
+                <p class="text-2xl font-extrabold text-teal-600 dark:text-teal-400">Price: ₹ <span id="buy-course-price"></span></p>
+                
+                <p class="text-sm text-gray-500 dark:text-gray-400">Your profile details (Name and Telegram Email) will be used for enrollment and invite links.</p>
+            </div>
+            
+            <button id="razorpay-checkout-btn" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                Proceed to Checkout (Razorpay)
+            </button>
+            <div id="razorpay-loading-spinner" class="spinner hidden mx-auto mt-4"></div>
+            <p id="razorpay-error-message" class="text-red-500 mt-3 hidden"></p>
+
+        </div>
+    </div>
+    
     <!-- Enrollment Modal Structure -->
     <div id="enrollment-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="enrollment-modal-title">
         <div class="modal-content">
@@ -2034,6 +2192,45 @@
         </div>
     </div>
 
+    <!-- Admin Edit Student Modal (NEW) -->
+    <div id="admin-edit-student-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="admin-edit-student-modal-title">
+        <div class="modal-content max-w-2xl">
+            <button class="modal-close-button" aria-label="Close student edit form" id="admin-edit-student-modal-close-button">&times;</button>
+            <h3 id="admin-edit-student-modal-title" class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100">Edit Student</h3>
+            
+            <p class="text-gray-600 dark:text-gray-300 mb-4"><strong>Email:</strong> <span id="admin-edit-student-email" class="font-mono"></span></p>
+
+            <form id="admin-edit-student-form" class="space-y-6">
+                <input type="hidden" id="admin-edit-student-id">
+                
+                <h4 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400 border-b pb-2 dark:border-gray-700">Profile Details</h4>
+                <div>
+                    <label for="admin-edit-name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Full Name:</label>
+                    <input type="text" id="admin-edit-name" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="admin-edit-phone" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Contact Phone:</label>
+                    <input type="tel" id="admin-edit-phone" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                </div>
+                <div>
+                    <label for="admin-edit-telegram-email" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Telegram Invite Email (Crucial):</label>
+                    <input type="email" id="admin-edit-telegram-email" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-teal-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-teal-700">Save Profile Details</button>
+
+            </form>
+
+            <h4 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400 border-b pb-2 mt-8 mb-4 dark:border-gray-700">Subscription Management (Expiry Date Updates)</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Adjust the expiry date for any course to manage active subscriptions. Changing the date automatically saves the subscription status.</p>
+            
+            <div id="admin-subscriptions-management" class="space-y-3">
+                <!-- Dynamic subscription inputs will be injected here -->
+            </div>
+
+        </div>
+    </div>
+
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -2045,9 +2242,17 @@
         let db = null;
         let auth = null;
         let userId = 'anonymous'; // Default to anonymous
-        let isAdmin = false; // Global flag for admin status
+        let dbUserRole = null; // Role retrieved from Firestore (admin/user)
+        let currentUserRole = null; // Role currently viewing the dashboard (admin/student)
+        let isAdmin = false; // Track admin status based on dbUserRole
         let appId = null; // Declare appId globally
         let allBlogPosts = []; // Store all blog posts for modal display
+        
+        // New Global Data and State
+        let allCoursesData = []; // Store courses for both dashboards
+        let allStudentsData = []; // Store all user data for Admin Panel
+        
+        let razorpayKeyId = null; // Razorpay Public Key ID
 
         // Global constants will be loaded from the serverless function /api/get-config
         let CLOUDINARY_CLOUD_NAME = null;
@@ -2199,6 +2404,9 @@
                 // 3. Web3Forms Key
                 WEB3FORMS_ACCESS_KEY = config.WEB3FORMS_ACCESS_KEY;
                 
+                // 4. Razorpay Key ID
+                razorpayKeyId = config.RAZORPAY_KEY_ID;
+                
                 console.log("Application configuration loaded successfully.");
 
             } catch (error) {
@@ -2218,9 +2426,11 @@
         }
 
 
-        // Function to check admin status
+        // Function to check user role (admin or user) from Firestore
         async function checkAdminStatus(user) {
-            if (!db || !user) {
+            if (!db || !user || user.isAnonymous) {
+                dbUserRole = null;
+                currentUserRole = null; // Clear role on logout/anon
                 isAdmin = false;
                 updateAdminUI();
                 return;
@@ -2228,74 +2438,160 @@
             try {
                 const userDocRef = doc(getCollectionRef("users"), user.uid); 
                 const userDocSnap = await getDoc(userDocRef);
-                if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
-                    isAdmin = true;
-                    console.log("User is an admin.");
+                if (userDocSnap.exists()) {
+                    dbUserRole = userDocSnap.data().role || 'user';
+                    console.log(`User DB Role: ${dbUserRole}`);
                 } else {
-                    isAdmin = false;
-                    console.log("User is not an admin or role not set.");
+                    // Safety fallback for newly created users before role is written
+                    dbUserRole = 'user'; 
+                    console.log("User document missing, defaulting to user role.");
                 }
             } catch (e) {
-                console.error("Error checking admin status:", e);
-                isAdmin = false;
+                console.error("Error checking user status:", e);
+                dbUserRole = 'user'; // Fail safe
             }
+            
+            // Determine the current page hash.
+            const currentPage = window.location.hash.substring(1);
+            const requiredDashboard = dbUserRole === 'admin' ? 'admin-dashboard-page' : 'student-dashboard-page';
+            const isDashboardPage = currentPage === 'admin-dashboard-page' || currentPage === 'student-dashboard-page';
+
+            if (user && !user.isAnonymous) {
+                // User is authenticated.
+                if (isDashboardPage) {
+                    // Check if the user is a DB admin. If so, they must go to admin dashboard, regardless of the hash or selected role.
+                    if (dbUserRole === 'admin') {
+                        currentUserRole = 'admin';
+                        if (currentPage !== 'admin-dashboard-page') {
+                            history.replaceState(null, null, `#admin-dashboard-page`);
+                            renderPage('admin-dashboard-page');
+                        } else {
+                            renderPage('admin-dashboard-page');
+                        }
+                    } 
+                    // If the user is a standard user, ensure they are on the student dashboard.
+                    else {
+                        currentUserRole = 'student';
+                        if (currentPage !== 'student-dashboard-page') {
+                            history.replaceState(null, null, `#student-dashboard-page`);
+                            renderPage('student-dashboard-page');
+                        } else {
+                            renderPage('student-dashboard-page');
+                        }
+                    }
+                }
+            } else if (isDashboardPage) {
+                // User is logged out but on a dashboard URL
+                history.replaceState(null, null, `#home`);
+                renderPage('home');
+                return;
+            }
+
+
             updateAdminUI();
             initializeFirestoreListeners(); // Initialize listeners after auth state and admin status are known
         }
 
-        // Function to update UI based on admin status
+        // Function to update UI based on selected dashboard role (currentUserRole)
         function updateAdminUI() {
+            // Update the global isAdmin flag based on the latest dbUserRole
+            isAdmin = dbUserRole === 'admin';
+            
             const adminPanels = document.querySelectorAll('.admin-panel');
             const adminIndicator = document.getElementById('admin-mode-indicator');
             const authSection = document.getElementById('auth-section');
+            const adminDashboardPage = document.getElementById('admin-dashboard-page');
+            const studentDashboardPage = document.getElementById('student-dashboard-page');
 
+            // Ensure all admin CRUD panels are hidden by default unless active admin is viewing a resource page.
             adminPanels.forEach(panel => panel.classList.add('hidden'));
 
-            if (isAdmin) {
+            const isDbAdmin = dbUserRole === 'admin';
+            const isViewingAdmin = currentUserRole === 'admin';
+            const isViewingStudent = currentUserRole === 'student';
+
+            // 1. Admin Indicator
+            if (isViewingAdmin) {
                 adminIndicator.classList.add('active');
-                // Only show admin panels if on the admin page or relevant resource pages
-                const currentPage = window.location.hash.substring(1);
-                if (currentPage === 'admin-page') {
-                    document.getElementById('auth-section').classList.remove('hidden');
-                }
-                if (currentPage === 'book-list-page' && bookListAdminPanel) bookListAdminPanel.classList.remove('hidden');
-                if (currentPage === 'problems-page' && problemsAdminPanel) problemsAdminPanel.classList.remove('hidden');
-                if (currentPage === 'pyq-page' && pyqAdminPanel) pyqAdminPanel.classList.remove('hidden'); // NEW
-                if (currentPage === 'puzzles-page' && puzzlesAdminPanel) puzzlesAdminPanel.classList.remove('hidden'); // NEW
-                if (currentPage === 'gallery-page' && galleryAdminPanel) galleryAdminPanel.classList.remove('hidden');
-                if (currentPage === 'blog-page' && blogAdminPanel) blogAdminPanel.classList.remove('hidden');
-                if (currentPage === 'reviews-page' && reviewsAdminPanel) reviewsAdminPanel.classList.remove('hidden'); // NEW
-
-
-                if (auth.currentUser) {
-                    authHeading.textContent = "Admin Dashboard";
-                    loginFormContainer.classList.add('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.remove('hidden');
-                    userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
-                    userIdDisplay.textContent = auth.currentUser.uid;
-                }
-            } else { // Not an admin
+            } else {
                 adminIndicator.classList.remove('active');
-
-                if (auth.currentUser && !auth.currentUser.isAnonymous) { // Logged in as a regular user
-                    authHeading.textContent = "User Profile";
-                    loginFormContainer.classList.add('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.remove('hidden');
-                    userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
-                    userIdDisplay.textContent = auth.currentUser.uid;
-                } else { // Not logged in or anonymous
-                    authHeading.textContent = "Admin Login";
-                    loginFormContainer.classList.remove('hidden');
-                    registerFormContainer.classList.add('hidden');
-                    adminDashboard.classList.add('hidden');
-                }
             }
 
+            // 2. Hide main marketing content if currently navigating to or viewing a dashboard
+            const currentPageId = window.location.hash.substring(1);
+            const isViewingDashboardPage = currentPageId === 'admin-dashboard-page' || currentPageId === 'student-dashboard-page';
+
+            if (isViewingDashboardPage) {
+                mainContentContainer.classList.add('hidden');
+            } else {
+                mainContentContainer.classList.remove('hidden');
+            }
+            
+            // 3. Render specific dashboards and show admin CRUD panels
+            if (isViewingAdmin && isDbAdmin) {
+                renderAdminDashboard();
+                
+                const currentPage = window.location.hash.substring(1);
+                
+                // Show CRUD panels on resource pages
+                if (currentPage === 'book-list-page' && bookListAdminPanel) bookListAdminPanel.classList.remove('hidden');
+                if (currentPage === 'problems-page' && problemsAdminPanel) problemsAdminPanel.classList.remove('hidden');
+                if (currentPage === 'pyq-page' && pyqAdminPanel) pyqAdminPanel.classList.remove('hidden'); 
+                if (currentPage === 'puzzles-page' && puzzlesAdminPanel) puzzlesAdminPanel.classList.remove('hidden'); 
+                if (currentPage === 'gallery-page' && galleryAdminPanel) galleryAdminPanel.classList.remove('hidden');
+                if (currentPage === 'blog-page' && blogAdminPanel) blogAdminPanel.classList.remove('hidden');
+                if (currentPage === 'reviews-page' && reviewsAdminPanel) reviewsAdminPanel.classList.remove('hidden'); 
+                
+            } else if (isViewingStudent) {
+                renderStudentDashboard();
+            }
+
+            // 4. Update Auth Section Visibility on Admin Page
             if (window.location.hash.substring(1) === 'admin-page') {
                 authSection.classList.remove('hidden');
             }
+
+            // 5. Update Auth Form based on login state
+            if (auth.currentUser && !auth.currentUser.isAnonymous) {
+                authHeading.textContent = `User Profile (Role: ${dbUserRole ? dbUserRole.toUpperCase() : 'Loading...'})`;
+                loginFormContainer.classList.add('hidden');
+                registerFormContainer.classList.add('hidden');
+                adminDashboard.classList.remove('hidden');
+                userEmailDisplay.textContent = auth.currentUser.email || 'N/A';
+                userIdDisplay.textContent = auth.currentUser.uid;
+            } else { 
+                authHeading.textContent = "Login / Register";
+                loginFormContainer.classList.remove('hidden');
+                registerFormContainer.classList.add('hidden');
+                adminDashboard.classList.add('hidden');
+            }
+
+            // Also update the course cards availability based on login status
+            updateCourseCardButtons();
+        }
+
+        // New function to update course buttons based on login status
+        function updateCourseCardButtons() {
+            const enrollButtons = document.querySelectorAll('.enroll-button');
+            enrollButtons.forEach(button => {
+                // Remove all dashboard-related listeners and classes first
+                button.removeEventListener('click', showEnrollmentModalHandler); 
+                button.removeEventListener('click', showCourseDetailModalHandler);
+
+                if (auth.currentUser && !auth.currentUser.isAnonymous) {
+                    // Logged in: Change 'Enroll Now' to 'View Details/Buy'
+                    button.textContent = "View Details";
+                    button.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    button.classList.add('bg-teal-600', 'hover:bg-teal-700');
+                    button.addEventListener('click', showCourseDetailModalHandler);
+                } else {
+                    // Logged out: Keep 'Enroll Now' (for lead generation via web3forms)
+                    button.textContent = "Enroll Now";
+                    button.classList.remove('bg-teal-600', 'hover:bg-teal-700');
+                    button.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                    button.addEventListener('click', showEnrollmentModalHandler);
+                }
+            });
         }
 
 
@@ -2455,12 +2751,57 @@
 
         // Reviews Elements (NEW SECTION)
         const reviewSubmissionForm = document.getElementById('review-submission-form');
+
+        // --- DASHBOARD ELEMENTS ---
+        // Admin Dashboard Elements
+        const adminDashboardContent = document.getElementById('admin-dashboard-content');
+        const showAddCourseFormBtn = document.getElementById('show-add-course-form-btn');
+        const addEditCourseForm = document.getElementById('add-edit-course-form');
+        const courseIdInput = document.getElementById('course-id');
+        const courseTitleInput = document.getElementById('course-title');
+        const courseDescriptionInput = document.getElementById('course-description');
+        const coursePriceInput = document.getElementById('course-price');
+        const courseDurationInput = document.getElementById('course-duration-days');
+        const cancelEditCourseBtn = document.getElementById('cancel-edit-course-btn');
+        const coursesListAdmin = document.getElementById('courses-list-admin');
+        const studentSearchAdmin = document.getElementById('student-search-admin');
+        const studentsTableContainer = document.getElementById('students-table-container');
+
+        // Student Dashboard Elements
+        const studentDashboardContent = document.getElementById('student-dashboard-content');
+        const studentProfileForm = document.getElementById('student-profile-form');
+        const studentProfileNameInput = document.getElementById('student-profile-name');
+        const studentProfilePhoneInput = document.getElementById('student-profile-phone');
+        const studentProfileTelegramEmailInput = document.getElementById('student-profile-telegram-email');
+        const subscriptionsListStudent = document.getElementById('subscriptions-list-student');
+        const marketplaceCoursesList = document.getElementById('marketplace-courses-list');
+
+        // Razorpay Modal Elements
+        const buyCourseModal = document.getElementById('buy-course-modal');
+        const buyCourseModalCloseBtn = document.getElementById('buy-course-modal-close-button');
+        const buyCourseModalTitle = document.getElementById('buy-course-modal-title');
+        const buyCourseDesc = document.getElementById('buy-course-desc');
+        const buyCourseDuration = document.getElementById('buy-course-duration');
+        const buyCoursePrice = document.getElementById('buy-course-price');
+        const razorpayCheckoutBtn = document.getElementById('razorpay-checkout-btn');
+        const razorpayLoadingSpinner = document.getElementById('razorpay-loading-spinner');
+        const razorpayErrorMessage = document.getElementById('razorpay-error-message');
+        let currentCheckoutCourse = null; // Stores the course object being purchased
+
+        // New Auth Element
+        const loginAsRoleSelect = document.getElementById('login-as-role');
         const reviewRatingInput = document.getElementById('review-rating');
         const reviewTextInput = document.getElementById('review-text');
         const reviewsDisplay = document.getElementById('reviews-display');
         const reviewsLoading = document.getElementById('reviews-loading');
         const reviewsAdminPanel = document.getElementById('reviews-admin-panel');
         const reviewsAdminDisplay = document.getElementById('reviews-admin-display');
+        
+        // Admin Student Edit Modal Elements (NEW)
+        const adminEditStudentModal = document.getElementById('admin-edit-student-modal');
+        const adminEditStudentForm = document.getElementById('admin-edit-student-form');
+        const adminEditStudentModalCloseBtn = document.getElementById('admin-edit-student-modal-close-button');
+        const adminSubscriptionsManagement = document.getElementById('admin-subscriptions-management');
 
         // Chatbot Elements (NEW)
         const chatbotCtaBtn = document.getElementById('chatbot-cta-btn');
@@ -2504,15 +2845,28 @@
                 section.classList.add('hidden');
             });
             const targetSection = document.getElementById(pageId);
-            if (targetSection) {
+            
+            // Explicitly hide dashboards when navigating to non-dashboard pages
+            const isDashboard = pageId.includes('dashboard-page');
+            
+            document.getElementById('admin-dashboard-page').classList.add('hidden');
+            document.getElementById('student-dashboard-page').classList.add('hidden');
+            
+            if (isDashboard) {
+                // Defer dashboard authorization/rendering to checkAdminStatus/updateAdminUI
+                mainContentContainer.classList.add('hidden'); 
+                if (targetSection) targetSection.classList.remove('hidden');
+            } else if (targetSection) {
                 targetSection.classList.remove('hidden');
-
-                // Special handling for admin-related panels/sections
+                mainContentContainer.classList.remove('hidden');
+                
+                // Reset admin tool visibility
                 document.querySelectorAll('.admin-panel').forEach(panel => panel.classList.add('hidden')); 
                 document.getElementById('auth-section').classList.add('hidden'); 
-
-                // Update admin panels based on page and admin status
-                if (isAdmin) {
+                
+                // Show admin panels on resource pages if the user is logged in as admin (dbUserRole must be ready)
+                const isCurrentUserAdmin = dbUserRole === 'admin';
+                if (isCurrentUserAdmin) {
                     if (pageId === 'book-list-page' && bookListAdminPanel) bookListAdminPanel.classList.remove('hidden');
                     if (pageId === 'problems-page' && problemsAdminPanel) problemsAdminPanel.classList.remove('hidden');
                     if (pageId === 'pyq-page' && pyqAdminPanel) pyqAdminPanel.classList.remove('hidden');
@@ -2684,7 +3038,10 @@
                 pageToRender = initialHash;
             }
             
-            renderPage(pageToRender);
+            // Defer initial dashboard rendering until Firebase status check completes (checkAdminStatus)
+            if (!pageToRender.includes('dashboard-page')) {
+                renderPage(pageToRender);
+            }
 
             // START NEW ADDITION: Set initial button texts based on new default view state
             if (problemToggleCategoryViewBtn) {
@@ -2715,6 +3072,14 @@
                     }
                 });
             };
+            
+            hamburgerButton.addEventListener('click', () => {
+                console.log("Hamburger button clicked!");
+                navbarLinks.classList.toggle('active');
+                if (!navbarLinks.classList.contains('active')) {
+                    closeAllDropdowns(); 
+                }
+            });
 
             const allNavLinks = document.querySelectorAll('#navbar-links a, footer ul a'); 
 
@@ -2756,6 +3121,7 @@
                                 renderPage(pageId);
                             }
 
+                            // Close the mobile navigation menu and all dropdowns
                             if (navbarLinks.classList.contains('active')) {
                                 navbarLinks.classList.remove('active');
                             }
@@ -2832,14 +3198,6 @@
             }
         });
 
-        hamburgerButton.addEventListener('click', () => {
-            console.log("Hamburger button clicked!");
-            navbarLinks.classList.toggle('active');
-            if (!navbarLinks.classList.contains('active')) {
-                closeAllDropdowns(); 
-            }
-        });
-
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
                 scrollToTopButton.style.display = 'block';
@@ -2855,15 +3213,32 @@
             });
         });
 
+        function showEnrollmentModalHandler() {
+            const courseName = this.dataset.course;
+            modalCourseName.textContent = courseName;
+            enrollCourseInput.value = courseName;
+            enrollmentModal.classList.add('active');
+            enrollmentForm.reset(); 
+            enrollCourseInput.value = courseName;
+        }
+
+        // Handler for logged-in students (opens detail/buy modal, which uses data from Firestore)
+        function showCourseDetailModalHandler() {
+            if (!auth.currentUser || auth.currentUser.isAnonymous) {
+                return showEnrollmentModalHandler.call(this); // Fallback
+            }
+            const courseName = this.dataset.course;
+            const course = allCoursesData.find(c => c.title === courseName);
+            if (course) {
+                showCourseDetailModal(course); // Uses the new buy course modal
+            } else {
+                showMessageBox("Error", "Course details not yet loaded or course name mismatch.");
+            }
+        }
+
         enrollButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const courseName = button.dataset.course;
-                modalCourseName.textContent = courseName;
-                enrollCourseInput.value = courseName;
-                enrollmentModal.classList.add('active');
-                enrollmentForm.reset(); 
-                enrollCourseInput.value = courseName;
-            });
+            // Attach the initial handler (Enroll Now)
+            button.addEventListener('click', showEnrollmentModalHandler); 
         });
 
         modalCloseButton.addEventListener('click', () => {
@@ -2930,7 +3305,23 @@
                     return;
                 }
                 try {
-                    await signInWithEmailAndPassword(auth, email, password);
+                    // Sign in first
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    
+                    // Immediately check role from Firestore to determine the true nature of the user
+                    const userDocRef = doc(getCollectionRef("users"), userCredential.user.uid); 
+                    const userDocSnap = await getDoc(userDocRef);
+                    const actualDbRole = userDocSnap.exists() ? userDocSnap.data().role : 'user';
+
+                    // If the user is a DB admin, they go to the admin dashboard, regardless of dropdown choice.
+                    const finalTargetDashboard = actualDbRole === 'admin' ? 'admin-dashboard-page' : 'student-dashboard-page';
+                    
+                    // Set the viewing role based on the actual DB role, ensuring the correct dashboard rendering.
+                    currentUserRole = actualDbRole === 'admin' ? 'admin' : 'student'; 
+
+                    history.pushState(null, null, `#${finalTargetDashboard}`);
+                    // The subsequent onAuthStateChanged/checkAdminStatus will execute and properly render the UI based on the new hash.
+
                 } catch (error) {
                     authMessage.textContent = `Login failed: ${error.message}`;
                     authMessage.classList.remove('hidden');
@@ -2945,9 +3336,35 @@
                     const userDocRef = doc(getCollectionRef("users"), userCredential.user.uid); 
                     const userDocSnap = await getDoc(userDocRef);
                     if (!userDocSnap.exists()) {
-                        await setDoc(userDocRef, { role: 'user', email: userCredential.user.email, created_at: serverTimestamp() }); 
+                        await setDoc(userDocRef, { 
+                            role: 'user', 
+                            email: userCredential.user.email, 
+                            created_at: serverTimestamp(),
+                            profile: { 
+                                name: userCredential.user.displayName || '',
+                                telegram_email: userCredential.user.email, // Default for Telegram invite
+                                phone: ''
+                            },
+                            subscriptions: []
+                        }); 
+                        dbUserRole = 'user'; // Set role for immediate UI update
                         console.log("New Google user registered with 'user' role.");
+                    } else {
+                        dbUserRole = userDocSnap.data().role || 'user';
                     }
+                    
+                    const finalTargetDashboard = dbUserRole === 'admin' ? 'admin-dashboard-page' : 'student-dashboard-page';
+
+                    // Set the viewing role based on the actual DB role
+                    currentUserRole = dbUserRole === 'admin' ? 'admin' : 'student';
+
+                    // We call updateAdminUI here to refresh the auth section but rely on the subsequent
+                    // onAuthStateChanged/checkAdminStatus to handle final navigation based on the hash.
+                    updateAdminUI(); 
+                    
+                    // Navigate hash, let checkAdminStatus handle the render.
+                    history.pushState(null, null, `#${finalTargetDashboard}`);
+
                 } catch (error) {
                     authMessage.textContent = `Google login failed: ${error.message}`;
                     authMessage.classList.remove('hidden');
@@ -2968,12 +3385,22 @@
 
                 try {
                     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    // IMPORTANT: Force registration as 'user' (student) only.
                     await setDoc(doc(getCollectionRef("users"), userCredential.user.uid), { 
                         role: 'user', 
                         email: userCredential.user.email,
-                        created_at: serverTimestamp()
+                        created_at: serverTimestamp(),
+                        profile: { 
+                            name: '',
+                            telegram_email: userCredential.user.email,
+                            phone: ''
+                        },
+                        subscriptions: []
                     });
-                    showMessageBox("Registration Successful", "You have successfully registered. You can now log in.");
+                    
+                    showMessageBox("Registration Successful", "You have successfully registered as a Student. Please log in using your credentials.");
+                    
+                    // Switch back to login view
                     loginFormContainer.classList.remove('hidden');
                     registerFormContainer.classList.add('hidden');
                     adminEmailInput.value = email; 
@@ -2989,8 +3416,15 @@
 
             logoutBtn.addEventListener('click', async () => {
                 try {
+                    // Reset role state on logout
+                    currentUserRole = null;
+                    dbUserRole = null;
                     await signOut(auth);
                     showMessageBox("Logged Out", "You have been successfully logged out.");
+                    
+                    // Re-render the homepage and hide dashboards
+                    history.pushState(null, null, `#home`);
+                    renderPage('home');
                 } catch (error) {
                     showMessageBox("Logout Error", `Failed to logout: ${error.message}`);
                 }
@@ -3651,8 +4085,13 @@
 
         function getCollectionRef(collectionName) {
             if (collectionName === "users") {
+                // Return path to the users collection which also holds roles and profiles
                 return collection(db, `artifacts/${appId}/public/data/users`);
+            } else if (collectionName === "courses") {
+                // Return path for course definitions (Admin CRUD)
+                return collection(db, `artifacts/${appId}/public/data/courses`);
             }
+            // All other resources (books, gallery, etc.)
             return collection(db, `artifacts/${appId}/public/data/${collectionName}`);
         }
 
@@ -5033,9 +5472,679 @@
         }
 
 
+        // --- Course Functions (NEW) ---
+        function renderCourses(snapshot) {
+            allCoursesData = [];
+            snapshot.forEach((doc) => {
+                allCoursesData.push({ id: doc.id, ...doc.data() });
+            });
+            
+            // Re-render dashboards if viewing
+            if (currentUserRole === 'admin') {
+                renderAdminCourseList(allCoursesData);
+            } else if (currentUserRole === 'student') {
+                renderMarketplace(allCoursesData);
+            }
+            
+            // Update the main static course section buttons
+            updateStaticCourseList(allCoursesData); 
+        }
+
+        // Helper to keep the static marketing course list updated
+        function updateStaticCourseList(courses) {
+            updateCourseCardButtons();
+        }
+
+        // --- Student Functions (NEW - Admin Only) ---
+        function renderStudents(snapshot) {
+            allStudentsData = [];
+            snapshot.forEach((doc) => {
+                allStudentsData.push({ id: doc.id, ...doc.data() });
+            });
+            
+            // Re-render dashboards if viewing
+            if (currentUserRole === 'admin') {
+                renderAdminStudentTable(allStudentsData);
+            } else if (currentUserRole === 'student') {
+                renderStudentDashboard(); // Re-render to update subscriptions/profile
+            }
+        }
+
+        // --- NEW CORE DASHBOARD FUNCTIONS ---
+
+        function renderAdminDashboard() {
+            // Ensure only the admin dashboard page is visible
+            document.getElementById('admin-dashboard-page').classList.remove('hidden');
+            document.getElementById('student-dashboard-page').classList.add('hidden');
+            
+            // Re-render student and course management tables
+            renderAdminCourseList(allCoursesData);
+            renderAdminStudentTable(allStudentsData);
+        }
+
+        function renderStudentDashboard() {
+            // Ensure only the student dashboard page is visible
+            const studentDashboardPage = document.getElementById('student-dashboard-page');
+            const adminDashboardPage = document.getElementById('admin-dashboard-page');
+
+            if (studentDashboardPage) studentDashboardPage.classList.remove('hidden');
+            if (adminDashboardPage) adminDashboardPage.classList.add('hidden');
+            
+            if (auth.currentUser && !auth.currentUser.isAnonymous) {
+                // Fetch and populate profile info
+                const studentData = allStudentsData.find(s => s.id === auth.currentUser.uid);
+                
+                if (studentData) {
+                    const profile = studentData.profile || {};
+                    studentProfileNameInput.value = profile.name || '';
+                    studentProfilePhoneInput.value = profile.phone || '';
+                    // CRITICAL FIX: Ensure input is populated, defaulting to auth email if profile email is missing
+                    studentProfileTelegramEmailInput.value = profile.telegram_email || auth.currentUser.email || '';
+                    
+                    renderStudentSubscriptions(studentData);
+                } else {
+                    // Display loading or warning for a moment if data hasn't arrived
+                    subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Loading profile and subscriptions...</p>';
+                    console.warn("Student data not yet loaded for profile.");
+                    // Ensure form is blank if data is missing, but fields exist
+                    if (studentProfileForm) studentProfileForm.reset();
+                }
+            } else {
+                subscriptionsListStudent.innerHTML = '<p class="text-red-500">You must be logged in to view subscriptions.</p>';
+            }
+            
+            renderMarketplace(allCoursesData);
+        }
+
+        // --- Student Dashboard Sub-Functions ---
+        
+        async function updateStudentProfile(e) {
+            e.preventDefault();
+            if (!auth.currentUser || auth.currentUser.isAnonymous) return showMessageBox("Error", "You must be logged in to update your profile.");
+            
+            const name = studentProfileNameInput.value ? studentProfileNameInput.value.trim() : '';
+            const phone = studentProfilePhoneInput.value ? studentProfilePhoneInput.value.trim() : '';
+            const telegram_email = studentProfileTelegramEmailInput.value ? studentProfileTelegramEmailInput.value.trim() : '';
+
+            if (!name || !telegram_email) return showMessageBox("Error", "Full Name and Email for Telegram Invite are required.");
+
+            try {
+                // Ensure document exists before updating if possible, though listener should handle creation via registration/Google login
+                await setDoc(doc(getCollectionRef("users"), auth.currentUser.uid), {
+                    profile: { name, phone, telegram_email }
+                }, { merge: true }); // Use merge to ensure we don't overwrite role/subscriptions
+
+                showMessageBox("Success", "Profile updated successfully!");
+            } catch (error) {
+                console.error("Error updating profile: ", error);
+                showMessageBox("Error", "Failed to update profile. Please try again.");
+            }
+        }
+        
+        function renderStudentSubscriptions(studentData) {
+            subscriptionsListStudent.innerHTML = '';
+            const subscriptions = studentData.subscriptions || [];
+            
+            if (subscriptions.length === 0) {
+                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No active subscriptions found. Browse the marketplace below to purchase a course.</p>';
+                return;
+            }
+
+            // Filter for active subscriptions
+            const activeSubs = subscriptions.filter(sub => {
+                const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : new Date(0);
+                return expiry > new Date();
+            });
+            
+            if (activeSubs.length === 0) {
+                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">All your previous subscriptions have expired. Please renew below.</p>';
+                return;
+            }
+
+            activeSubs.forEach(sub => {
+                const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : null;
+                const status = `<span class="text-green-600 font-semibold">Active (Expires: ${expiry.toLocaleDateString()})</span>`;
+                
+                const subElement = document.createElement('div');
+                subElement.className = 'p-4 border border-indigo-200 rounded-xl dark:border-gray-700 dark:bg-gray-700/50 flex justify-between items-center';
+                subElement.innerHTML = `
+                    <div>
+                        <p class="text-xl font-bold text-gray-900 dark:text-gray-100">${sub.course_title}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Purchased: ${sub.purchase_date ? new Date(sub.purchase_date.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
+                    </div>
+                    <div class="text-right">
+                        <p>${status}</p>
+                        <a href="#contact" class="text-indigo-600 hover:underline text-sm mt-1 block">Need Telegram Invite? Contact Admin.</a>
+                    </div>
+                `;
+                subscriptionsListStudent.appendChild(subElement);
+            });
+        }
+        
+        function renderMarketplace(courses) {
+            marketplaceCoursesList.innerHTML = '';
+            
+            if (courses.length === 0) {
+                marketplaceCoursesList.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400 col-span-full">No courses available for purchase yet.</p>';
+                return;
+            }
+            
+            const studentData = allStudentsData.find(s => s.id === auth.currentUser.uid);
+            const activeCourseIds = (studentData?.subscriptions || [])
+                .filter(sub => sub.expiry_date && new Date(sub.expiry_date.seconds * 1000) > new Date())
+                .map(sub => sub.course_id);
+
+            courses.forEach(course => {
+                const isSubscribed = activeCourseIds.includes(course.id);
+                
+                const card = document.createElement('div');
+                card.className = 'bg-gray-50 p-6 rounded-2xl shadow-lg dark:bg-gray-700 border border-teal-200 dark:border-gray-600 flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">${course.title}</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">${course.description.substring(0, 100)}...</p>
+                        <p class="text-xl font-extrabold text-teal-600 dark:text-teal-400 mb-4">Price: ₹${course.price}</p>
+                    </div>
+                    ${isSubscribed ? 
+                        `<button disabled class="w-full bg-gray-400 text-white px-8 py-3 rounded-full text-md">Already Active</button>` :
+                        `<button class="w-full buy-course-btn bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700" data-course-id="${course.id}">Buy Now</button>`
+                    }
+                `;
+                marketplaceCoursesList.appendChild(card);
+            });
+            
+            document.querySelectorAll('.buy-course-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const courseId = e.target.dataset.courseId;
+                    const course = allCoursesData.find(c => c.id === courseId);
+                    if (course) showCourseDetailModal(course);
+                });
+            });
+        }
+
+        // --- Razorpay & Course Purchase Flow ---
+
+        function showCourseDetailModal(course) {
+            if (!razorpayKeyId) return showMessageBox("Error", "Razorpay is not configured by the admin.");
+
+            currentCheckoutCourse = course;
+            buyCourseModalTitle.textContent = course.title;
+            buyCourseDesc.textContent = course.description;
+            buyCourseDuration.textContent = course.duration_days;
+            buyCoursePrice.textContent = course.price;
+            
+            razorpayErrorMessage.classList.add('hidden');
+            buyCourseModal.classList.add('active');
+        }
+        
+        // Modal close listener setup
+        if (buyCourseModalCloseBtn) {
+            buyCourseModalCloseBtn.addEventListener('click', () => buyCourseModal.classList.remove('active'));
+        }
+        if (buyCourseModal) {
+            buyCourseModal.addEventListener('click', (e) => {
+                if (e.target === buyCourseModal) buyCourseModal.classList.remove('active');
+            });
+        }
+
+
+        // Checkout initiation
+        if (razorpayCheckoutBtn) {
+            razorpayCheckoutBtn.addEventListener('click', startRazorpayCheckout);
+        }
+
+        async function startRazorpayCheckout() {
+            if (!currentCheckoutCourse || !auth.currentUser) {
+                return showMessageBox("Error", "Course or user data missing. Please log in again.");
+            }
+            
+            razorpayLoadingSpinner.classList.remove('hidden');
+            razorpayErrorMessage.classList.add('hidden');
+            razorpayCheckoutBtn.disabled = true;
+
+            const studentData = allStudentsData.find(s => s.id === auth.currentUser.uid);
+            if (!studentData || !studentData.profile || !studentData.profile.name || !studentData.profile.telegram_email) {
+                razorpayLoadingSpinner.classList.add('hidden');
+                razorpayCheckoutBtn.disabled = false;
+                showMessageBox("Profile Required", "Please complete your profile (Full Name and Telegram Email) before proceeding to payment.", false, null);
+                return;
+            }
+
+            try {
+                // 1. Create Razorpay Order via Netlify Function
+                const response = await fetch('/.netlify/functions/create-razorpay-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        amount: currentCheckoutCourse.price * 100,
+                        // Shorten receipt ID to fit within Razorpay's 40 char limit (UID is 28 chars, Date.now() is 13)
+                        // Use the last 10 chars of UID + 10-digit seconds timestamp
+                        receipt: `USER_${auth.currentUser.uid.slice(-10)}_${Math.floor(Date.now() / 1000)}`
+                    }) // Amount in paisa
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create Razorpay Order.');
+                }
+
+                const { order_id } = await response.json();
+
+                // 2. Initialize Razorpay Checkout
+                const options = {
+                    key: razorpayKeyId,
+                    amount: currentCheckoutCourse.price * 100, 
+                    currency: "INR",
+                    name: "MATHEMATICO",
+                    description: `Purchase: ${currentCheckoutCourse.title}`,
+                    order_id: order_id, 
+                    handler: async function (response) {
+                        await verifyRazorpayPayment({ 
+                            ...response,
+                            courseId: currentCheckoutCourse.id,
+                            courseTitle: currentCheckoutCourse.title,
+                            courseDurationDays: currentCheckoutCourse.duration_days,
+                            userId: auth.currentUser.uid,
+                            userEmail: auth.currentUser.email,
+                            amount: currentCheckoutCourse.price * 100 // Pass amount again for server side check (optional but good practice)
+                        });
+                    },
+                    prefill: {
+                        name: studentData.profile.name,
+                        email: auth.currentUser.email,
+                        contact: studentData.profile.phone || ''
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            razorpayCheckoutBtn.disabled = false;
+                            razorpayLoadingSpinner.classList.add('hidden');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+                buyCourseModal.classList.remove('active'); // Close modal once Razorpay starts
+
+            } catch (error) {
+                console.error("Razorpay Checkout Error:", error);
+                razorpayErrorMessage.textContent = error.message;
+                razorpayErrorMessage.classList.remove('hidden');
+                razorpayLoadingSpinner.classList.add('hidden');
+                razorpayCheckoutBtn.disabled = false;
+            }
+        }
+
+        async function verifyRazorpayPayment(paymentData) {
+            try {
+                // Show generalized loading/processing message
+                showMessageBox("Processing Payment", "Please wait while your payment is verified and subscription is activated...", false); 
+
+                // 3. Verify Payment and Activate Subscription via Netlify Function
+                const response = await fetch('/.netlify/functions/verify-razorpay-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(paymentData)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Payment verification failed on server.');
+                }
+
+                showMessageBox("Success! 🎉", "Payment successful! Your course subscription is now active (Expiry calculated from purchase date). The admin will send your Telegram invite link to the email on your profile.", false);
+                
+            } catch (error) {
+                console.error("Payment Verification Error:", error);
+                showMessageBox("Payment Error", `Verification failed. Please contact support with your payment ID: ${paymentData.razorpay_payment_id || 'N/A'}. Details: ${error.message}`);
+            } finally {
+                // We rely on Firestore listener updates, no need to manually re-render Marketplace/Subscriptions
+                razorpayCheckoutBtn.disabled = false;
+                currentCheckoutCourse = null;
+            }
+        }
+
+
+        // --- Admin Dashboard Sub-Functions ---
+
+        function renderAdminCourseList(courses) {
+            if (courses.length === 0) {
+                coursesListAdmin.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No courses defined yet.</p>';
+                return;
+            }
+            
+            coursesListAdmin.innerHTML = courses.map(course => `
+                <div class="p-4 border rounded-xl dark:border-gray-700 dark:bg-gray-700/50 flex justify-between items-center shadow-md">
+                    <div>
+                        <p class="text-xl font-bold text-indigo-600 dark:text-indigo-400">${course.title}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">₹${course.price} | Duration: ${course.duration_days} days</p>
+                    </div>
+                    <div class="space-x-2">
+                        <button class="edit-course-btn bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600" data-id="${course.id}">Edit</button>
+                        <button class="delete-course-btn bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600" data-id="${course.id}">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.edit-course-btn').forEach(btn => btn.addEventListener('click', (e) => editCourse(e.target.dataset.id)));
+            document.querySelectorAll('.delete-course-btn').forEach(btn => btn.addEventListener('click', (e) => deleteCourse(e.target.dataset.id)));
+        }
+
+        async function editCourse(id) {
+            const course = allCoursesData.find(c => c.id === id);
+            if (course) {
+                courseIdInput.value = course.id;
+                courseTitleInput.value = course.title;
+                courseDescriptionInput.value = course.description;
+                coursePriceInput.value = course.price;
+                courseDurationInput.value = course.duration_days;
+                
+                addEditCourseForm.classList.remove('hidden');
+                cancelEditCourseBtn.classList.remove('hidden');
+                window.scrollTo({ top: courseManagementPanel.offsetTop, behavior: 'smooth' });
+            }
+        }
+
+        async function deleteCourse(id) {
+            showMessageBox("Confirm Delete", "Are you sure you want to delete this course?", true, async () => {
+                try {
+                    await deleteDoc(doc(getCollectionRef("courses"), id));
+                    showMessageBox("Success", "Course deleted successfully!");
+                } catch (e) {
+                    showMessageBox("Error", "Error deleting course.");
+                }
+            });
+        }
+        
+        function renderAdminStudentTable(students) {
+            studentsTableContainer.innerHTML = '';
+            
+            // Filter only non-admin users (students)
+            const studentUsers = students.filter(s => s.role === 'user'); 
+            
+            if (studentUsers.length === 0) {
+                studentsTableContainer.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No registered student users found.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.className = 'min-w-full divide-y divide-gray-200 dark:divide-gray-700 shadow overflow-hidden rounded-xl';
+            table.innerHTML = `
+                <thead class="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name/Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Contact Info</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Subscriptions</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="students-table-body" class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                </tbody>
+            `;
+            studentsTableContainer.appendChild(table);
+            const tbody = document.getElementById('students-table-body');
+            
+            studentUsers.forEach(student => {
+                const profile = student.profile || {};
+                const subscriptions = student.subscriptions || [];
+                const subCount = subscriptions.length;
+                
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 dark:hover:bg-gray-700/70 transition duration-150';
+                
+                let subscriptionDetails = subCount > 0 ? subscriptions.map(sub => {
+                    const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : null;
+                    const status = expiry && expiry > new Date() ? 'Active' : 'Expired';
+                    return `<span class="${status === 'Active' ? 'text-green-500' : 'text-red-500'} text-xs font-semibold">${sub.course_title} (${status})</span> ${expiry ? expiry.toLocaleDateString() : 'N/A'}`;
+                }).join('<br>') : '<span class="text-gray-400">None</span>';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">${profile.name || 'N/A'}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">${student.email}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                        ${profile.phone || 'N/A'}<br>
+                        <span class="text-indigo-600 dark:text-indigo-400 text-xs break-all">${profile.telegram_email || 'N/A'}</span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                        ${subscriptionDetails}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                        <button class="admin-edit-student-btn text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-600" data-id="${student.id}" data-email="${student.email}">Edit</button>
+                        <button class="admin-delete-student-btn text-red-600 hover:text-red-900" data-id="${student.id}">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            document.querySelectorAll('.admin-edit-student-btn').forEach(btn => btn.addEventListener('click', (e) => showEditStudentModal(e.target.dataset.id, e.target.dataset.email)));
+            document.querySelectorAll('.admin-delete-student-btn').forEach(btn => btn.addEventListener('click', (e) => deleteStudent(e.target.dataset.id)));
+        }
+        
+        // --- CRUD Implementation for Courses (Admin) ---
+
+        // NEW Event Listeners (Course CRUD and Student Profile)
+        if (showAddCourseFormBtn) {
+            showAddCourseFormBtn.addEventListener('click', () => addEditCourseForm.classList.toggle('hidden'));
+        }
+        if (cancelEditCourseBtn) {
+            cancelEditCourseBtn.addEventListener('click', () => {
+                addEditCourseForm.reset();
+                courseIdInput.value = '';
+                cancelEditCourseBtn.classList.add('hidden');
+            });
+        }
+        if (addEditCourseForm) {
+            addEditCourseForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (dbUserRole !== 'admin') return showMessageBox("Permission Denied", "Admin access required.");
+                
+                const courseId = courseIdInput.value;
+                const courseData = {
+                    title: courseTitleInput.value,
+                    description: courseDescriptionInput.value,
+                    price: parseFloat(coursePriceInput.value),
+                    duration_days: parseInt(courseDurationInput.value),
+                    date_posted: serverTimestamp()
+                };
+
+                try {
+                    if (courseId) {
+                        await updateDoc(doc(getCollectionRef("courses"), courseId), courseData);
+                        showMessageBox("Success", "Course updated successfully!");
+                    } else {
+                        await addDoc(getCollectionRef("courses"), courseData);
+                        showMessageBox("Success", "Course added successfully!");
+                    }
+                    addEditCourseForm.reset();
+                    courseIdInput.value = '';
+                    cancelEditCourseBtn.classList.add('hidden');
+                    addEditCourseForm.classList.add('hidden');
+                } catch (e) {
+                    console.error("Error saving course: ", e);
+                    showMessageBox("Error", "Error saving course. Please check input formats.");
+                }
+            });
+        }
+        
+        // Student Profile Listener
+        if (studentProfileForm) {
+            studentProfileForm.addEventListener('submit', updateStudentProfile);
+        }
+        
+        // Admin Edit Student Form Listener
+        if (adminEditStudentForm) {
+            adminEditStudentForm.addEventListener('submit', handleAdminStudentSave);
+        }
+        
+        // Admin Edit Student Modal Listeners
+        if (adminEditStudentModalCloseBtn) {
+            adminEditStudentModalCloseBtn.addEventListener('click', () => adminEditStudentModal.classList.remove('active'));
+        }
+        if (adminEditStudentModal) {
+            adminEditStudentModal.addEventListener('click', (e) => {
+                if (e.target === adminEditStudentModal) adminEditStudentModal.classList.remove('active');
+            });
+        }
+
+        // --- Admin Student Management Functions ---
+        
+        function deleteStudent(id) {
+             showMessageBox("Confirm Delete", "WARNING: Deleting this student will remove their account document and all subscription history. Are you sure?", true, async () => {
+                try {
+                    // NOTE: Firebase Auth user deletion must be handled separately via serverless function/admin panel.
+                    // Here we delete the Firestore user document which holds profile/subscriptions.
+                    await deleteDoc(doc(getCollectionRef("users"), id));
+                    showMessageBox("Success", "Student data document deleted successfully. (Firebase Authentication record remains intact for security reasons).");
+                } catch (e) {
+                    showMessageBox("Error", "Error deleting student document.");
+                }
+            });
+        }
+        
+        // Populates and shows the dedicated modal
+        function showEditStudentModal(id, email) {
+            if (dbUserRole !== 'admin') return showMessageBox("Permission Denied", "Admin access required.");
+            
+            const student = allStudentsData.find(s => s.id === id);
+            if (!student) return showMessageBox("Error", "Student data not found.");
+            
+            const profile = student.profile || {};
+            const subscriptions = student.subscriptions || [];
+            const subsContainer = document.getElementById('admin-subscriptions-management');
+            subsContainer.innerHTML = '';
+            
+            document.getElementById('admin-edit-student-id').value = id;
+            document.getElementById('admin-edit-student-email').textContent = email;
+            document.getElementById('admin-edit-name').value = profile.name || '';
+            document.getElementById('admin-edit-phone').value = profile.phone || '';
+            document.getElementById('admin-edit-telegram-email').value = profile.telegram_email || email;
+            document.getElementById('admin-edit-student-modal-title').textContent = `Edit Student: ${profile.name || email}`;
+
+            // Populate subscription inputs
+            allCoursesData.forEach(course => {
+                const currentSub = subscriptions.find(sub => sub.course_id === course.id);
+                const expiry = currentSub?.expiry_date ? new Date(currentSub.expiry_date.seconds * 1000) : null;
+                const expiryDateStr = expiry ? expiry.toISOString().split('T')[0] : '';
+                
+                const subElement = document.createElement('div');
+                subElement.className = 'border p-3 rounded-lg dark:border-gray-600';
+                subElement.innerHTML = `
+                    <strong class="text-indigo-600 dark:text-indigo-400 text-sm block">${course.title}</strong>
+                    <p class="text-xs text-gray-500 mb-1">Duration: ${course.duration_days} days</p>
+                    <div class="mt-2">
+                        <label for="admin-expiry-${course.id}" class="block text-xs text-gray-500 dark:text-gray-400">Expiry Date:</label>
+                        <input type="date" id="admin-expiry-${course.id}" data-course-id="${course.id}" value="${expiryDateStr}" class="w-full px-3 py-1 border rounded dark:bg-gray-700 dark:text-gray-100 text-sm">
+                    </div>
+                `;
+                subsContainer.appendChild(subElement);
+                
+                // Add event listener for immediate subscription update feedback/saving on date change
+                document.getElementById(`admin-expiry-${course.id}`).addEventListener('change', async (e) => {
+                    await updateStudentSubscription(id, course.id, e.target);
+                });
+            });
+
+            document.getElementById('admin-edit-student-modal').classList.add('active');
+        }
+
+        // Handles saving the Profile details only
+        async function handleAdminStudentSave(e) {
+            e.preventDefault();
+            if (dbUserRole !== 'admin') return showMessageBox("Permission Denied", "Admin access required.");
+            
+            const studentId = document.getElementById('admin-edit-student-id').value;
+            const newName = document.getElementById('admin-edit-name').value;
+            const newPhone = document.getElementById('admin-edit-phone').value;
+            const newTelegramEmail = document.getElementById('admin-edit-telegram-email').value;
+
+            try {
+                // Save Profile details
+                await updateDoc(doc(getCollectionRef("users"), studentId), {
+                    profile: { 
+                        name: newName, 
+                        phone: newPhone, 
+                        telegram_email: newTelegramEmail
+                    }
+                });
+                showMessageBox("Success", "Student profile updated!");
+                document.getElementById('admin-edit-student-modal').classList.remove('active');
+
+            } catch (e) {
+                showMessageBox("Error", "Failed to update student profile.");
+            }
+        }
+        
+        // Handles saving a single subscription entry (called on change event)
+        async function updateStudentSubscription(studentId, courseId, expiryDateInput) {
+            if (dbUserRole !== 'admin') return showMessageBox("Permission Denied", "Admin access required.");
+            
+            const expiryDateStr = expiryDateInput.value;
+            const course = allCoursesData.find(c => c.id === courseId);
+            if (!course) return showMessageBox("Error", "Course not found.");
+            
+            const studentDocRef = doc(getCollectionRef("users"), studentId);
+            const studentData = allStudentsData.find(s => s.id === studentId);
+            let subscriptions = studentData?.subscriptions || [];
+            
+            let newExpiryDate = null;
+            if (expiryDateStr) {
+                 newExpiryDate = new Date(expiryDateStr);
+                 newExpiryDate.setHours(23, 59, 59, 999);
+            }
+            
+            let subIndex = subscriptions.findIndex(sub => sub.course_id === courseId);
+            
+            try {
+                if (subIndex === -1 && newExpiryDate && newExpiryDate > new Date()) {
+                    subscriptions.push({
+                        course_id: courseId,
+                        course_title: course.title,
+                        purchase_date: serverTimestamp(), 
+                        expiry_date: newExpiryDate
+                    });
+                    console.log(`Subscription Activated for ${course.title}`);
+                    showMessageBox("Subscription Update", `${course.title} activated until ${newExpiryDate.toLocaleDateString()}.`);
+                } else if (subIndex !== -1) {
+                     if (newExpiryDate && newExpiryDate > new Date()) {
+                        subscriptions[subIndex].expiry_date = newExpiryDate;
+                        console.log(`Subscription Updated for ${course.title}`);
+                        showMessageBox("Subscription Update", `${course.title} updated to expire on ${newExpiryDate.toLocaleDateString()}.`);
+                     } else {
+                        subscriptions = subscriptions.filter(sub => sub.course_id !== courseId);
+                        console.log(`Subscription Removed for ${course.title}`);
+                        showMessageBox("Subscription Update", `${course.title} subscription removed.`);
+                     }
+                } else {
+                    return;
+                }
+                
+                await updateDoc(studentDocRef, { subscriptions: subscriptions });
+
+            } catch (e) {
+                console.error("Error saving subscription:", e);
+                showMessageBox("Error", "Failed to save subscription changes.");
+            }
+        }
+
         // This function is called after Firebase is initialized and authenticated
         function initializeFirestoreListeners() {
             if (db) {
+                // Real-time listener for ALL users (Students + Admins)
+                onSnapshot(query(getCollectionRef("users")), (snapshot) => { 
+                    renderStudents(snapshot);
+                }, (error) => {
+                    console.error("Error listening to users (students) collection: ", error);
+                });
+                
+                // Real-time listener for courses (Admin CRUD / Student Marketplace)
+                onSnapshot(query(getCollectionRef("courses")), (snapshot) => { 
+                    renderCourses(snapshot);
+                }, (error) => {
+                    console.error("Error listening to courses collection: ", error);
+                });
+
                 // Real-time listener for books
                 onSnapshot(query(getCollectionRef("books")), (snapshot) => { 
                     renderBooks(snapshot);

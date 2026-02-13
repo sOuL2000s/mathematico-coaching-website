@@ -13,12 +13,13 @@ const FIREBASE_CONFIG = {
 const CLOUDINARY_CLOUD_NAME = process.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = process.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const WEB3FORMS_ACCESS_KEY = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+const RAZORPAY_KEY_ID = process.env.VITE_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID;
 
 exports.handler = async () => {
-    if (!FIREBASE_CONFIG.apiKey || !WEB3FORMS_ACCESS_KEY) {
+    if (!FIREBASE_CONFIG.apiKey || !WEB3FORMS_ACCESS_KEY || !RAZORPAY_KEY_ID) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Configuration keys are missing from environment variables." }),
+            body: JSON.stringify({ error: "Configuration keys are missing from environment variables (FIREBASE, WEB3FORMS, or RAZORPAY_KEY_ID)." }),
         };
     }
     
@@ -33,6 +34,7 @@ exports.handler = async () => {
             CLOUDINARY_CLOUD_NAME,
             CLOUDINARY_UPLOAD_PRESET,
             WEB3FORMS_ACCESS_KEY,
+            RAZORPAY_KEY_ID,
         }),
     };
 };
