@@ -368,12 +368,12 @@
         #scroll-to-top {
             display: none; /* Hidden by default */
             position: fixed;
-            bottom: 10rem;
-            right: 1.5rem; /* Adjusted right position to prevent overlap with WhatsApp CTA */
+            bottom: 9.5rem; /* Adjusted up from 8.5rem */
+            right: 1.5rem; 
             z-index: 90;
             background-color: #4f46e5; /* Indigo-600 */
             color: white;
-            padding: 0.75rem;
+            padding: 0.5rem; /* Reduced padding (p-2 equivalent) */
             border-radius: 9999px; /* Full rounded */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -467,6 +467,7 @@
         /* WhatsApp CTA Z-index */
         .whatsapp-cta {
             z-index: 95; /* Higher z-index than scroll-to-top */
+            bottom: 1.5rem; /* Fixed bottom position for better stacking */
         }
 
         /* --- START Chatbot Styles (IMPROVED) --- */
@@ -738,7 +739,7 @@
                 <!-- Authentication Button (Mobile Icon / Desktop Text) -->
                 <!-- Mobile: Icon next to Hamburger. Desktop: Prominent button on the far right. -->
                 <button id="auth-nav-button" class="p-2 md:p-0 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 
-                                                  md:flex md:items-center md:space-x-2 md:bg-indigo-600 md:text-white md:hover:bg-indigo-700 md:px-5 md:py-2 md:rounded-full md:shadow-md md:text-md md:font-semibold order-2 md:order-last" 
+                                                  md:flex md:items-center md:space-x-2 md:bg-indigo-600 md:text-white md:hover:bg-indigo-700 md:px-4 md:py-2 md:rounded-full md:shadow-md md:text-md md:font-semibold order-2 md:order-last" 
                         aria-label="Login, Sign Up or Dashboard">
                     <!-- Human Icon for Mobile (default) -->
                     <svg id="auth-icon" class="w-7 h-7 md:w-6 md:h-6 lucide lucide-user" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -781,41 +782,35 @@
                     <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Features</a></li>
                     <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Contact</a></li>
 
-                    <!-- START NEW: Desktop "Resources" Dropdown - Hidden on mobile, flex on desktop -->
-                    <li class="relative dropdown hidden md:flex">
+                    <!-- START NEW: Resources Dropdown (Desktop: flex; Mobile: dropdown) -->
+                    <li class="relative dropdown">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                             Resources
                             <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300 lucide lucide-chevron-down" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                         </a>
+                        <!-- The list content is now shared between desktop and mobile. -->
                         <ul class="dropdown-menu">
                             <li><a href="#book-list-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Book List</a></li>
-                            <li><a href="#problems-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Problems</a></li>
+                            <li><a href="#problems-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Practice Problems</a></li>
                             <li><a href="#pyq-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Previous Year Qs</a></li>
                             <li><a href="#puzzles-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Puzzles & Riddles</a></li>
-                            <li><a href="#reviews-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Anonymous Reviews</a></li>
+                            <li><a href="#blog-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Blog & Articles</a></li>
                             <li><a href="#gallery-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Gallery</a></li>
-                            <li><a href="#blog-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Blog</a></li>
-                            <li><a href="#links" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Links (Social)</a></li>
-                            <li><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
-                            <li><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
-                            <li><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
+                            <li><a href="#reviews-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Anonymous Reviews</a></li>
+                            <li class="hidden"><a href="#links" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Links (Social)</a></li>
+                            <li class="hidden"><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
+                            <li class="hidden"><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
+                            <li class="hidden"><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
                         </ul>
                     </li>
-                    <!-- END NEW: Desktop "More" Dropdown -->
+                    <!-- END NEW: Resources Dropdown -->
 
-                    <!-- START NEW: Mobile Links (Must include all main homepage sections and utility pages) -->
+                    <!-- START NEW: Mobile Links (Remaining top-level sections) -->
                     <li class="flex md:hidden"><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Testimonials</a></li>
                     <li class="flex md:hidden"><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Success Stories</a></li>
                     <li class="flex md:hidden"><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">FAQ</a></li>
                     <li class="flex md:hidden"><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Links (Social)</a></li>
-                    <li class="flex md:hidden"><a href="#book-list-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Book List</a></li>
-                    <li class="flex md:hidden"><a href="#problems-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Problems</a></li>
-                    <li class="flex md:hidden"><a href="#pyq-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Previous Year Qs</a></li>
-                    <li class="flex md:hidden"><a href="#puzzles-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Puzzles & Riddles</a></li>
-                    <li class="flex md:hidden"><a href="#reviews-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Anonymous Reviews</a></li>
-                    <li class="flex md:hidden"><a href="#gallery-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Gallery</a></li>
-                    <li class="flex md:hidden"><a href="#blog-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Blog</a></li>
-                    <!-- END NEW: Mobile Links -->
+                    <!-- END NEW: Mobile Links (Remaining top-level sections) -->
 
                     <li>
                         <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
@@ -849,8 +844,8 @@
                     <a href="#courses" class="bg-white text-indigo-700 hover:bg-indigo-100 px-10 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-300 animate-pulse-once" aria-label="Explore our courses">
                         Explore Courses
                     </a>
-                    <a href="#contact" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-700 px-10 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-white" aria-label="Contact us for enrollment">
-                        Enroll Today
+                    <a href="#contact" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-700 px-10 py-4 rounded-full text-lg font-semibold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-white" aria-label="Request a free consultation">
+                        Request a Free Consultation
                     </a>
                 </div>
             </div>
@@ -882,8 +877,8 @@
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Our Comprehensive Pathways to Mastery</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Course Card 1 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="Classes 9-12 (All Boards)">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="Classes 9-12 (All Boards)">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Academic Cap -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l9-5-9-5-9 5 9 5z" fill="none" /><path d="M12 14l6.16-3.422a12.004 12.004 0 01-.476 1.772L12 16.5l-5.684-3.15a12.004 12.004 0 01-.476-1.772L12 14z" /></svg>
@@ -896,8 +891,8 @@
                     </div>
 
                     <!-- Course Card 2 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                 dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="IIT Foundation & Olympiad">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                 dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="IIT Foundation & Olympiad">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Trophy -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -910,8 +905,8 @@
                     </div>
 
                     <!-- Course Card 3 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                 dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="Competitive Entrance Exams">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                 dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="Competitive Entrance Exams">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Lightning Bolt -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -924,8 +919,8 @@
                     </div>
 
                     <!-- Course Card 4 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                 dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="B.Sc (Hons/Pass) All Universities">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                 dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="B.Sc (Hons/Pass) All Universities">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Clipboard Document List (general academic paper) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
@@ -938,8 +933,8 @@
                     </div>
 
                     <!-- Course Card 5 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                 dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="B.Tech, GATE & Other Exams">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                 dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="B.Tech, GATE & Other Exams">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: CPU Chip (for engineering/tech) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -952,8 +947,8 @@
                     </div>
 
                     <!-- Course Card 6 -->
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-100
-                                 dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out" data-course-category="General Math Support">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center 
+                                 dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out" data-course-category="General Math Support">
                         <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-50 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Question Mark Circle (for general help/doubts) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.228 9.228a4.5 4.5 0 117.5 0M15 13H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -974,9 +969,9 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Why Choose MATHEMATICO?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: User Group (Educator) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0V15a3 3 0 01-3 3h-2.25l-.75-.75A3 3 0 0013.5 15h-3c-1.026 0-1.945.544-2.478 1.427l-.75.75H5.25A3 3 0 012.25 15V9.75a3 3 0 013-3h.75l.75.75A3 3 0 008.25 9.75h3A3 3 0 0013.5 7.5h.75z" clip-rule="evenodd" /></svg>
                         </div>
@@ -985,9 +980,9 @@
                             Learn from Dipanjan Chatterjee, M.Sc in Pure Maths, a highly qualified and passionate teacher with a proven track record.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Hand Raised (Personalized Attention) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0V6zm-.75 10.5h.008v.008H12v-.008z" clip-rule="evenodd" /></svg>
                         </div>
@@ -996,9 +991,9 @@
                             Small batch sizes ensure individual focus, tailored guidance, and effective doubt resolution for every student.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Clipboard Document List (Comprehensive Curriculum) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.332 5.589a1.5 1.5 0 012.336 0L15.65 7.6a1.5 1.5 0 011.082.264l2.054 1.37a1.5 1.5 0 01.69 1.679L19.49 14.5a1.5 1.5 0 01-.301 1.258l-1.077 1.44a1.5 1.5 0 01-1.353.645H6.942a1.5 1.5 0 01-1.352-.646l-1.078-1.44a1.5 1.5 0 01-.301-1.258l.775-2.977a1.5 1.5 0 01.69-1.679l2.054-1.37a1.5 1.5 0 011.082-.264l2.018-2.018zM15 10.5a.75.75 0 00-1.5 0v3a.75.75 0 001.5 0v-3zM9 10.5a.75.75 0 00-1.5 0v3a.75.75 0 001.5 0v-3z" clip-rule="evenodd" /></svg>
                         </div>
@@ -1007,9 +1002,9 @@
                             A meticulously designed curriculum covering all essential topics for various boards, competitive exams, and university syllabi.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Clipboard Check (Regular Assessments) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.53 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06L11.5 9.06l2.47 2.47a.75.75 0 001.06-1.06l-3-3z" clip-rule="evenodd" /></svg>
                         </div>
@@ -1018,9 +1013,9 @@
                             Frequent tests, quizzes, and mock exams with detailed performance analysis to track progress and refine preparation strategies.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Clock (Flexible Timings) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0V6zm-.75 10.5h.008v.008H12v-.008z" clip-rule="evenodd" /></svg>
                         </div>
@@ -1029,9 +1024,9 @@
                             Multiple batch timings and flexible scheduling options to accommodate diverse student needs and busy schedules.
                         </p>
                     </div>
-                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-indigo-50/50 border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
-                        <div class="text-teal-500 dark:text-teal-300 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
+                    <div class="flex flex-col items-center p-8 rounded-2xl shadow-md hover:shadow-lg transform hover:translate-y-[-5px] transition duration-300 ease-in-out bg-gray-50
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
+                        <div class="text-indigo-600 dark:text-indigo-400 mb-5 p-3 bg-indigo-100 rounded-full dark:bg-indigo-900/50">
                             <!-- Icon: Rocket Launch (Proven Results) -->
                             <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clip-rule="evenodd" /></svg>
                         </div>
@@ -1050,31 +1045,31 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Voices of Success: What Our Students Say</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-purple-100
-                                dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_q97477q97477q974.png" alt="Student Anjali Sharma" class="w-28 h-28 rounded-full mb-6 border-4 border-indigo-300 dark:border-indigo-600 object-cover" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out leading-relaxed">
                             "MATHEMATICO transformed my understanding of complex topics. The teachers are incredibly supportive and make learning fun and insightful!"
                         </p>
-                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-xl">- Anjali Sharma</p>
+                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-lg">- Anjali Sharma</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 10 Student</p>
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-purple-100
-                                dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_a45rwpa45rwpa45r.png" alt="Student Rahul Verma" class="w-28 h-28 rounded-full mb-6 border-4 border-indigo-300 dark:border-indigo-600 object-cover" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out leading-relaxed">
                             "Thanks to their rigorous practice and crystal-clear explanations, I scored exceptionally well in my JEE Mains math section. Truly a game-changer!"
                         </p>
-                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-xl">- Rahul Verma</p>
+                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-lg">- Rahul Verma</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">JEE Aspirant</p>
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-purple-100
-                                dark:bg-gray-800 dark:shadow-2xl dark:border-gray-700 transition-colors duration-300 ease-in-out">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-800 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_r5xzj2r5xzj2r5xz.png" alt="Student Priya Singh" class="w-28 h-28 rounded-full mb-6 border-4 border-indigo-300 dark:border-indigo-600 object-cover" loading="lazy">
                         <p class="text-lg text-gray-700 italic mb-4 dark:text-gray-300 transition-colors duration-300 ease-in-out leading-relaxed">
                             "The personalized attention helped me grasp concepts I struggled with for ages. Highly recommend MATHEMATICO for anyone looking to master math!"
                         </p>
-                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-xl">- Priya Singh</p>
+                        <p class="font-bold text-indigo-700 dark:text-indigo-400 transition-colors duration-300 ease-in-out text-lg">- Priya Singh</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300 ease-in-out">Class 12 Student</p>
                     </div>
                 </div>
@@ -1087,22 +1082,22 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Our Brightest Achievements</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_ep7txep7txep7txe.png" alt="Successful student Rohan Kumar" class="w-28 h-28 rounded-full mb-6 border-4 border-purple-400 dark:border-purple-600 object-cover" loading="lazy">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2 dark:text-gray-100">Rohan Kumar</h3>
                         <p class="text-indigo-700 text-lg mb-4 dark:text-indigo-400 font-semibold">IIT Bombay (JEE Advanced 2024)</p>
                         <p class="text-gray-700 italic dark:text-gray-300 text-base leading-relaxed">"Achieved my dream thanks to the focused guidance, challenging problems, and unwavering support provided by MATHEMATICO!"</p>
                     </div>
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_uwrcaruwrcaruwrc.png" alt="Successful student Sanya Gupta" class="w-28 h-28 rounded-full mb-6 border-4 border-purple-400 dark:border-purple-600 object-cover" loading="lazy">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2 dark:text-gray-100">Sanya Gupta</h3>
                         <p class="text-indigo-700 text-lg mb-4 dark:text-indigo-400 font-semibold">ISI Kolkata (B.Stat Entrance 2024)</p>
                         <p class="text-gray-700 italic dark:text-gray-300 text-base leading-relaxed">"The in-depth concept clarity and strategic problem-solving methodologies were absolutely crucial to my success in the ISI entrance."</p>
                     </div>
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center border border-indigo-200
-                                dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col items-center text-center
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <img src="Gemini_Generated_Image_o8ymwgo8ymwgo8ym.png" alt="Successful student Arjun Das" class="w-28 h-28 rounded-full mb-6 border-4 border-purple-400 dark:border-purple-600 object-cover" loading="lazy">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2 dark:text-gray-100">Arjun Das</h3>
                         <p class="text-indigo-700 text-lg mb-4 dark:text-indigo-400 font-semibold">Class 12 Board Topper (98% Maths)</p>
@@ -1164,8 +1159,8 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Reach Out to MATHEMATICO</h2>
                 <div class="flex flex-col md:flex-row justify-center items-stretch gap-10">
-                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-2xl shadow-xl text-left border border-indigo-100
-                                dark:bg-gray-700 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out flex flex-col justify-between">
+                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-2xl shadow-lg text-left 
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out flex flex-col justify-between">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Contact Information</h3>
                             <!-- Instructor -->
@@ -1249,8 +1244,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-2xl shadow-xl border border-indigo-100
-                                dark:bg-gray-700 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="md:w-1/2 bg-gray-50 p-8 rounded-2xl shadow-lg
+                                dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6 dark:text-gray-100 transition-colors duration-300 ease-in-out">Send Us a Message</h3>
                                                 <!-- Contact Us Form (Now using Web3Forms) -->
                         <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
@@ -1306,8 +1301,8 @@
             <div class="container mx-auto px-6 md:px-12 text-center">
                 <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 transition-colors duration-300 ease-in-out tracking-tight">Engage & Stay Connected</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center border border-indigo-200
-                                 dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center
+                                 dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Official Facebook Page</h3>
                             <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
@@ -1316,8 +1311,8 @@
                         </div>
                         <a href="https://www.facebook.com/share/15gcnh3AeR/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Go to official page">Visit Page</a>
                     </div>
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center border border-indigo-200
-                                 dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center
+                                 dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Interactive Community Group</h3>
                             <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
@@ -1327,8 +1322,8 @@
                         <a href="https://www.facebook.com/share/g/1F6pJ4QCqJ/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Join community group">Join Group</a>
                     </div>
                     <!-- New Section: Email Newsletter Sign-up -->
-                    <div class="bg-indigo-50/50 p-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center border border-indigo-200
-                                 dark:bg-gray-700/50 dark:shadow-2xl dark:border-gray-600 transition-colors duration-300 ease-in-out">
+                    <div class="bg-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition duration-300 ease-in-out flex flex-col justify-between items-center text-center
+                                 dark:bg-gray-700 dark:shadow-xl transition-colors duration-300 ease-in-out">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-900 mb-4 dark:text-gray-100 transition-colors duration-300 ease-in-out">Exclusive Newsletter</h3>
                             <p class="text-gray-600 mb-6 dark:text-gray-300 transition-colors duration-300 ease-in-out">
@@ -2012,18 +2007,18 @@
                     <li><a href="#about" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">About Us</a></li>
                     <li><a href="#courses" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Courses</a></li>
                     <li><a href="#features" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Features</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Contact Us</a></li>
+                    
+                    <li class="col-span-full pt-2 text-sm text-indigo-400 font-semibold">Resources & Results</li>
+
+                    <li><a href="#blog-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Blog</a></li>
+                    <li><a href="#problems-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Problems</a></li>
+                    <li><a href="#pyq-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Previous Year Qs</a></li>
+                    <li><a href="#puzzles-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Puzzles</a></li>
                     <li><a href="#testimonials" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Testimonials</a></li>
                     <li><a href="#success-stories" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Success Stories</a></li>
                     <li><a href="#faq" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">FAQ</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Contact Us</a></li>
-                    <li><a href="#links" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Links (Social)</a></li>
-                    <li><a href="#book-list-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Book List</a></li>
-                    <li><a href="#problems-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Problems</a></li>
-                    <li><a href="#pyq-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Previous Year Qs</a></li>
-                    <li><a href="#puzzles-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Puzzles & Riddles</a></li>
-                    <li><a href="#reviews-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Anonymous Reviews</a></li>
-                    <li><a href="#gallery-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Gallery</a></li>
-                    <li><a href="#blog-page" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Blog</a></li>
+                    <li><a href="#links" class="text-gray-400 hover:text-indigo-400 transition-colors duration-200 block">Social Links</a></li>
                 </ul>
             </div>
 
@@ -2055,27 +2050,29 @@
         </div>
     </footer> <!-- End Footer Section -->
 
-    <!-- Floating WhatsApp CTA Button -->
-    <a href="https://wa.me/919748559613" class="fixed bottom-8 right-6 z-50 bg-green-500 p-3 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
-        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-10 h-10 group-hover:animate-bounce">
-    </a>
+    <!-- Floating CTA Stack Container (New Fixed Wrapper) -->
+    <div class="fixed right-6 bottom-6 flex flex-col space-y-4">
 
-    <!-- Chatbot CTA Button (IMPROVED) -->
-    <button id="chatbot-cta-btn" class="fixed bottom-24 right-6 z-50 bg-indigo-600 p-3 rounded-full text-white shadow-xl hover:scale-110 transition-transform duration-300 chatbot-cta group focus:outline-none focus:ring-4 focus:ring-indigo-300" aria-label="Open AI Assistant Chat">
-        <!-- New Math-themed AI Icon -->
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 13H7v-2h2v2zm3 0h-2v-2h2v2zm3 0h-2v-2h2v2z"/>
-        </svg>
-    </button>
+        <!-- Scroll-to-top Button (Visual Order 1 - Topmost) -->
+        <button id="scroll-to-top" class="order-1" aria-label="Scroll to top">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
 
-    <!-- Scroll-to-top Button -->
-    <!-- START CHANGE: Adjust right position for scroll-to-top button -->
-    <button id="scroll-to-top" class="fixed z-90" aria-label="Scroll to top">
-    <!-- END CHANGE -->
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-    </button>
+        <!-- Chatbot CTA Button (Visual Order 2 - Middle) -->
+        <button id="chatbot-cta-btn" class="order-2 bg-indigo-600 p-2 rounded-full text-white shadow-xl hover:scale-110 transition-transform duration-300 chatbot-cta group focus:outline-none focus:ring-4 focus:ring-indigo-300" aria-label="Open AI Assistant Chat">
+            <!-- Using Lucide icon for a math/AI theme -->
+            <svg class="w-8 h-8 lucide lucide-graduation-cap" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12l2-1M12 15l-10-5M2 18v-4M22 18v-4"/>
+            </svg>
+        </button>
+        
+        <!-- Floating WhatsApp CTA Button (Visual Order 3 - Bottommost) -->
+        <a href="https://wa.me/919748559613" class="order-3 bg-green-500 p-2 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 whatsapp-cta group" aria-label="Chat on WhatsApp">
+            <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp icon" class="w-8 h-8 group-hover:animate-bounce">
+        </a>
+    </div>
 
     <!-- Chatbot Modal (NEW) -->
     <div id="chat-modal">
