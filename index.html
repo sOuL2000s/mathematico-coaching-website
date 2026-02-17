@@ -734,12 +734,24 @@
             </div>
 
             <!-- Right side: Utility Buttons and Navigation Links -->
-            <div class="flex items-center space-x-2"> <!-- Adjusted spacing here -->
+            <!-- Increased desktop spacing (md:space-x-4) and moved theme toggle outside UL -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                
+                <!-- Theme Toggle Button - Only Visible on Desktop (md:flex) -->
+                <button id="theme-toggle" class="flex p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
+                                            dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 order-2 md:order-2" aria-label="Toggle theme">
+                    <svg id="sun-icon" class="w-6 h-6 lucide lucide-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M20 12h2"/><path d="M2 12h2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+                    </svg>
+                    <svg id="moon-icon" class="w-6 h-6 hidden lucide lucide-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                </button>
                 
                 <!-- Authentication Button (Mobile Icon / Desktop Text) -->
-                <!-- Mobile: Icon next to Hamburger. Desktop: Prominent button on the far right. -->
+                <!-- Mobile: Icon next to Hamburger. Desktop: Prominent button on the far right. Explicit w-auto added. -->
                 <button id="auth-nav-button" class="p-2 md:p-0 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 
-                                                  md:flex md:items-center md:space-x-2 md:bg-indigo-600 md:text-white md:hover:bg-indigo-700 md:px-4 md:py-2 md:rounded-full md:shadow-md md:text-md md:font-semibold order-2 md:order-last" 
+                                                  w-auto md:flex md:items-center md:space-x-2 md:bg-indigo-600 md:text-white md:hover:bg-indigo-700 md:px-4 md:py-2 md:rounded-full md:shadow-md md:text-md md:font-semibold order-3 md:order-last" 
                         aria-label="Login, Sign Up or Dashboard">
                     <!-- Human Icon for Mobile (default) -->
                     <svg id="auth-icon" class="w-7 h-7 md:w-6 md:h-6 lucide lucide-user" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -751,7 +763,7 @@
 
                 <!-- Hamburger Menu Button - ONLY visible on mobile (md:hidden) -->
                 <!-- Placed second in order on mobile (default) -->
-                <button id="hamburger-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700 order-3" aria-label="Toggle navigation menu">
+                <button id="hamburger-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700 order-4" aria-label="Toggle navigation menu">
                     <svg class="w-7 h-7 hamburger-icon lucide lucide-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" y1="6" x2="20" y2="6" stroke-width="2" stroke-linecap="round" class="line top"></line>
                         <line x1="4" y1="12" x2="20" y2="12" stroke-width="2" stroke-linecap="round" class="line middle"></line>
@@ -812,17 +824,7 @@
                     <li class="flex md:hidden"><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Links (Social)</a></li>
                     <!-- END NEW: Mobile Links (Remaining top-level sections) -->
 
-                    <li>
-                        <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
-                                            dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Toggle theme">
-                            <svg id="sun-icon" class="w-6 h-6 lucide lucide-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M20 12h2"/><path d="M2 12h2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
-                            </svg>
-                            <svg id="moon-icon" class="w-6 h-6 hidden lucide lucide-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-                            </svg>
-                        </button>
-                    </li>
+                    <!-- NOTE: The Theme Toggle button has been moved outside this <ul> for better desktop alignment. -->
                 </ul>
             </div>
         </div>
