@@ -737,7 +737,15 @@
             <!-- Increased desktop spacing (md:space-x-4) and moved theme toggle outside UL -->
             <div class="flex items-center space-x-2 md:space-x-4">
                 
-                <!-- Theme Toggle Button - Only Visible on Desktop (md:flex) -->
+                <!-- NEW: Cart Button with Counter -->
+                <button id="cart-nav-button" class="relative p-2 rounded-full text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300 order-1 md:order-1" aria-label="View Shopping Cart">
+                    <svg class="w-7 h-7 lucide lucide-shopping-cart" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.38a2 2 0 0 0 1.84-1.11L22 7H4"/>
+                    </svg>
+                    <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full hidden">0</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
                 <button id="theme-toggle" class="flex p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300
                                             dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 order-2 md:order-2" aria-label="Toggle theme">
                     <svg id="sun-icon" class="w-6 h-6 lucide lucide-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -776,25 +784,29 @@
                 <ul id="navbar-links" class="hidden md:flex space-x-2 md:space-x-6 text-lg font-medium items-center order-1 md:order-1">
                     <li><a href="#home" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Home</a></li>
                     <li><a href="#about" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">About Us</a></li>
-                    <!-- Courses Dropdown (content remains the same) -->
+                    
+                    <!-- NEW: Programs & Resources (Combines Courses/Features/Testimonials) -->
                     <li class="relative dropdown">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
-                            Courses
+                            Programs & Resources
                             <svg class="w-4 h-4 ml-1 dropdown-arrow transition-transform duration-300 lucide lucide-chevron-down" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#courses" data-course-filter="Classes 9-12 (All Boards)" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Classes 9-12 (All Boards)</a></li>
-                            <li><a href="#courses" data-course-filter="IIT Foundation & Olympiad" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">IIT Foundation & Olympiad</a></li>
-                            <li><a href="#courses" data-course-filter="Competitive Entrance Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Competitive Entrance Exams</a></li>
-                            <li><a href="#courses" data-course-filter="B.Sc (Hons/Pass) All Universities" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Sc (Hons/Pass) All Universities</a></li>
-                            <li><a href="#courses" data-course-filter="B.Tech, GATE & Other Exams" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">B.Tech, GATE & Other Exams</a></li>
-                            <li><a href="#courses" data-course-filter="General Math Support" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">General Math Support</a></li>
+                            <!-- Core Programs (Replaces old Courses links) -->
+                            <li><a href="#courses" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700 font-semibold">Our Coaching Programs</a></li>
+                            <li><a href="#features" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Core Features</a></li>
+                            <li><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
+                            <li><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
+                            <li><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
                         </ul>
                     </li>
-                    <li><a href="#features" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Features</a></li>
+
+                    <!-- NEW: Theorem Treasury (The E-Commerce Storefront) -->
+                    <li><a href="#theorem-treasury-page" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full font-semibold text-indigo-700 dark:text-indigo-400">The Theorem Treasury</a></li>
+
                     <li><a href="#contact" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Contact</a></li>
 
-                    <!-- START NEW: Resources Dropdown (Desktop: flex; Mobile: dropdown) -->
+                    <!-- START NEW: Resources Dropdown (Keep, but remove Treasury link from here) -->
                     <li class="relative dropdown">
                         <a href="javascript:void(0)" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 flex items-center justify-center md:justify-start w-full" aria-haspopup="true" aria-expanded="false">
                             Resources
@@ -810,19 +822,13 @@
                             <li><a href="#gallery-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Gallery</a></li>
                             <li><a href="#reviews-page" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Anonymous Reviews</a></li>
                             <li class="hidden"><a href="#links" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Links (Social)</a></li>
-                            <li class="hidden"><a href="#testimonials" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Testimonials</a></li>
-                            <li class="hidden"><a href="#success-stories" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">Success Stories</a></li>
-                            <li class="hidden"><a href="#faq" class="block px-4 py-3 text-base text-gray-700 hover:bg-indigo-50 dark:text-gray-300 dark:hover:bg-gray-700">FAQ</a></li>
                         </ul>
                     </li>
                     <!-- END NEW: Resources Dropdown -->
 
                     <!-- START NEW: Mobile Links (Remaining top-level sections) -->
-                    <li class="flex md:hidden"><a href="#testimonials" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Testimonials</a></li>
-                    <li class="flex md:hidden"><a href="#success-stories" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Success Stories</a></li>
-                    <li class="flex md:hidden"><a href="#faq" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">FAQ</a></li>
                     <li class="flex md:hidden"><a href="#links" class="text-gray-600 hover:text-indigo-700 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors duration-300 ease-in-out rounded-lg px-4 py-2 hover:bg-indigo-50 dark:hover:bg-gray-700 block w-full">Links (Social)</a></li>
-                    <!-- END NEW: Mobile Links (Remaining top-level sections) -->
+                    <!-- END NEW: Mobile Links -->
 
                     <!-- NOTE: The Theme Toggle button has been moved outside this <ul> for better desktop alignment. -->
                 </ul>
@@ -1793,6 +1799,43 @@
             </div>
         </section>
 
+        <!-- The Theorem Treasury Page (Public Product Showcase) -->
+        <section id="theorem-treasury-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
+                       dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+            <div class="container mx-auto px-6 md:px-12 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6 dark:text-gray-100 tracking-tight">The Theorem Treasury</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-12 max-w-3xl mx-auto">Access premium study materials, specialized test series, and comprehensive video courses developed by Dipanjan Chatterjee.</p>
+                
+                <div id="treasury-loading" class="text-gray-600 dark:text-gray-300 text-center py-10">Loading available products... <span class="spinner ml-3"></span></div>
+
+                <div id="treasury-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Products will be dynamically loaded here by renderTreasuryItems() -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Shopping Cart Page (NEW) -->
+        <section id="cart-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
+                       dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
+            <div class="container mx-auto px-6 md:px-12 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-14 dark:text-gray-100 tracking-tight">Your Shopping Cart</h2>
+                <div id="cart-items-container" class="max-w-4xl mx-auto space-y-4">
+                    <!-- Cart items will be rendered here -->
+                </div>
+                <div id="cart-summary" class="max-w-4xl mx-auto mt-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl text-left">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Order Summary</h3>
+                    <div class="flex justify-between text-xl font-semibold mb-4 border-t pt-4 border-gray-200 dark:border-gray-700">
+                        <p>Total:</p>
+                        <p id="cart-total" class="text-indigo-600 dark:text-indigo-400">₹0.00</p>
+                    </div>
+                    <button id="proceed-to-checkout-btn" class="w-full bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-teal-700 transition duration-300" disabled>
+                        Proceed to Checkout
+                    </button>
+                    <p id="checkout-message" class="text-red-500 mt-3 hidden text-sm"></p>
+                </div>
+            </div>
+        </section>
+
         <!-- Admin Dashboard Page -->
         <section id="admin-dashboard-page" class="page-section hidden py-16 md:py-28 bg-gray-100 rounded-xl shadow-lg mx-4 md:mx-auto max-w-7xl mt-12 mb-12
                        dark:bg-gray-950 dark:shadow-2xl transition-colors duration-300 ease-in-out">
@@ -1812,27 +1855,43 @@
                         
                         <!-- Add/Edit Course Form -->
                         <form id="add-edit-course-form" class="space-y-4 hidden">
-                            <input type="hidden" id="course-id">
+                            <input type="hidden" id="product-id">
+                            
+                            <!-- NEW: Product Type Selector -->
                             <div>
-                                <label for="course-title" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Title:</label>
-                                <input type="text" id="course-title" placeholder="e.g., JEE Advanced Mathematics" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                                <label for="product-type" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Product Type:</label>
+                                <select id="product-type" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 appearance-none" required>
+                                    <option value="course">Course (Subscription based)</option>
+                                    <option value="study_material">Study Material (Permanent access)</option>
+                                    <option value="test_series">Test Series</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="product-title" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Title:</label>
+                                <input type="text" id="product-title" placeholder="e.g., JEE Advanced Mathematics" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
                             </div>
                             <div>
-                                <label for="course-description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Description:</label>
-                                <textarea id="course-description" rows="4" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
+                                <label for="product-description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Description:</label>
+                                <textarea id="product-description" rows="4" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required></textarea>
                             </div>
                             <div class="flex space-x-4">
                                 <div class="w-1/2">
-                                    <label for="course-price" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Price (INR):</label>
-                                    <input type="number" id="course-price" placeholder="5000" min="1" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                                    <label for="product-price" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Price (INR):</label>
+                                    <input type="number" id="product-price" placeholder="5000" min="1" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
                                 </div>
                                 <div class="w-1/2">
-                                    <label for="course-duration-days" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Duration (Days):</label>
-                                    <input type="number" id="course-duration-days" placeholder="365" min="1" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600" required>
+                                    <label for="product-duration-days" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Duration (Days):</label>
+                                    <!-- Note: This field is only relevant for 'course' or 'subscription' types -->
+                                    <input type="number" id="product-duration-days" placeholder="365" min="0" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
                                 </div>
                             </div>
+                            <div>
+                                <label for="product-unlock-link" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Unlock Link (Private Material URL):</label>
+                                <input type="url" id="product-unlock-link" placeholder="https://drive.google.com/private_content" class="w-full px-5 py-3 rounded-xl border border-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600">
+                            </div>
                             <div class="flex flex-wrap gap-4 pt-4">
-                                <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700">Save Course</button>
+                                <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700">Save Product</button>
                                 <button type="button" id="cancel-edit-course-btn" class="bg-gray-400 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-gray-500 hidden">Cancel</button>
                             </div>
                         </form>
@@ -1910,14 +1969,16 @@
                             <p class="text-center text-gray-500 dark:text-gray-400">No active subscriptions found.</p>
                         </div>
                     </div>
-                    
-                    <!-- Course Marketplace -->
-                    <div id="student-marketplace-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
-                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Browse & Buy Courses</h3>
-                        <div id="marketplace-courses-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <p class="text-center text-gray-500 dark:text-gray-400 col-span-full">Loading courses...</p>
+
+                    <!-- NEW: Order History -->
+                    <div id="order-history-panel" class="bg-white p-8 rounded-2xl shadow-xl dark:bg-gray-800 border border-indigo-100 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6 dark:text-gray-100">Order History</h3>
+                        <div id="order-history-section" class="space-y-4">
+                            <p class="text-center text-gray-500 dark:text-gray-400">Loading order history...</p>
                         </div>
                     </div>
+                    
+                    <!-- Course Marketplace (REMOVED - now on The Theorem Treasury page) -->
 
                 </div>
             </div>
@@ -2096,22 +2157,21 @@
         </div>
     </div>
 
-    <!-- Buy Course Modal (Student Purchase) -->
-    <div id="buy-course-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="buy-course-modal-title">
+    <!-- Checkout Confirmation Modal (Used for Razorpay initiation from the Cart Page) -->
+    <div id="checkout-confirmation-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-confirmation-modal-title">
         <div class="modal-content max-w-lg">
-            <button class="modal-close-button" aria-label="Close course details" id="buy-course-modal-close-button">&times;</button>
-            <h3 id="buy-course-modal-title" class="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-100"></h3>
+            <button class="modal-close-button" aria-label="Close checkout details" id="checkout-confirmation-modal-close-button">&times;</button>
+            <h3 id="checkout-confirmation-modal-title" class="text-3xl font-bold text-gray-900 mb-4 dark:text-gray-100">Confirm Purchase</h3>
             
-            <div id="buy-course-details" class="text-left space-y-4 mb-6 text-lg text-gray-700 dark:text-gray-300">
-                <p><strong>Description:</strong> <span id="buy-course-desc"></span></p>
-                <p><strong>Duration:</strong> <span id="buy-course-duration"></span> days</p>
-                <p class="text-2xl font-extrabold text-teal-600 dark:text-teal-400">Price: ₹ <span id="buy-course-price"></span></p>
+            <div id="checkout-summary-details" class="text-left space-y-4 mb-6 text-lg text-gray-700 dark:text-gray-300">
+                <p>Total Items: <span id="checkout-item-count" class="font-semibold text-gray-900 dark:text-gray-100">0</span></p>
+                <p class="text-2xl font-extrabold text-teal-600 dark:text-teal-400">Total Price: ₹ <span id="checkout-total-price">0.00</span></p>
                 
-                <p class="text-sm text-gray-500 dark:text-gray-400">Your profile details (Name and Telegram Email) will be used for enrollment and invite links.</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 border-t pt-2 mt-4">Your profile details (Name and Telegram Email) will be used for enrollment and invite links. Please ensure your profile is up to date.</p>
             </div>
             
             <button id="razorpay-checkout-btn" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out shadow-md focus:outline-none focus:ring-4 focus:ring-indigo-300">
-                Proceed to Checkout (Razorpay)
+                Proceed to Payment (Razorpay)
             </button>
             <div id="razorpay-loading-spinner" class="spinner hidden mx-auto mt-4"></div>
             <p id="razorpay-error-message" class="text-red-500 mt-3 hidden"></p>
@@ -2250,8 +2310,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, onSnapshot, query, setDoc, getDoc, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
         // Global Firebase variables, initialized to null
         let app = null;
         let db = null;
@@ -2267,6 +2327,10 @@
         let allCoursesData = []; // Store courses for both dashboards
         let allStudentsData = []; // Store all user data for Admin Panel
         
+        // E-COMMERCE STATE
+        let shoppingCart = []; // Global cart array
+        let cartUnsubscribe = null; // Listener reference for the user's cart
+
         let razorpayKeyId = null; // Razorpay Public Key ID
 
         // Global constants will be loaded from the serverless function /api/get-config
@@ -2343,7 +2407,7 @@
 
             // Assign to the global appId variable
             // NOTE: firebaseConfig is now loaded from the server
-            appId = typeof __app_id !== 'undefined' ? __appId : firebaseConfig.projectId;
+            appId = typeof __app_id !== 'undefined' ? __app_id : firebaseConfig.projectId;
 
             // Check if essential Firebase config values are provided
             if (firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.authDomain && firebaseConfig.appId) {
@@ -2443,10 +2507,17 @@
 
         // Function to check user role (admin or user) from Firestore
         async function checkAdminStatus(user) {
+            if (cartUnsubscribe) {
+                cartUnsubscribe(); // Unsubscribe from previous cart listener
+                cartUnsubscribe = null;
+            }
+            
             if (!db || !user || user.isAnonymous) {
                 dbUserRole = null;
                 currentUserRole = null; // Clear role on logout/anon
                 isAdmin = false;
+                shoppingCart = []; // Clear local cart state on logout
+                updateCartUI();
                 updateAdminUI();
                 return;
             }
@@ -2504,6 +2575,12 @@
 
 
             updateAdminUI();
+            
+            // Only start the cart listener if logged in (student or admin)
+            if (user && !user.isAnonymous) {
+                startCartListener(user.uid);
+            }
+            
             initializeFirestoreListeners(); // Initialize listeners after auth state and admin status are known
         }
 
@@ -2513,6 +2590,16 @@
             isAdmin = dbUserRole === 'admin';
             
             const adminPanels = document.querySelectorAll('.admin-panel');
+
+            // 1. CRITICAL: Hide cart button if user is an admin (Request 1)
+            if (cartNavButton) {
+                if (isAdmin) {
+                    cartNavButton.classList.add('hidden');
+                } else {
+                    cartNavButton.classList.remove('hidden');
+                }
+            }
+            
             const adminIndicator = document.getElementById('admin-mode-indicator');
             const authSection = document.getElementById('auth-section');
             const adminDashboardPage = document.getElementById('admin-dashboard-page');
@@ -2824,19 +2911,46 @@
         const studentProfilePhoneInput = document.getElementById('student-profile-phone');
         const studentProfileTelegramEmailInput = document.getElementById('student-profile-telegram-email');
         const subscriptionsListStudent = document.getElementById('subscriptions-list-student');
-        const marketplaceCoursesList = document.getElementById('marketplace-courses-list');
+        // const marketplaceCoursesList = document.getElementById('marketplace-courses-list'); // REMOVED from student dashboard
 
-        // Razorpay Modal Elements
-        const buyCourseModal = document.getElementById('buy-course-modal');
-        const buyCourseModalCloseBtn = document.getElementById('buy-course-modal-close-button');
-        const buyCourseModalTitle = document.getElementById('buy-course-modal-title');
-        const buyCourseDesc = document.getElementById('buy-course-desc');
-        const buyCourseDuration = document.getElementById('buy-course-duration');
-        const buyCoursePrice = document.getElementById('buy-course-price');
+        // Theorem Treasury Elements (NEW)
+        const treasuryContent = document.getElementById('treasury-content');
+        const treasuryLoading = document.getElementById('treasury-loading');
+
+        // Admin Course Management Elements (Updated)
+        const courseUnlockLinkInput = document.getElementById('course-unlock-link');
+
+        // E-COMMERCE ELEMENTS
+        const cartNavButton = document.getElementById('cart-nav-button');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartPage = document.getElementById('cart-page');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const proceedToCheckoutBtn = document.getElementById('proceed-to-checkout-btn');
+        const checkoutMessage = document.getElementById('checkout-message');
+
+        // Checkout Confirmation Modal Elements (Repurposed from buy-course-modal)
+        const checkoutConfirmationModal = document.getElementById('checkout-confirmation-modal');
+        const checkoutConfirmationModalCloseBtn = document.getElementById('checkout-confirmation-modal-close-button');
+        const checkoutItemCount = document.getElementById('checkout-item-count');
+        const checkoutTotalPrice = document.getElementById('checkout-total-price');
         const razorpayCheckoutBtn = document.getElementById('razorpay-checkout-btn');
         const razorpayLoadingSpinner = document.getElementById('razorpay-loading-spinner');
         const razorpayErrorMessage = document.getElementById('razorpay-error-message');
-        let currentCheckoutCourse = null; // Stores the course object being purchased
+        let currentCheckoutOrder = null; // Stores the order summary being processed
+
+        // Admin Dashboard Product Management Elements (Renamed)
+        const productIdInput = document.getElementById('product-id');
+        const productTypeSelect = document.getElementById('product-type');
+        const productTitleInput = document.getElementById('product-title');
+        const productDescriptionInput = document.getElementById('product-description');
+        const productPriceInput = document.getElementById('product-price');
+        const productDurationInput = document.getElementById('product-duration-days');
+        const productUnlockLinkInput = document.getElementById('product-unlock-link');
+
+        // Student Dashboard Order History (NEW)
+        const orderHistorySection = document.getElementById('order-history-section');
+
 
         // New Auth Element
         const loginAsRoleSelect = document.getElementById('login-as-role');
@@ -2950,6 +3064,10 @@
                 // === CRITICAL FIX START: Force render for data pages on navigation ===
                 // This ensures existing data (if loaded by the listener) is rendered immediately.
                 if (pageId === 'book-list-page') applyBookFiltersAndRender();
+                
+                if (pageId === 'theorem-treasury-page') renderTheoremTreasury(); // NEW: Render Treasury
+                
+                if (pageId === 'cart-page') renderCart(); // NEW: Render Shopping Cart
                 
                 if (pageId === 'problems-page') {
                     if (isProblemCategoryView) {
@@ -3248,7 +3366,32 @@
 
             // Start the initialization sequence by loading configuration
             loadAppConfiguration();
-        });
+            
+            // E-COMMERCE STARTUP: Cart loading is now handled dynamically by the Firestore listener upon login.
+    });
+
+        // E-COMMERCE LISTENERS
+        if (cartNavButton) {
+            cartNavButton.addEventListener('click', () => {
+                history.pushState(null, null, `#cart-page`);
+                renderPage('cart-page');
+            });
+        }
+        
+        if (proceedToCheckoutBtn) {
+            proceedToCheckoutBtn.addEventListener('click', showCheckoutConfirmation);
+        }
+        
+        if (checkoutConfirmationModalCloseBtn) {
+            checkoutConfirmationModalCloseBtn.addEventListener('click', () => checkoutConfirmationModal.classList.remove('active'));
+        }
+        
+        if (checkoutConfirmationModal) {
+            checkoutConfirmationModal.addEventListener('click', (e) => {
+                if (e.target === checkoutConfirmationModal) checkoutConfirmationModal.classList.remove('active');
+            });
+        }
+
 
         themeToggle.addEventListener('click', () => {
             if (htmlElement.classList.contains('dark')) {
@@ -3282,18 +3425,13 @@
             enrollCourseInput.value = courseName;
         }
 
-        // Handler for logged-in students (opens detail/buy modal, which uses data from Firestore)
+        // Handler for logged-in students (now redirects to Treasury)
         function showCourseDetailModalHandler() {
             if (!auth.currentUser || auth.currentUser.isAnonymous) {
                 return showEnrollmentModalHandler.call(this); // Fallback
             }
-            const courseName = this.dataset.course;
-            const course = allCoursesData.find(c => c.title === courseName);
-            if (course) {
-                showCourseDetailModal(course); // Uses the new buy course modal
-            } else {
-                showMessageBox("Error", "Course details not yet loaded or course name mismatch.");
-            }
+            history.pushState(null, null, `#theorem-treasury-page`);
+            renderPage('theorem-treasury-page');
         }
 
         enrollButtons.forEach(button => {
@@ -3347,6 +3485,202 @@
                 galleryModalCaption.textContent = '';
             }
         });
+
+        // --- E-COMMERCE CORE FUNCTIONS (Cart) ---
+
+        function calculateCartTotal() {
+            return shoppingCart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        async function updateCartUI() {
+            const totalItems = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+            if (totalItems > 0) {
+                cartCountSpan.textContent = totalItems;
+                cartCountSpan.classList.remove('hidden');
+                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = false;
+            } else {
+                cartCountSpan.classList.add('hidden');
+                if (proceedToCheckoutBtn) proceedToCheckoutBtn.disabled = true;
+            }
+            if (cartTotalSpan) cartTotalSpan.textContent = `₹${calculateCartTotal().toFixed(2)}`;
+
+            // NOTE: Cart persistence is handled via Firestore listener/write operation below.
+        }
+        
+        // Helper to update the cart document in Firestore
+        async function saveCartToFirestore(newCart, currentUserId) {
+            if (!currentUserId || currentUserId === 'anonymous') {
+                // Should be handled upstream, but as a safety net:
+                showMessageBox("Login Required", "Please log in to add items to your personal cart.");
+                return false;
+            }
+            try {
+                // Use the standardized path for the carts collection
+                // CRITICAL: Ensure doc() is used with the userId as the document ID to satisfy Firestore Security Rule: request.auth.uid == userId
+                const cartDocRef = doc(getCollectionRef("carts"), currentUserId);
+                
+                console.log("Attempting Firestore Cart Write. Path:", cartDocRef.path, "User UID:", currentUserId);
+
+                // Using setDoc with merge: true for robustness against partial updates, though cart data is usually atomic.
+                await setDoc(cartDocRef, { 
+                    items: newCart,
+                    updated_at: serverTimestamp()
+                }, { merge: true });
+
+                return true;
+            } catch (e) {
+                console.error("Error saving cart to Firestore:", e);
+                // Log the error message directly from the Firebase error object for better debugging
+                showMessageBox("Cart Error", `Failed to save cart: ${e.message}. Permissions issue suspected. (Check Firebase Project ID resolution in getCollectionRef and Security Rules)`);
+                return false;
+            }
+        }
+
+        async function addToCart(product, quantity = 1) {
+            // Check if user is logged in
+            if (!auth.currentUser || auth.currentUser.isAnonymous) {
+                showMessageBox("Login Required", "Please log in or register to purchase this material.");
+                // Redirect to login page
+                history.pushState(null, null, `#admin-page`);
+                renderPage('admin-page');
+                return;
+            }
+            
+            // Look up full product data to determine type
+            const fullProduct = allCoursesData.find(c => c.id === product.id) || {};
+            const isSubscription = fullProduct.productType === 'course' || fullProduct.productType === 'subscription';
+
+            let newCart = [...shoppingCart];
+            const existingItemIndex = newCart.findIndex(item => item.id === product.id);
+
+            if (existingItemIndex > -1) {
+                if (isSubscription) {
+                    showMessageBox("Already in Cart", `${product.name} is already in your cart. Subscription type items are limited to one per purchase.`);
+                    return; 
+                }
+                newCart[existingItemIndex].quantity += quantity;
+            } else {
+                newCart.push({ ...product, quantity: quantity, price: product.price });
+            }
+            
+            if (await saveCartToFirestore(newCart, auth.currentUser.uid)) {
+                showMessageBox("Item Added", `${product.name} added to cart!`);
+            }
+            // UI update happens via Firestore listener
+        }
+
+        async function removeFromCart(productId) {
+            if (!auth.currentUser || auth.currentUser.isAnonymous) return;
+            
+            let newCart = shoppingCart.filter(item => item.id !== productId);
+            if (await saveCartToFirestore(newCart, auth.currentUser.uid)) {
+                if (window.location.hash.substring(1) === 'cart-page') {
+                    renderCart();
+                }
+            }
+            // UI update happens via Firestore listener
+        }
+        
+        async function updateCartQuantity(productId, newQuantity) {
+            if (!auth.currentUser || auth.currentUser.isAnonymous) return;
+
+            let newCart = [...shoppingCart];
+            const itemIndex = newCart.findIndex(item => item.id === productId);
+
+            if (itemIndex > -1) {
+                const product = allCoursesData.find(c => c.id === productId);
+                const isSubscription = product.productType === 'course' || product.productType === 'subscription';
+
+                // Handle subscription/course types (must remain 1)
+                if (isSubscription && newQuantity > 1) {
+                     newQuantity = 1;
+                }
+                
+                if (newQuantity <= 0) {
+                    newCart = newCart.filter(item => item.id !== productId);
+                } else {
+                    newCart[itemIndex].quantity = newQuantity;
+                }
+            }
+            
+            if (await saveCartToFirestore(newCart, auth.currentUser.uid)) {
+                if (window.location.hash.substring(1) === 'cart-page') {
+                    renderCart();
+                }
+            }
+            // UI update happens via Firestore listener
+        }
+
+        function renderCart() {
+            if (!cartItemsContainer) return;
+
+            cartItemsContainer.innerHTML = '';
+            
+            if (shoppingCart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-600 dark:text-gray-300 text-center py-10">Your cart is empty. <a href="#theorem-treasury-page" class="text-indigo-600 hover:underline">Start shopping!</a></p>';
+                proceedToCheckoutBtn.disabled = true;
+                updateCartUI();
+                return;
+            }
+
+            shoppingCart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex flex-col md:flex-row justify-between items-center bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md';
+
+                const product = allCoursesData.find(c => c.id === item.id) || {};
+                const isSubscription = product.productType === 'course' || product.productType === 'subscription';
+
+                itemElement.innerHTML = `
+                    <div class="md:w-1/2 text-left">
+                        <p class="text-lg font-bold text-gray-900 dark:text-gray-100">${item.name}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">${product.productType ? product.productType.charAt(0).toUpperCase() + product.productType.slice(1).replace('_', ' ') : 'Product'}</p>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4 mt-3 md:mt-0 md:w-1/2 justify-end">
+                        <div class="flex items-center border rounded-lg dark:border-gray-700">
+                            <button class="cart-qty-btn bg-gray-100 dark:bg-gray-700 p-2 rounded-l-lg hover:bg-gray-200" data-id="${item.id}" data-action="decrease" ${isSubscription ? 'disabled' : ''}>-</button>
+                            <input type="number" value="${item.quantity}" min="1" max="99" data-id="${item.id}" class="cart-qty-input w-12 text-center border-none dark:bg-gray-800 dark:text-white" ${isSubscription ? 'readonly' : ''}>
+                            <button class="cart-qty-btn bg-gray-100 dark:bg-gray-700 p-2 rounded-r-lg hover:bg-gray-200" data-id="${item.id}" data-action="increase" ${isSubscription ? 'disabled' : ''}>+</button>
+                        </div>
+                        <p class="text-lg font-semibold w-24 text-right">₹${(item.price * item.quantity).toFixed(2)}</p>
+                        <button class="remove-from-cart-btn text-red-500 hover:text-red-700" data-id="${item.id}">
+                            &times;
+                        </button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            // Attach listeners to cart items
+            document.querySelectorAll('.remove-from-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => removeFromCart(e.currentTarget.dataset.id));
+            });
+
+            document.querySelectorAll('.cart-qty-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const action = e.currentTarget.dataset.action;
+                    const input = document.querySelector(`.cart-qty-input[data-id="${id}"]`);
+                    let newQty = parseInt(input.value);
+                    
+                    if (action === 'increase') {
+                        newQty += 1;
+                    } else if (action === 'decrease') {
+                        newQty -= 1;
+                    }
+                    updateCartQuantity(id, newQty);
+                });
+            });
+
+            document.querySelectorAll('.cart-qty-input').forEach(input => {
+                input.addEventListener('change', debounce((e) => {
+                    let newQty = parseInt(e.currentTarget.value) || 1;
+                    updateCartQuantity(e.currentTarget.dataset.id, newQty);
+                }, 500));
+            });
+
+            updateCartUI(); // Final update of total
+        }
 
         // --- Firebase Authentication Functions ---
 
@@ -5552,7 +5886,12 @@
             if (currentUserRole === 'admin') {
                 renderAdminCourseList(allCoursesData);
             } else if (currentUserRole === 'student') {
-                renderMarketplace(allCoursesData);
+                // Re-render student subscriptions which relies on allCoursesData
+                renderStudentDashboard(); 
+            }
+            // If the user is on the treasury page, update it regardless of role
+            if (window.location.hash.substring(1) === 'theorem-treasury-page') {
+                renderTheoremTreasury();
             }
             
             // Update the main static course section buttons
@@ -5611,18 +5950,21 @@
                     studentProfileTelegramEmailInput.value = profile.telegram_email || auth.currentUser.email || '';
                     
                     renderStudentSubscriptions(studentData);
+                    renderOrderHistory(auth.currentUser.uid); // NEW: Render order history
                 } else {
                     // Display loading or warning for a moment if data hasn't arrived
                     subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Loading profile and subscriptions...</p>';
+                    document.getElementById('order-history-section').innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Loading order history...</p>';
                     console.warn("Student data not yet loaded for profile.");
                     // Ensure form is blank if data is missing, but fields exist
                     if (studentProfileForm) studentProfileForm.reset();
                 }
             } else {
                 subscriptionsListStudent.innerHTML = '<p class="text-red-500">You must be logged in to view subscriptions.</p>';
+                document.getElementById('order-history-section').innerHTML = '<p class="text-red-500">You must be logged in to view order history.</p>';
             }
             
-            renderMarketplace(allCoursesData);
+            // REMOVED: renderMarketplace(allCoursesData); // Marketplace moved to Theorem Treasury Page
         }
 
         // --- Student Dashboard Sub-Functions ---
@@ -5655,107 +5997,174 @@
             const subscriptions = studentData.subscriptions || [];
             
             if (subscriptions.length === 0) {
-                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No active subscriptions found. Browse the marketplace below to purchase a course.</p>';
+                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">No active subscriptions or purchased materials found.</p>';
                 return;
             }
 
-            // Filter for active subscriptions
-            const activeSubs = subscriptions.filter(sub => {
+            // Filter for active/permanent access items
+            const activeProducts = subscriptions.filter(sub => {
+                const productDetail = allCoursesData.find(c => c.id === sub.course_id) || {};
+                const isSubscription = productDetail.productType === 'course' || productDetail.productType === 'subscription';
+                
+                if (!isSubscription) {
+                    return true; // Permanent products are always active
+                }
+                
                 const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : new Date(0);
                 return expiry > new Date();
             });
             
-            if (activeSubs.length === 0) {
-                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">All your previous subscriptions have expired. Please renew below.</p>';
+            if (activeProducts.length === 0) {
+                subscriptionsListStudent.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">All your previous subscriptions have expired.</p>';
                 return;
             }
 
-            activeSubs.forEach(sub => {
-                const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : null;
-                const status = `<span class="text-green-600 font-semibold">Active (Expires: ${expiry.toLocaleDateString()})</span>`;
+            activeProducts.forEach(sub => {
+                const productDetail = allCoursesData.find(c => c.id === sub.course_id) || {};
+                const isSubscription = productDetail.productType === 'course' || productDetail.productType === 'subscription';
+
+                let statusText;
+                let accessLink;
+
+                if (isSubscription) {
+                    const expiry = sub.expiry_date ? new Date(sub.expiry_date.seconds * 1000) : null;
+                    statusText = `<span class="text-green-600 font-semibold">Active (Expires: ${expiry.toLocaleDateString()})</span>`;
+                } else {
+                    statusText = `<span class="text-teal-600 font-semibold">Permanent Access</span>`;
+                }
+                
+                if (productDetail.unlock_link) {
+                    accessLink = `<a href="${productDetail.unlock_link}" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-indigo-700 transition duration-300 mt-2 inline-block">Access Material &rarr;</a>`;
+                } else {
+                     accessLink = `<a href="#contact" class="text-indigo-600 hover:underline text-sm mt-1 block">Access details via Admin Contact.</a>`;
+                }
                 
                 const subElement = document.createElement('div');
-                subElement.className = 'p-4 border border-indigo-200 rounded-xl dark:border-gray-700 dark:bg-gray-700/50 flex justify-between items-center';
+                subElement.className = 'p-4 border border-indigo-200 rounded-xl dark:border-gray-700 dark:bg-gray-700/50 flex justify-between items-start';
                 subElement.innerHTML = `
                     <div>
                         <p class="text-xl font-bold text-gray-900 dark:text-gray-100">${sub.course_title}</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Type: ${productDetail.productType.charAt(0).toUpperCase() + productDetail.productType.slice(1).replace('_', ' ')}</p>
                         <p class="text-sm text-gray-600 dark:text-gray-400">Purchased: ${sub.purchase_date ? new Date(sub.purchase_date.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
                     </div>
-                    <div class="text-right">
-                        <p>${status}</p>
-                        <a href="#contact" class="text-indigo-600 hover:underline text-sm mt-1 block">Need Telegram Invite? Contact Admin.</a>
+                    <div class="text-right flex flex-col items-end">
+                        <p>${statusText}</p>
+                        ${accessLink}
                     </div>
                 `;
                 subscriptionsListStudent.appendChild(subElement);
             });
         }
         
-        function renderMarketplace(courses) {
-            marketplaceCoursesList.innerHTML = '';
-            
-            if (courses.length === 0) {
-                marketplaceCoursesList.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400 col-span-full">No courses available for purchase yet.</p>';
+        async function renderOrderHistory(userId) {
+            const orderHistorySection = document.getElementById('order-history-section');
+            if (!db || !userId) {
+                orderHistorySection.innerHTML = '<p class="text-red-500">Authentication error. Cannot load orders.</p>';
                 return;
             }
             
-            const studentData = allStudentsData.find(s => s.id === auth.currentUser.uid);
-            const activeCourseIds = (studentData?.subscriptions || [])
-                .filter(sub => sub.expiry_date && new Date(sub.expiry_date.seconds * 1000) > new Date())
-                .map(sub => sub.course_id);
+            orderHistorySection.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Fetching your orders... <span class="spinner ml-3"></span></p>';
 
-            courses.forEach(course => {
-                const isSubscribed = activeCourseIds.includes(course.id);
-                
-                const card = document.createElement('div');
-                card.className = 'bg-gray-50 p-6 rounded-2xl shadow-lg dark:bg-gray-700 border border-teal-200 dark:border-gray-600 flex flex-col justify-between';
-                card.innerHTML = `
-                    <div>
-                        <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">${course.title}</h4>
-                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">${course.description.substring(0, 100)}...</p>
-                        <p class="text-xl font-extrabold text-teal-600 dark:text-teal-400 mb-4">Price: ₹${course.price}</p>
-                    </div>
-                    ${isSubscribed ? 
-                        `<button disabled class="w-full bg-gray-400 text-white px-8 py-3 rounded-full text-md">Already Active</button>` :
-                        `<button class="w-full buy-course-btn bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700" data-course-id="${course.id}">Buy Now</button>`
-                    }
-                `;
-                marketplaceCoursesList.appendChild(card);
-            });
+            // We MUST use the getCollectionRef helper to match the secure path defined in Firestore rules.
             
-            document.querySelectorAll('.buy-course-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const courseId = e.target.dataset.courseId;
-                    const course = allCoursesData.find(c => c.id === courseId);
-                    if (course) showCourseDetailModal(course);
+            try {
+                const ordersCollectionRef = getCollectionRef("orders"); 
+                const q = query(ordersCollectionRef, where("userId", "==", userId));
+                const querySnapshot = await getDocs(q);
+                
+                const orders = [];
+                querySnapshot.forEach(doc => {
+                    orders.push({ id: doc.id, ...doc.data() });
                 });
-            });
+                
+                if (orders.length === 0) {
+                    orderHistorySection.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">You have no past orders.</p>';
+                    return;
+                }
+                
+                orders.sort((a, b) => (b.purchaseDate?.seconds || 0) - (a.purchaseDate?.seconds || 0));
+
+                const table = document.createElement('table');
+                table.className = 'min-w-full divide-y divide-gray-200 dark:divide-gray-700 shadow overflow-hidden rounded-xl';
+                table.innerHTML = `
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Order ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Items</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                        ${orders.map(order => {
+                            const dateStr = order.purchaseDate ? new Date(order.purchaseDate.seconds * 1000).toLocaleDateString() : 'N/A';
+                            // Ensure order.items exists and is an array before mapping
+                            const itemSummary = (order.items || []).map(item => `${item.title} (${item.quantity})`).join(', ');
+                            
+                            return `
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/70">
+                                    <td class="px-6 py-4 text-sm font-mono text-gray-500 dark:text-gray-400 break-all">${order.id.slice(0, 8)}...</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">${dateStr}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">${itemSummary}</td>
+                                    <td class="px-6 py-4 text-right text-base font-bold text-indigo-600 dark:text-indigo-400">₹${(order.totalAmount / 100).toFixed(2)}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                `;
+                orderHistorySection.innerHTML = '';
+                orderHistorySection.appendChild(table);
+
+            } catch (e) {
+                console.error("Error loading order history:", e);
+                orderHistorySection.innerHTML = '<p class="text-red-500">Failed to load order history. Please ensure Firestore rules allow reading from the "orders" collection.</p>';
+            }
         }
 
-        // --- Razorpay & Course Purchase Flow ---
+        // --- Razorpay & CART Purchase Flow ---
+        
+        function calculateCartDetails() {
+            const total = calculateCartTotal();
+            const itemCount = shoppingCart.reduce((total, item) => total + item.quantity, 0);
+            
+            // Generate a detailed list of items being purchased
+            const items = shoppingCart.map(item => {
+                const productDetail = allCoursesData.find(c => c.id === item.id) || {};
+                return {
+                    id: item.id,
+                    title: item.name,
+                    price: item.price,
+                    quantity: item.quantity,
+                    type: productDetail.productType || 'unknown',
+                    duration: productDetail.duration_days || 0,
+                    unlock_link: productDetail.unlock_link || null
+                };
+            });
+            
+            return { totalAmount: total, itemCount, items };
+        }
 
-        function showCourseDetailModal(course) {
+        function showCheckoutConfirmation() {
+            if (shoppingCart.length === 0) {
+                return showMessageBox("Cart Empty", "Your shopping cart is empty.");
+            }
+            if (!auth.currentUser || auth.currentUser.isAnonymous) {
+                showMessageBox("Login Required", "Please log in or register to complete your purchase.");
+                // Redirect to login page
+                history.pushState(null, null, `#admin-page`);
+                renderPage('admin-page');
+                return;
+            }
             if (!razorpayKeyId) return showMessageBox("Error", "Razorpay is not configured by the admin.");
 
-            currentCheckoutCourse = course;
-            buyCourseModalTitle.textContent = course.title;
-            buyCourseDesc.textContent = course.description;
-            buyCourseDuration.textContent = course.duration_days;
-            buyCoursePrice.textContent = course.price;
+            currentCheckoutOrder = calculateCartDetails();
+
+            checkoutItemCount.textContent = currentCheckoutOrder.itemCount;
+            checkoutTotalPrice.textContent = currentCheckoutOrder.totalAmount.toFixed(2);
             
             razorpayErrorMessage.classList.add('hidden');
-            buyCourseModal.classList.add('active');
+            checkoutConfirmationModal.classList.add('active');
         }
-        
-        // Modal close listener setup
-        if (buyCourseModalCloseBtn) {
-            buyCourseModalCloseBtn.addEventListener('click', () => buyCourseModal.classList.remove('active'));
-        }
-        if (buyCourseModal) {
-            buyCourseModal.addEventListener('click', (e) => {
-                if (e.target === buyCourseModal) buyCourseModal.classList.remove('active');
-            });
-        }
-
 
         // Checkout initiation
         if (razorpayCheckoutBtn) {
@@ -5763,8 +6172,8 @@
         }
 
         async function startRazorpayCheckout() {
-            if (!currentCheckoutCourse || !auth.currentUser) {
-                return showMessageBox("Error", "Course or user data missing. Please log in again.");
+            if (!currentCheckoutOrder || !auth.currentUser) {
+                return showMessageBox("Error", "Order or user data missing. Please log in again.");
             }
             
             razorpayLoadingSpinner.classList.remove('hidden');
@@ -5778,6 +6187,8 @@
                 showMessageBox("Profile Required", "Please complete your profile (Full Name and Telegram Email) before proceeding to payment.", false, null);
                 return;
             }
+            
+            const totalAmountPaisa = currentCheckoutOrder.totalAmount * 100;
 
             try {
                 // 1. Create Razorpay Order via Netlify Function
@@ -5785,11 +6196,10 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                        amount: currentCheckoutCourse.price * 100,
-                        // Shorten receipt ID to fit within Razorpay's 40 char limit (UID is 28 chars, Date.now() is 13)
-                        // Use the last 10 chars of UID + 10-digit seconds timestamp
-                        receipt: `USER_${auth.currentUser.uid.slice(-10)}_${Math.floor(Date.now() / 1000)}`
-                    }) // Amount in paisa
+                        amount: totalAmountPaisa,
+                        // Shorten receipt ID to fit within Razorpay's 40 char limit
+                        receipt: `ORDER_${auth.currentUser.uid.slice(-10)}_${Math.floor(Date.now() / 1000)}`
+                    }) 
                 });
 
                 if (!response.ok) {
@@ -5802,20 +6212,20 @@
                 // 2. Initialize Razorpay Checkout
                 const options = {
                     key: razorpayKeyId,
-                    amount: currentCheckoutCourse.price * 100, 
+                    amount: totalAmountPaisa, 
                     currency: "INR",
                     name: "MATHEMATICO",
-                    description: `Purchase: ${currentCheckoutCourse.title}`,
+                    description: `Purchase of ${currentCheckoutOrder.itemCount} item(s)`,
                     order_id: order_id, 
                     handler: async function (response) {
+                        // Pass the entire order details to the verification step
                         await verifyRazorpayPayment({ 
                             ...response,
-                            courseId: currentCheckoutCourse.id,
-                            courseTitle: currentCheckoutCourse.title,
-                            courseDurationDays: currentCheckoutCourse.duration_days,
+                            orderItems: currentCheckoutOrder.items,
                             userId: auth.currentUser.uid,
                             userEmail: auth.currentUser.email,
-                            amount: currentCheckoutCourse.price * 100 // Pass amount again for server side check (optional but good practice)
+                            amount: totalAmountPaisa, 
+                            receiptId: order_id 
                         });
                     },
                     prefill: {
@@ -5833,7 +6243,7 @@
 
                 const rzp = new Razorpay(options);
                 rzp.open();
-                buyCourseModal.classList.remove('active'); // Close modal once Razorpay starts
+                checkoutConfirmationModal.classList.remove('active'); // Close modal once Razorpay starts
 
             } catch (error) {
                 console.error("Razorpay Checkout Error:", error);
@@ -5847,7 +6257,7 @@
         async function verifyRazorpayPayment(paymentData) {
             try {
                 // Show generalized loading/processing message
-                showMessageBox("Processing Payment", "Please wait while your payment is verified and subscription is activated...", false); 
+                showMessageBox("Processing Payment", "Please wait while your payment is verified and subscriptions are activated...", false); 
 
                 // 3. Verify Payment and Activate Subscription via Netlify Function
                 const response = await fetch('/.netlify/functions/verify-razorpay-payment', {
@@ -5860,16 +6270,24 @@
                     const error = await response.json();
                     throw new Error(error.error || 'Payment verification failed on server.');
                 }
+                
+                // Clear cart and update UI on success
+                shoppingCart = [];
+                updateCartUI();
+                
+                // Redirect user to dashboard
+                history.pushState(null, null, `#student-dashboard-page`);
+                renderPage('student-dashboard-page');
 
-                showMessageBox("Success! 🎉", "Payment successful! Your course subscription is now active (Expiry calculated from purchase date). The admin will send your Telegram invite link to the email on your profile.", false);
+
+                showMessageBox("Success! 🎉", "Payment successful! Your purchased products and subscriptions are now active. Check your Dashboard for links. The admin will send any necessary Telegram invite link to the email on your profile.", false);
                 
             } catch (error) {
                 console.error("Payment Verification Error:", error);
                 showMessageBox("Payment Error", `Verification failed. Please contact support with your payment ID: ${paymentData.razorpay_payment_id || 'N/A'}. Details: ${error.message}`);
             } finally {
-                // We rely on Firestore listener updates, no need to manually re-render Marketplace/Subscriptions
                 razorpayCheckoutBtn.disabled = false;
-                currentCheckoutCourse = null;
+                currentCheckoutOrder = null;
             }
         }
 
@@ -5900,13 +6318,15 @@
         }
 
         async function editCourse(id) {
-            const course = allCoursesData.find(c => c.id === id);
-            if (course) {
-                courseIdInput.value = course.id;
-                courseTitleInput.value = course.title;
-                courseDescriptionInput.value = course.description;
-                coursePriceInput.value = course.price;
-                courseDurationInput.value = course.duration_days;
+            const product = allCoursesData.find(c => c.id === id);
+            if (product) {
+                productIdInput.value = product.id;
+                productTitleInput.value = product.title;
+                productDescriptionInput.value = product.description;
+                productPriceInput.value = product.price;
+                productDurationInput.value = product.duration_days || 0;
+                productUnlockLinkInput.value = product.unlock_link || '';
+                productTypeSelect.value = product.productType || 'course';
                 
                 addEditCourseForm.classList.remove('hidden');
                 cancelEditCourseBtn.classList.remove('hidden');
@@ -5915,12 +6335,12 @@
         }
 
         async function deleteCourse(id) {
-            showMessageBox("Confirm Delete", "Are you sure you want to delete this course?", true, async () => {
+            showMessageBox("Confirm Delete", "Are you sure you want to delete this product?", true, async () => {
                 try {
                     await deleteDoc(doc(getCollectionRef("courses"), id));
-                    showMessageBox("Success", "Course deleted successfully!");
+                    showMessageBox("Success", "Product deleted successfully!");
                 } catch (e) {
-                    showMessageBox("Error", "Error deleting course.");
+                    showMessageBox("Error", "Error deleting product.");
                 }
             });
         }
@@ -5991,6 +6411,96 @@
             document.querySelectorAll('.admin-delete-student-btn').forEach(btn => btn.addEventListener('click', (e) => deleteStudent(e.target.dataset.id)));
         }
         
+        // --- Theorem Treasury Rendering (NEW PUBLIC MARKETPLACE) ---
+
+        function renderTheoremTreasury() {
+            treasuryLoading.classList.add('hidden');
+            // Delegate rendering logic to the treasury item renderer
+            renderTreasuryItems(allCoursesData, treasuryContent);
+        }
+
+        function renderTreasuryItems(courses, containerElement) {
+            containerElement.innerHTML = '';
+            
+            if (courses.length === 0) {
+                containerElement.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400 col-span-full">No products are available in the Treasury yet.</p>';
+                return;
+            }
+            
+            // Determine active subscriptions for the logged-in user
+            let activeCourseIds = [];
+            const studentData = auth.currentUser && !auth.currentUser.isAnonymous ? 
+                                allStudentsData.find(s => s.id === auth.currentUser.uid) : null;
+            
+            if (studentData) {
+                activeCourseIds = (studentData.subscriptions || [])
+                    .filter(sub => sub.expiry_date && new Date(sub.expiry_date.seconds * 1000) > new Date())
+                    .map(sub => sub.course_id);
+            }
+
+            courses.forEach(course => {
+                const isSubscribed = activeCourseIds.includes(course.id);
+                const isLoggedIn = !!auth.currentUser && !auth.currentUser.isAnonymous;
+                
+                let buttonHtml;
+                
+                if (isSubscribed) {
+                    buttonHtml = `
+                        <a href="${course.unlock_link || '#contact'}" target="_blank" rel="noopener noreferrer" class="w-full access-course-btn bg-green-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-green-700">
+                            Access Material &rarr;
+                        </a>
+                    `;
+                } else if (isLoggedIn) {
+                    buttonHtml = `
+                        <button class="w-full buy-course-btn bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700" data-course-id="${course.id}" data-course-name="${course.title}" data-course-price="${course.price}">
+                            Add to Cart (₹${course.price})
+                        </button>
+                    `;
+                } else {
+                    buttonHtml = `
+                        <button class="w-full buy-course-prompt-btn bg-indigo-600 text-white px-8 py-3 rounded-full text-md font-semibold hover:bg-indigo-700">
+                            Buy Now (Requires Login)
+                        </button>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-2xl shadow-xl dark:bg-gray-800 border border-teal-200 dark:border-gray-700 flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">${course.title}</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 flex-grow">${course.description.substring(0, 150)}...</p>
+                        <p class="text-lg font-extrabold text-teal-600 dark:text-teal-400 mb-4">Price: ₹${course.price}</p>
+                    </div>
+                    ${buttonHtml}
+                `;
+                containerElement.appendChild(card);
+            });
+            
+            // Attach event listeners for purchase flow
+            document.querySelectorAll('.buy-course-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const courseId = e.target.dataset.courseId;
+                    const courseName = e.target.dataset.courseName;
+                    const coursePrice = parseFloat(e.target.dataset.coursePrice);
+                    
+                    if (courseId && courseName && !isNaN(coursePrice)) {
+                        addToCart({ id: courseId, name: courseName, price: coursePrice });
+                    }
+                });
+            });
+
+            // Attach event listener for login prompt
+            document.querySelectorAll('.buy-course-prompt-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    showMessageBox("Login Required", "Please log in or register to purchase this premium material.", false, null);
+                    // Optionally redirect to login page
+                    history.pushState(null, null, `#admin-page`);
+                    renderPage('admin-page');
+                });
+            });
+        }
+        
         // --- CRUD Implementation for Courses (Admin) ---
 
         // NEW Event Listeners (Course CRUD and Student Profile)
@@ -6009,30 +6519,40 @@
                 e.preventDefault();
                 if (dbUserRole !== 'admin') return showMessageBox("Permission Denied", "Admin access required.");
                 
-                const courseId = courseIdInput.value;
-                const courseData = {
-                    title: courseTitleInput.value,
-                    description: courseDescriptionInput.value,
-                    price: parseFloat(coursePriceInput.value),
-                    duration_days: parseInt(courseDurationInput.value),
+                const productId = productIdInput.value;
+                const productType = productTypeSelect.value;
+
+                if (productType !== 'course' && productType !== 'subscription' && parseInt(productDurationInput.value) > 0) {
+                    // For non-subscription products, duration should be zero.
+                    productDurationInput.value = 0;
+                }
+
+                const productData = {
+                    title: productTitleInput.value,
+                    description: productDescriptionInput.value,
+                    price: parseFloat(productPriceInput.value),
+                    productType: productType,
+                    // Only save duration if it's a course type
+                    duration_days: productType === 'course' || productType === 'subscription' ? parseInt(productDurationInput.value) : 0,
+                    unlock_link: productUnlockLinkInput.value || null,
                     date_posted: serverTimestamp()
                 };
 
                 try {
-                    if (courseId) {
-                        await updateDoc(doc(getCollectionRef("courses"), courseId), courseData);
-                        showMessageBox("Success", "Course updated successfully!");
+                    if (productId) {
+                        await updateDoc(doc(getCollectionRef("courses"), productId), productData);
+                        showMessageBox("Success", "Product updated successfully!");
                     } else {
-                        await addDoc(getCollectionRef("courses"), courseData);
-                        showMessageBox("Success", "Course added successfully!");
+                        await addDoc(getCollectionRef("courses"), productData);
+                        showMessageBox("Success", "Product added successfully!");
                     }
                     addEditCourseForm.reset();
-                    courseIdInput.value = '';
+                    productIdInput.value = '';
                     cancelEditCourseBtn.classList.add('hidden');
                     addEditCourseForm.classList.add('hidden');
                 } catch (e) {
-                    console.error("Error saving course: ", e);
-                    showMessageBox("Error", "Error saving course. Please check input formats.");
+                    console.error("Error saving product: ", e);
+                    showMessageBox("Error", "Error saving product. Please check input formats.");
                 }
             });
         }
@@ -6141,6 +6661,7 @@
                 document.getElementById('admin-edit-student-modal').classList.remove('active');
 
             } catch (e) {
+                console.error("Error updating student profile:", e);
                 showMessageBox("Error", "Failed to update student profile.");
             }
         }
@@ -6195,6 +6716,34 @@
                 console.error("Error saving subscription:", e);
                 showMessageBox("Error", "Failed to save subscription changes.");
             }
+        }
+
+        // Function to start real-time listener for the current user's cart (Request 2 Fix)
+        function startCartListener(userId) {
+            if (cartUnsubscribe) {
+                cartUnsubscribe(); // Clean up previous listener
+            }
+            
+            // Use the standardized path for the carts collection
+            const cartDocRef = doc(getCollectionRef("carts"), userId);
+            
+            cartUnsubscribe = onSnapshot(cartDocRef, (docSnap) => {
+                if (docSnap.exists() && docSnap.data().items) {
+                    shoppingCart = docSnap.data().items;
+                    console.log(`Cart loaded for user ${userId}: ${shoppingCart.length} items.`);
+                } else {
+                    shoppingCart = [];
+                    console.log(`Cart is empty for user ${userId}.`);
+                }
+                updateCartUI(); // Update display immediately after loading cart
+                if (window.location.hash.substring(1) === 'cart-page') {
+                    renderCart();
+                }
+            }, (error) => {
+                console.error("Error listening to user cart:", error);
+                shoppingCart = [];
+                updateCartUI();
+            });
         }
 
         // This function is called after Firebase is initialized and authenticated

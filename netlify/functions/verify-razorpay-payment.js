@@ -2,13 +2,10 @@
 
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-
-// Firebase Admin SDK setup for secure Firestore access
 const admin = require('firebase-admin');
 
 if (!admin.apps.length) {
     try {
-        // Sanitize the string: environments sometimes wrap JSON credentials in extra quotes
         const credentialsString = process.env.FIREBASE_ADMIN_CREDENTIALS.replace(/^'|'$/g, '');
         const serviceAccount = JSON.parse(credentialsString);
         admin.initializeApp({
@@ -21,16 +18,9 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// Initialization must happen outside the handler for warm starts
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID;
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || process.env.VITE_RAZORPAY_KEY_SECRET;
-const FIREBASE_APP_ID = process.env.VITE_FIREBASE_APP_ID; // Used for collection path
-
-// Initialize Razorpay client (for optional payment fetching/status checks if needed)
-// const instance = new Razorpay({
-//     key_id: RAZORPAY_KEY_ID,
-//     key_secret: RAZORPAY_KEY_SECRET,
-// });
+const FIREBASE_APP_ID = process.env.VITE_FIREBASE_APP_ID;
 
 exports.handler = async (event) => {
     if (event.httpMethod !== 'POST') {
@@ -43,15 +33,14 @@ exports.handler = async (event) => {
             razorpay_payment_id, 
             razorpay_order_id, 
             razorpay_signature,
-            courseId,
-            courseTitle,
-            courseDurationDays,
+            orderItems, // <-- Expecting the array of items from the client
             userId,
-            userEmail
+            userEmail,
+            amount // Total amount in paise
         } = data;
         
-        if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
-            return { statusCode: 400, body: JSON.stringify({ error: 'Missing Razorpay parameters.' }) };
+        if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature || !orderItems || orderItems.length === 0) {
+            return { statusCode: 400, body: JSON.stringify({ error: 'Missing payment or cart parameters.' }) };
         }
         
         if (!RAZORPAY_KEY_SECRET) {
@@ -68,61 +57,74 @@ exports.handler = async (event) => {
             return { statusCode: 400, body: JSON.stringify({ error: 'Payment signature verification failed.' }) };
         }
 
-        // 2. Update Firestore Subscription for the user
         const userDocRef = db.collection(`artifacts/${FIREBASE_APP_ID}/public/data/users`).doc(userId);
+        const cartDocRef = db.collection(`artifacts/${FIREBASE_APP_ID}/public/data/carts`).doc(userId);
         const userDocSnap = await userDocRef.get();
 
         if (!userDocSnap.exists) {
             console.error(`User document not found for ID: ${userId}`);
-            // Payment is verified, but we can't update subscription safely.
             return { statusCode: 200, body: JSON.stringify({ message: 'Payment verified, but user profile update skipped (user not found in DB).' }) };
         }
 
         const userData = userDocSnap.data();
         let subscriptions = userData.subscriptions || [];
-        
-        const purchaseDate = new Date();
-        const expiryDate = new Date(purchaseDate);
-        expiryDate.setDate(purchaseDate.getDate() + courseDurationDays);
-        expiryDate.setHours(23, 59, 59, 999); // Set to end of day
+        const purchaseDate = admin.firestore.FieldValue.serverTimestamp();
 
-        // Check if subscription already exists for this course
-        let existingSubIndex = subscriptions.findIndex(sub => sub.course_id === courseId);
+        // 2. Process all items in the cart (Subscription/Product Activation)
+        for (const item of orderItems) {
+            const isSubscription = item.type === 'course' || item.type === 'subscription';
+            
+            let expiryDate = null;
+            if (isSubscription && item.duration > 0) {
+                // Calculate actual expiry date in the future
+                const futureDate = new Date();
+                futureDate.setDate(futureDate.getDate() + item.duration);
+                futureDate.setHours(23, 59, 59, 999);
+                expiryDate = futureDate; // Use JS Date for calculation, Firestore converts on update
+            } 
+            // Note: For non-subscription items or 0 duration, expiryDate remains null (perpetual access).
 
-        if (existingSubIndex !== -1) {
-            // Update existing subscription (recharge/renew)
-            subscriptions[existingSubIndex].purchase_date = purchaseDate;
-            subscriptions[existingSubIndex].expiry_date = expiryDate;
-        } else {
-            // Add new subscription
-            subscriptions.push({
-                course_id: courseId,
-                course_title: courseTitle,
-                purchase_date: purchaseDate,
-                expiry_date: expiryDate,
-                razorpay_payment_id: razorpay_payment_id,
-                razorpay_order_id: razorpay_order_id
-            });
+            let existingSubIndex = subscriptions.findIndex(sub => sub.course_id === item.id);
+
+            if (existingSubIndex !== -1) {
+                // Update existing subscription (renewal or update perpetual access)
+                subscriptions[existingSubIndex].purchase_date = purchaseDate;
+                subscriptions[existingSubIndex].expiry_date = expiryDate;
+            } else {
+                // Add new subscription
+                subscriptions.push({
+                    course_id: item.id,
+                    course_title: item.title,
+                    purchase_date: purchaseDate,
+                    expiry_date: expiryDate,
+                    razorpay_payment_id: razorpay_payment_id,
+                    razorpay_order_id: razorpay_order_id
+                });
+            }
         }
         
+        // 3. Commit Subscription Updates & Log Order History
         await userDocRef.update({
             subscriptions: subscriptions
         });
-
-        // 3. Log the payment event
-        await db.collection(`artifacts/${FIREBASE_APP_ID}/public/data/payments`).add({
+        
+        // Save to Orders collection
+        await db.collection(`artifacts/${FIREBASE_APP_ID}/public/data/orders`).doc(razorpay_order_id).set({
             userId,
             userEmail,
-            courseTitle,
-            amount_paid_in_paise: data.amount, 
+            items: orderItems,
+            totalAmount: amount, // in paise
             payment_id: razorpay_payment_id,
-            order_id: razorpay_order_id,
-            timestamp: admin.firestore.FieldValue.serverTimestamp()
+            purchaseDate: purchaseDate,
+            status: 'completed'
         });
+
+        // 4. Clear the user's shopping cart
+        await cartDocRef.delete();
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Payment verified and subscription activated.' }),
+            body: JSON.stringify({ message: 'Payment verified, subscriptions activated, and cart cleared.' }),
         };
 
     } catch (error) {
